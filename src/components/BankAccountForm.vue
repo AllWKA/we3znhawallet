@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     async submitAccountBankForm() {
-      console.log("button pressed")
       const resultForm = {
         lastFourCardNumber: this.lastFourCardNumber,
         currentBalance: this.currentBalance,
@@ -57,7 +56,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
   margin: 40px 0 0;
