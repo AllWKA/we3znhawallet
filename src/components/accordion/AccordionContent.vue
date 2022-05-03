@@ -35,7 +35,7 @@ export default {
     }
   },
   methods: {
-    async accordionPanel() {
+    toggleAccordionItem() {
       this.isActive = !this.isActive
     },
     async addChildAccountBank(account) {

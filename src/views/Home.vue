@@ -2,7 +2,6 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <router-link to="/accountBankList">Go to Account bank list</router-link>
   </div>
 </template>
 
