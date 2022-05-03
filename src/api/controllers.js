@@ -6,7 +6,7 @@ const defaultStorage = {
     accounts: []
 }
 
-const defaultConfig = {
+const defaultUserConfig = {
     pin: ''
 }
 
