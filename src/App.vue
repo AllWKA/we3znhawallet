@@ -8,4 +8,8 @@
 body {
   margin: 0;
 }
+
+.error-message {
+  color: red;
+}
 </style>

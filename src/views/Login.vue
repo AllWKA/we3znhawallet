@@ -2,8 +2,8 @@
   <div class="main-container">
     <h1>We3znha Wallet</h1>
     <form class="login-form" @submit="submitLogin">
-      <input type="password" v-model="pin" maxlength="4" minlength="4">
-      <button>Entrar</button>
+      <input type="password" v-model="pin" maxlength="4" minlength="4" placeholder="pin" required>
+      <button :disabled="pin.length !== 4">Entrar</button>
       <p class="error-message">{{ errorMessage }}</p>
     </form>
   </div>
@@ -36,6 +36,21 @@ export default {
         this.errorMessage = `Hubo un error al entrar: ${e.message}`
       }
     }
+  },
+  watch: {
+    pin() {
+      if (isNaN(this.pin)){
+        this.errorMessage = 'Solo se aceptan números'
+        return
+      }
+
+      if (this.pin.length !== 0 && this.pin.length < 4){
+        this.errorMessage = 'El pin tiene que tener 4 dígitos'
+        return
+      }
+
+      this.errorMessage = ''
+    }
   }
 }
 </script>
@@ -57,9 +72,5 @@ export default {
   justify-content: center;
   align-content: flex-end;
   margin-top: 5%;
-}
-
-.error-message {
-  color: red;
 }
 </style>
