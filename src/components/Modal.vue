@@ -19,7 +19,6 @@ export default {
 
 .modal-container {
   position: fixed;
-  color: red;
   left: 0;
   top: 0;
   height: 100%;
