@@ -9,7 +9,7 @@ const port = 8090
 
 app.use(bodyParser.json({ type: "application/json" }))
 
-app.post("/account", function (req, res) {
+app.post("/account", (req, res) => {
   const storage = req.body.storage
   const fileName = req.body.fileName
   try {
@@ -20,7 +20,7 @@ app.post("/account", function (req, res) {
   }
 })
 
-app.post("/user", function (req, res) {
+app.post("/user", (req, res) => {
   const user = req.body.user
   const fileName = req.body.fileName
   try {
@@ -31,7 +31,7 @@ app.post("/user", function (req, res) {
   }
 })
 
-app.get("/user/:fileName", function (req, res) {
+app.get("/user/:fileName", (req, res) => {
   const fileName = req.params.fileName
   try {
     const file = readLocalFile(fileName)
@@ -41,7 +41,7 @@ app.get("/user/:fileName", function (req, res) {
   }
 })
 
-app.get("/account/:fileName", function (req, res) {
+app.get("/account/:fileName", (req, res) => {
   const fileName = req.params.fileName
   try {
     const file = readLocalFile(fileName)
@@ -51,7 +51,7 @@ app.get("/account/:fileName", function (req, res) {
   }
 })
 
-app.delete("/user/:fileName", function(req, res) {
+app.delete("/user/:fileName", (req, res) => {
   const fileName = req.params.fileName
   try {
     deleteLocalFile(fileName)
@@ -61,7 +61,7 @@ app.delete("/user/:fileName", function(req, res) {
   }
 })
 
-app.delete("/account/:fileName", function(req, res) {
+app.delete("/account/:fileName", (req, res) => {
   const fileName = req.params.fileName
   try {
     deleteLocalFile(fileName)
