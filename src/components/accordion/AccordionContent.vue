@@ -2,7 +2,7 @@
   <div>
     <button
       class="accordion-trigger"
-      @click="accordionPanel()"
+      @click="toggleAccordionItem()"
       :aria-expanded="isActive"
       :aria-controls="`collapse${account.id}`"
     >
