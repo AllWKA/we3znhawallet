@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home">
     <AccountBankList />
   </div>
 </template>
@@ -10,9 +10,15 @@ import AccountBankList from "@/components/AccountBankList.vue"
 export default {
   name: "Home",
   components: {
-    AccountBankList,
+    AccountBankList
   }
 }
 </script>
 
-<style></style>
+<style>
+.home {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+</style>

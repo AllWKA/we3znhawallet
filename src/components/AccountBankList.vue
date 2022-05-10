@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="account-bank-container">
     <h1>Account bank list</h1>
     <p id="info">{{ info }}</p>
     <Accordion :accountList="accountList" :content="content" ></Accordion>
@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import Accordion from "@/components/accordion/Accordion.vue"
 
 export default {
@@ -35,7 +34,7 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get("http://localhost:8090/account")
+      const response = await this.$axios.get("/account")
       this.accountList = response.data
       this.info = "Petición recogida correctamente "
     } catch (error) {
@@ -47,6 +46,9 @@ export default {
 </script>
 
 <style scoped>
+.account-bank-container {
+  width: 100%;
+}
 #info {
   color: white;
 }
