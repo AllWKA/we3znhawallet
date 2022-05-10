@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="account-bank-container">
     <h1>Account bank list</h1>
     <p id="info">{{ info }}</p>
     <Accordion :accountList="accountList" :content="content" ></Accordion>
@@ -47,6 +47,9 @@ export default {
 </script>
 
 <style scoped>
+.account-bank-container {
+  width: 100%;
+}
 #info {
   color: white;
 }
