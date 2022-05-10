@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: "Login",
   data() {
@@ -25,7 +23,7 @@ export default {
       event.preventDefault()
 
       try {
-        const response = await axios.post('http://localhost:8090/login', {pin: this.pin})
+        const response = await this.$axios.post('/login', {pin: this.pin})
 
         if (response.data) {
           await this.$router.push('/home')

@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import Accordion from "@/components/accordion/Accordion.vue"
 
 export default {
@@ -35,7 +34,7 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get("http://localhost:8090/account")
+      const response = await this.$axios.get("/account")
       this.accountList = response.data
       this.info = "Petición recogida correctamente "
     } catch (error) {
