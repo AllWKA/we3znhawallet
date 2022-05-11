@@ -5,7 +5,7 @@ import fs from "fs"
 export const projectPath = join(app.getPath("appData"), "we3znhawallet")
 
 export function saveLocalFile(data, path) {
-  fs.writeFileSync(path, JSON.stringify(data, null, 4))
+  fs.writeFileSync(join(projectPath, path), JSON.stringify(data, null, 4))
 }
 
 export function readLocalFile(fileName) {
