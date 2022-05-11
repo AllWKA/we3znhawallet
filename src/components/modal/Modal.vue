@@ -12,17 +12,15 @@ export default {
   props: {
     showContent: Boolean,
   },
-  data(){
-    return{
-      show: this.showContent
+  data() {
+    return {
+      show: this.showContent,
     }
   },
   watch: {
-    'showContent': {
-      handler(newValue) {
-        this.show = newValue
-        return this.show
-      },
+    showContent(newValue) {
+      this.show = newValue
+      return this.show
     },
   },
 }

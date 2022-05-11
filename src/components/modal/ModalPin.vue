@@ -1,7 +1,9 @@
 <template>
   <Modal :showContent="showContent">
     <div class="modal-content">
-      <span class="close" @click="closeModal">&times;</span>
+      <span class="close" @click="closeModal">
+        <img src="../../assets/icons/close.svg" alt="close-icon">
+      </span>
       <form class="pin-form-content" @submit="submitPin">
         <input
           type="password"
@@ -27,13 +29,7 @@
           placeholder="newSecondPin"
           required
         />
-        <button
-          :disabled="
-            newPin.length !== 4 ||
-            newPin !== newSecondPin ||
-            errorMessage !== ''">
-          Enviar
-        </button>
+        <button :disabled="validateSubmitPin">Enviar</button>
         <p class="error-message">{{ errorMessage }}</p>
       </form>
     </div>
@@ -41,7 +37,7 @@
 </template>
 <script>
 import Modal from "@/components/modal/Modal.vue"
-import axios from "axios"
+import axios from 'axios'
 export default {
   name: "ModalPin",
   components: {
@@ -59,20 +55,24 @@ export default {
       errorMessage: "",
     }
   },
-  watch: {
-    showModal: {
-      handler(newValue) {
-        this.showContent = newValue
-        return this.showContent
-      },
+  computed: {
+    validateSubmitPin() {
+      return (
+        this.newPin.length !== 4 ||
+        this.newPin !== this.newSecondPin ||
+        this.errorMessage !== ""
+      )
     },
-    originalPin: {
-      handler() {
-        if (this.originalPin.length === 4) {
-          console.log("entra en watch")
-          return this.checkPin()
-        }
-      },
+  },
+  watch: {
+    showModal(newValue) {
+      this.showContent = newValue
+      return this.showContent
+    },
+    originalPin() {
+      if (this.originalPin.length === 4) {
+        return this.checkPin()
+      }
     },
   },
   methods: {
@@ -83,7 +83,7 @@ export default {
     async submitPin(event) {
       event.preventDefault()
       try {
-        const response = await axios.post("http://localhost:8090/pin", {
+        const response = await this.axios.post("http://localhost:8090/pin", {
           newPin: this.newPin,
         })
 
@@ -126,17 +126,9 @@ export default {
 }
 
 /* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
 .close:hover,
 .close:focus {
-  color: black;
-  text-decoration: none;
+  opacity: 0.5;
   cursor: pointer;
 }
 .pin-form-content {
