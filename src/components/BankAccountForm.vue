@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import axios from "axios"
-
 export default {
   name: "BankAccountForm",
   data() {
@@ -45,7 +43,7 @@ export default {
         currentBalance: this.currentBalance,
       }
       try {
-        await axios.post("http://localhost:8090/account", resultForm)
+        await this.$axios.post("/account", resultForm)
         this.info = "Petición enviada correctamente"
       } catch (error) {
         console.log("POST error: ", error)
