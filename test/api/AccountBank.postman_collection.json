@@ -1,10 +1,46 @@
 {
 	"info": {
-		"_postman_id": "920382ec-fa3a-4ff7-bd60-abd29c4bb963",
-		"name": "AccountBank",
+		"_postman_id": "f5535482-2876-4ae2-bb71-b7a3845f4b7c",
+		"name": "we3znhaWallet",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Signin",
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pin\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "saveStorageLocalFile",
 			"protocolProfileBehavior": {

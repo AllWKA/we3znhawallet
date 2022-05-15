@@ -1,9 +1,14 @@
 import { join } from "path"
-import { projectPath, saveLocalFile, createLocalFileIfNecessary } from "./main"
+import CryptoJS from 'crypto-js'
+import jwt from 'jsonwebtoken'
+import moment from 'moment/moment'
+import { projectPath, saveLocalFile, createLocalFileIfNecessary, readLocalFile } from "./main"
 
 const defaultUserConfig = {
   pin: "",
 }
+
+const userConfigFilePath = 'userConfig.json'
 
 export function saveUserLocalFile(data, fileName) {
   const userPath = join(projectPath, fileName)
@@ -16,4 +21,66 @@ export function saveUserLocalFile(data, fileName) {
   } catch (e) {
     throw new Error(`Can not save JSON: ${e.message}`)
   }
+}
+
+export function login(pin, res) {
+  let userConfig
+
+  try {
+    userConfig = readLocalFile(userConfigFilePath)
+  } catch (e) {
+    throw new Error(`Can not read user configurations: ${e.message}`)
+  }
+
+  const pinDecrypted = CryptoJS.AES.decrypt(userConfig.pin, process.env.PIN_SECRET).toString(CryptoJS.enc.Utf8)
+
+  if (pinDecrypted !== pin) {
+    throw new Error('Invalid pin')
+  }
+
+  const expirationTime = moment().add(5, 'minutes').valueOf()
+
+  const jwtConfig = {
+    exp: expirationTime
+  }
+
+  const token = jwt.sign(jwtConfig, process.env.JWT_SECRET, { algorithm: 'HS256' })
+
+  res.status(200).send(token)
+}
+
+export function signin(pin, res) {
+  if (pin.length !== 4) {
+    return res.status(400).send('Invalid pin length')
+  }
+
+  let userConfig
+
+  try {
+    userConfig = readLocalFile(userConfigFilePath)
+  } catch (e) {
+    userConfig = defaultUserConfig
+  }
+
+  if (userConfig.pin.length) {
+    return res.status(400).send('Pin already exist')
+  }
+
+  userConfig.pin = CryptoJS.AES.encrypt(pin, process.env.PIN_SECRET).toString()
+
+  saveLocalFile(userConfig, userConfigFilePath)
+
+  res.sendStatus(204)
+}
+
+export function isSignedIn(req, res) {
+  let userConfig
+
+  try {
+    userConfig = readLocalFile(userConfigFilePath)
+  } catch (e) {
+    userConfig = defaultUserConfig
+  }
+
+  res.status(200).send(!!userConfig.pin && !!userConfig.pin.length)
 }

@@ -1,4 +1,5 @@
 {
   "verbose": false,
-  "ignore": ["dist_electron"]
+  "ignore": ["dist_electron"],
+  "watch": ["src/**/*.*"]
 }
