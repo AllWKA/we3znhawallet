@@ -1,8 +1,8 @@
-import { join } from "path"
+import { join } from 'path'
 import CryptoJS from 'crypto-js'
 import jwt from 'jsonwebtoken'
 import moment from 'moment/moment'
-import { projectPath, saveLocalFile, createLocalFileIfNecessary, readLocalFile } from "./main"
+import { projectPath, saveLocalFile, createLocalFileIfNecessary, readLocalFile, fileExist } from './fileManager'
 
 const defaultUserConfig = {
   pin: "",
@@ -24,12 +24,10 @@ export function saveUserLocalFile(data, fileName) {
 }
 
 export function login(pin, res) {
-  let userConfig
+  let userConfig = defaultUserConfig
 
-  try {
+  if (fileExist(userConfigFilePath)) {
     userConfig = readLocalFile(userConfigFilePath)
-  } catch (e) {
-    throw new Error(`Can not read user configurations: ${e.message}`)
   }
 
   const pinDecrypted = CryptoJS.AES.decrypt(userConfig.pin, process.env.PIN_SECRET).toString(CryptoJS.enc.Utf8)
@@ -54,12 +52,10 @@ export function signin(pin, res) {
     return res.status(400).send('Invalid pin length')
   }
 
-  let userConfig
+  let userConfig = defaultUserConfig
 
-  try {
+  if (fileExist(userConfigFilePath)) {
     userConfig = readLocalFile(userConfigFilePath)
-  } catch (e) {
-    userConfig = defaultUserConfig
   }
 
   if (userConfig.pin.length) {
