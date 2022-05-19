@@ -4,6 +4,9 @@
 
     <input type="text" v-model="pin" maxlength="4" minlength="4" placeholder="pin" required>
 
+    <p>Repite la contraseña</p>
+    <input type="text" v-model="verificationPin" maxlength="4" minlength="4" placeholder="pin de verificación" required>
+
     <p class="error-message">{{ errorMessage }}</p>
     <br>
 
@@ -23,6 +26,7 @@ export default {
   data() {
     return {
       pin: '',
+      verificationPin: '',
       errorMessage: ''
     }
   },
@@ -30,12 +34,12 @@ export default {
     async signin(event) {
       event.preventDefault()
 
-      if (isNaN(this.pin) || (this.pin.length !== 0 && this.pin.length < 4)) {
+      if (isNaN(this.pin) || (this.pin.length !== 0 && this.pin.length < 4) || this.pin !== this.verificationPin) {
         return
       }
 
       try {
-        await this.$axios.post('/signin', { pin: this.pin })
+        await this.$axios.post('/signin', { pin: this.pin, verificationPin: this.verificationPin })
 
         await this.$router.push('/')
       } catch (e) {
@@ -52,6 +56,19 @@ export default {
 
       if (this.pin.length !== 0 && this.pin.length < 4) {
         this.errorMessage = 'El pin tiene que tener 4 dígitos'
+        return
+      }
+
+      if (this.verificationPin.length && this.pin !== this.verificationPin) {
+        this.errorMessage = 'El pin y el pin de verificación no coinciden'
+        return
+      }
+
+      this.errorMessage = ''
+    },
+    verificationPin() {
+      if (this.verificationPin.length && this.pin !== this.verificationPin) {
+        this.errorMessage = 'El pin y el pin de verificación no coinciden'
         return
       }
 

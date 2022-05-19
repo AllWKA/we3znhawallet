@@ -1,7 +1,17 @@
 <template>
   <div class="sidebar">
-    <MenuNavBarLink to="/" name="Login" />
-    <MenuNavBarLink to="/home" name="Home" />
+    <div class="menu-navigation">
+      <MenuNavBarLink to="/" name="Login"/>
+      <MenuNavBarLink to="/home" name="Home"/>
+    </div>
+
+    <div class="menu-footer">
+      <button>
+        <span class="close" @click="logOut">
+          <img src="../../assets/icons/exit-to-app.svg" alt="close-icon">
+        </span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -11,19 +21,44 @@ import MenuNavBarLink from "@/components/menu-nav-bar/MenuNavBarLink.vue"
 export default {
   name: "MenuNavBar",
   components: {
-    MenuNavBarLink,
+    MenuNavBarLink
   },
+  methods: {
+    logOut(event) {
+      event.preventDefault()
+
+      localStorage['token'] = null
+
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 .sidebar {
   background-color: var(--menu-nav-bar-bg-color);
-  width: 25%;
+  width: 100%;
   height: 100%;
-  overflow: hidden;
-  padding: 1rem;
+  /* padding: 1%; ---> padding adds height somehow */
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-navigation {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1%;
+  padding-left: 1%;
+}
+
+.menu-footer {
+  display: flex;
+  justify-items: flex-end;
+  width: 99%;
+  padding: 1%;
 }
 </style>

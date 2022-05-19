@@ -1,36 +1,46 @@
 <template>
   <div class="app">
-    <MenuNavBar />
-    <router-view />
+    <div style="width: 25%; height: 100%">
+      <MenuNavBar/>
+    </div>
+    <div style="width: 75%; height: 100%">
+      <router-view/>
+    </div>
   </div>
 </template>
 <script>
 import MenuNavBar from "@/components/menu-nav-bar/MenuNavBar.vue"
 
 export default {
-  components:{
+  components: {
     MenuNavBar
   }
 }
 </script>
 <style>
-:root{
+:root {
   --menu-nav-bar-bg-color: #2a832a;
   --menu-nav-bar-item-hover: #329a32;
   --menu-nav-bar-item-active: #1f601f;
 }
+
 html, body {
   height: 100vh;
+  width: 100vw;
   margin: 0;
   overflow: hidden;
 }
 
-.app{
-  display: flex;
-  height: 100vh;
-}
-
 .error-message {
   color: red;
+}
+</style>
+
+<style scoped>
+.app {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
 }
 </style>

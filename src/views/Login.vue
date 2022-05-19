@@ -30,7 +30,7 @@ export default {
         const response = await this.$axios.post('/login', { pin: this.pin })
 
         if (response.data) {
-          localStorage['token'] = response.data
+          sessionStorage['token'] = response.data
           await this.$router.push('/home')
         } else {
           this.errorMessage = !response ? 'Pin incorrecto' : ''
