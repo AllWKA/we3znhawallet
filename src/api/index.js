@@ -1,15 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import {
-  saveUserLocalFile,
-  deleteLocalFile,
-  isSignedIn,
-  signin,
-  login,
-  saveStorageLocalFile,
-  readLocalFile
-} from '@/api/controllers/main'
+import * as controllers from '@/api/controllers/main'
 
 const app = express()
 const port = process.env.SERVER_PORT
@@ -22,7 +14,7 @@ app.post('/account', (req, res) => {
   const storage = req.body.storage
   const fileName = req.body.fileName
   try {
-    saveStorageLocalFile(storage, fileName)
+    controllers.saveStorageLocalFile(storage, fileName)
     res.sendStatus(200)
   } catch (e) {
     res.status(400).send(e.message)
@@ -33,7 +25,7 @@ app.post('/user', (req, res) => {
   const user = req.body.user
   const fileName = req.body.fileName
   try {
-    saveUserLocalFile(user, fileName)
+    controllers.saveUserLocalFile(user, fileName)
     res.sendStatus(200)
   } catch (e) {
     res.status(400).send(e.message)
@@ -43,7 +35,7 @@ app.post('/user', (req, res) => {
 app.get('/user/:fileName', (req, res) => {
   const fileName = req.params.fileName
   try {
-    const file = readLocalFile(fileName)
+    const file = controllers.readLocalFile(fileName)
     res.status(200).json(file)
   } catch (e) {
     res.status(400).send(e.message)
@@ -53,7 +45,7 @@ app.get('/user/:fileName', (req, res) => {
 app.delete('/user/:fileName', (req, res) => {
   const fileName = req.params.fileName
   try {
-    deleteLocalFile(fileName)
+    controllers.deleteLocalFile(fileName)
     res.sendStatus(200)
   } catch (e) {
     res.status(400).send(e.message)
@@ -92,19 +84,19 @@ app.post('/signin', (req, res) => {
   }
 
   try {
-    signin(pin, res)
+    controllers.signin(pin, res)
   } catch (e) {
     res.status(400).send(`Can not create pin: ${e.message}`)
   }
 })
 
-app.get('/isSignedIn', isSignedIn)
+app.get('/isSignedIn', controllers.isSignedIn)
 
 app.post('/login', (req, res) => {
   const pin = req.body.pin
 
   try {
-    login(pin, res)
+    controllers.login(pin, res)
   } catch (e) {
     res.status(400).send(`Unable to login: ${e.message}`)
   }

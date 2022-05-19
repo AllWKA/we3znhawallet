@@ -27,7 +27,7 @@ export default {
     logOut(event) {
       event.preventDefault()
 
-      localStorage['token'] = null
+      sessionStorage['token'] = null
 
       this.$router.push('/')
     }
@@ -57,8 +57,9 @@ export default {
 
 .menu-footer {
   display: flex;
-  justify-items: flex-end;
-  width: 99%;
-  padding: 1%;
+  justify-content: flex-end;
+  width: 100%;
+  padding-bottom: 1%;
+  padding-right: 1%;
 }
 </style>
