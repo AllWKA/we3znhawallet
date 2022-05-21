@@ -37,7 +37,6 @@
 </template>
 <script>
 import Modal from "@/components/modal/Modal.vue"
-import axios from 'axios'
 export default {
   name: "ModalPin",
   components: {
@@ -83,7 +82,7 @@ export default {
     async submitPin(event) {
       event.preventDefault()
       try {
-        const response = await this.axios.post("http://localhost:8090/pin", {
+        const response = await this.$axios.post("http://localhost:8090/pin", {
           newPin: this.newPin,
         })
 
