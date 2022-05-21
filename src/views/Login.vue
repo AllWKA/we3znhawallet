@@ -22,10 +22,15 @@ export default {
     async submitLogin(event) {
       event.preventDefault()
 
+      if (isNaN(this.pin) || (this.pin.length !== 0 && this.pin.length < 4)) {
+        return
+      }
+
       try {
-        const response = await this.$axios.post('/login', {pin: this.pin})
+        const response = await this.$axios.post('/login', { pin: this.pin })
 
         if (response.data) {
+          sessionStorage['token'] = response.data
           await this.$router.push('/home')
         } else {
           this.errorMessage = !response ? 'Pin incorrecto' : ''
@@ -33,22 +38,36 @@ export default {
       } catch (e) {
         this.errorMessage = `Hubo un error al entrar: ${e.message}`
       }
+    },
+    async checkIfIsSignedIn() {
+      try {
+        const isSignedIn = await this.$axios.get('/isSignedIn')
+
+        if (!isSignedIn.data) {
+          await this.$router.push('/signin')
+        }
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
   watch: {
     pin() {
-      if (isNaN(this.pin)){
+      if (isNaN(this.pin)) {
         this.errorMessage = 'Solo se aceptan números'
         return
       }
 
-      if (this.pin.length !== 0 && this.pin.length < 4){
+      if (this.pin.length !== 0 && this.pin.length < 4) {
         this.errorMessage = 'El pin tiene que tener 4 dígitos'
         return
       }
 
       this.errorMessage = ''
     }
+  },
+  beforeMount() {
+    this.checkIfIsSignedIn()
   }
 }
 </script>
