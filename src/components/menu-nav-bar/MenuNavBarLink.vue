@@ -1,7 +1,7 @@
 <template>
-  <router-link class="link" :to="to" :class="{ active: isActive }">
-    <div>{{ name }}</div>
-  </router-link>
+  <div class="link" @click="navigate" :class="{ active: isActive }">
+    <span style="margin-left: 5%">{{ name }}</span>
+  </div>
 </template>
 
 <script>
@@ -16,6 +16,11 @@ export default {
       isActive: false,
     }
   },
+  methods: {
+    navigate() {
+      this.$router.push(this.to)
+    }
+  },
   watch: {
     '$route': {
       deep: true,
@@ -28,22 +33,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .link {
+  display: flex;
+  align-items: center;
   color: black;
   cursor: pointer;
-  margin: 0.1em 0;
-  padding: 0.4em;
   border-radius: 0.25em;
-  height: 1.5em;
-  text-decoration: none;
+  height: 35px;
+  width: 99%;
 }
+
 .link:hover {
   background-color: var(--menu-nav-bar-item-hover);
 }
-.link:active {
-  background-color: var(--menu-nav-bar-item-active);
-}
+
 .link.active {
   background-color: var(--menu-nav-bar-item-active);
 }

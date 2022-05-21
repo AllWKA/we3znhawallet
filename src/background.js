@@ -3,6 +3,11 @@
 import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+
+// noinspection ES6UnusedImports
+// eslint-disable-next-line no-unused-vars
+import dotenv from 'dotenv'
+
 import server from './api/index'
 
 server()
