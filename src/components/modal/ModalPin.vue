@@ -97,7 +97,7 @@ export default {
     },
     async checkPin() {
       try {
-        const response = await axios.post("http://localhost:8090/check-pin", {
+        const response = await this.$axios.post("http://localhost:8090/check-pin", {
           originalPin: this.originalPin,
         })
 
