@@ -70,7 +70,7 @@ export default {
     },
     originalPin() {
       if (this.originalPin.length === 4) {
-        return this.checkPin()
+        // return this.checkPin()
       }
     },
   },
@@ -81,8 +81,13 @@ export default {
     },
     async submitPin(event) {
       event.preventDefault()
+      if ((this.newPin.length !== 0 && this.newPin.length !== 4) 
+      || this.newPin !== this.newSecondPin 
+      || this.originalPin === this.newPin) {
+        return
+      }
       try {
-        const response = await this.$axios.post("http://localhost:8090/pin", {
+        const response = await this.$axios.post("/pin", {
           newPin: this.newPin,
         })
 
@@ -97,7 +102,7 @@ export default {
     },
     async checkPin() {
       try {
-        const response = await this.$axios.post("http://localhost:8090/check-pin", {
+        const response = await this.$axios.post("/check-pin", {
           originalPin: this.originalPin,
         })
 
