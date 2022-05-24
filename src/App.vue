@@ -6,14 +6,34 @@
     <div style="width: 75%; height: 100%">
       <router-view/>
     </div>
+    <RequestErrorModal :show="showRequestErrorModal"
+                       :error-message="requestErrorMessage"
+                       @close="showRequestErrorModal = false"/>
   </div>
 </template>
 <script>
-import MenuNavBar from "@/components/menu-nav-bar/MenuNavBar.vue"
+import MenuNavBar from '@/components/menu-nav-bar/MenuNavBar.vue'
+import RequestErrorModal from '@/components/RequestErrorModal'
 
 export default {
   components: {
-    MenuNavBar
+    MenuNavBar,
+    RequestErrorModal
+  },
+  data() {
+    return {
+      showRequestErrorModal: false,
+      requestErrorMessage: ''
+    }
+  },
+  mounted() {
+    this.$axios.interceptors.response.use(response => response, (error) => {
+      this.showRequestErrorModal = true
+
+      this.requestErrorMessage = error.message
+
+      return Promise.reject(error)
+    })
   }
 }
 </script>
