@@ -1,7 +1,6 @@
 <template>
   <div class="sidebar">
     <div class="menu-navigation">
-      <MenuNavBarLink to="/" name="Login"/>
       <MenuNavBarLink to="/home" name="Home"/>
     </div>
 
