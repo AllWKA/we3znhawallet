@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <div style="width: 25%; height: 100%">
+    <div style="width: 25%; height: 100%" v-if="showLeftMenu">
       <MenuNavBar/>
     </div>
     <div style="width: 75%; height: 100%">
@@ -14,6 +14,11 @@ import MenuNavBar from "@/components/menu-nav-bar/MenuNavBar.vue"
 export default {
   components: {
     MenuNavBar
+  },
+  computed:{
+    showLeftMenu(){
+      return this.$route.name !== 'Login' && this.$route.name !== 'Signin'
+    }
   }
 }
 </script>
