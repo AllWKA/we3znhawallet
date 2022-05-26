@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import * as controllers from '@/api/controllers/main'
+import validateJWT from '@/api/middlewares/validateJWT'
 
 const app = express()
 const port = process.env.SERVER_PORT
@@ -10,7 +11,7 @@ app.use(bodyParser.json({ type: 'application/json' }))
 
 app.use(cors())
 
-app.post('/account', (req, res) => {
+app.post('/account', validateJWT, (req, res) => {
   const storage = req.body.storage
   const fileName = req.body.fileName
   try {
@@ -21,7 +22,7 @@ app.post('/account', (req, res) => {
   }
 })
 
-app.post('/user', (req, res) => {
+app.post('/user', validateJWT, (req, res) => {
   const user = req.body.user
   const fileName = req.body.fileName
   try {
@@ -32,7 +33,7 @@ app.post('/user', (req, res) => {
   }
 })
 
-app.get('/user/:fileName', (req, res) => {
+app.get('/user/:fileName', validateJWT, (req, res) => {
   const fileName = req.params.fileName
   try {
     const file = controllers.readLocalFile(fileName)
@@ -42,7 +43,7 @@ app.get('/user/:fileName', (req, res) => {
   }
 })
 
-app.delete('/user/:fileName', (req, res) => {
+app.delete('/user/:fileName', validateJWT, (req, res) => {
   const fileName = req.params.fileName
   try {
     controllers.deleteLocalFile(fileName)
@@ -101,8 +102,6 @@ app.post('/login', (req, res) => {
     res.status(400).send(`Unable to login: ${e.message}`)
   }
 })
-
-// app.post('/logout', logout)
 
 export default () => {
   app.listen(port, () => {
