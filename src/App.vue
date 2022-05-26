@@ -3,9 +3,8 @@
     <div style="width: 25%; height: 100%" v-if="showLeftMenu">
       <MenuNavBar/>
     </div>
-    <div style="width: 75%; height: 100%">
-      <router-view/>
-    </div>
+
+    <router-view/>
   </div>
 </template>
 <script>
@@ -15,9 +14,9 @@ export default {
   components: {
     MenuNavBar
   },
-  computed:{
-    showLeftMenu(){
-      return this.$route.name !== 'Login' && this.$route.name !== 'Signin'
+  computed: {
+    showLeftMenu() {
+      return this.$route.path !== '/' && this.$route.path !== '/signin'
     }
   }
 }
