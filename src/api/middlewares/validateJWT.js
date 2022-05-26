@@ -7,14 +7,20 @@ export default (req, res, next) => {
     return res.sendStatus(401)
   }
 
-  const pin = authorizationHeader.split(' ')[1]
+  let token
 
-  if (!pin || !pin.length) {
+  try {
+    token = authorizationHeader.split('Bearer')[0].trim()
+  } catch (e) {
+    return res.sendStatus(401)
+  }
+
+  if (!token || !token.length) {
     return res.sendStatus(401)
   }
 
   try {
-    jwt.verify(pin, process.env.JWT_SECRET, { algorithm: 'RS256' }, (err, decode) => {
+    jwt.verify(token, process.env.JWT_SECRET, { algorithm: 'RS256' }, (err, decode) => {
       if (err) {
         return res.sendStatus(401)
       }
