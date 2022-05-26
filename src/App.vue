@@ -1,11 +1,13 @@
 <template>
   <div class="app">
-    <div style="width: 25%; height: 100%">
+    <div style="width: 25%; height: 100%" v-if="showLeftMenu">
       <MenuNavBar/>
     </div>
-    <div style="width: 75%; height: 100%">
+
+    <div style="width: 100%; height: 100%;">
       <router-view/>
     </div>
+
     <RequestErrorModal :show="showRequestErrorModal"
                        :error-message="requestErrorMessage"
                        @close="showRequestErrorModal = false"/>
@@ -34,6 +36,11 @@ export default {
 
       return Promise.reject(error)
     })
+  },
+  computed: {
+    showLeftMenu() {
+      return this.$route.path !== '/' && this.$route.path !== '/signin'
+    }
   }
 }
 </script>

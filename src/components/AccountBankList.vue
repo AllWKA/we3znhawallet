@@ -48,6 +48,7 @@ export default {
 <style scoped>
 .account-bank-container {
   width: 100%;
+  height: 100%;
 }
 #info {
   color: white;
