@@ -103,6 +103,8 @@ app.post('/login', (req, res) => {
   }
 })
 
+app.get('/validate/token', validateJWT, (req, res) => res.send())
+
 export default () => {
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
