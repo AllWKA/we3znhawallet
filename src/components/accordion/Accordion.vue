@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="accordion-container">
     <div class="accordion-header">
       <p>Cuenta</p>
       <p>Saldo</p>
@@ -59,7 +59,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.accordion-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .accordion-header {
   display: flex;
   width: 100%;
