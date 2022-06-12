@@ -1,14 +1,29 @@
 <template>
   <div class="accordion-container">
     <div class="accordion-header">
-      <p>Cuenta</p>
-      <p>Saldo</p>
+      <div class="account-header">
+        <p>Cuenta</p>
+      </div>
+
+      <div class="account-header">
+        <p>Saldo</p>
+      </div>
+
+      <div class="account-action-header">
+        <span class="close" @click="closeModal">
+          <img src="../../assets/icons/trash-can.svg" alt="close-icon">
+        </span>
+
+        <span class="close" @click="closeModal">
+          <img src="../../assets/icons/plus-circle.svg" alt="close-icon">
+        </span>
+      </div>
     </div>
     <AccordionContent
-      :account="account"
-      :content="content"
-      v-for="account in accountList"
-      :key="account.lastFourCardNumber"
+        :account="account"
+        :content="content"
+        v-for="account in accountList"
+        :key="account.lastFourCardNumber"
     />
   </div>
 </template>
@@ -36,23 +51,23 @@ export default {
     },
     async addChildAccountBank(account) {
       console.log(
-        "button add new account bank pressed: ",
-        "lastFourCardNumber -> " + account.lastFourCardNumber,
-        "currentBalance -> " + account.currentBalance
+          "button add new account bank pressed: ",
+          "lastFourCardNumber -> " + account.lastFourCardNumber,
+          "currentBalance -> " + account.currentBalance
       )
     },
     async editAccountBank(account) {
       console.log(
-        "button edit pressed: ",
-        "lastFourCardNumber -> " + account.lastFourCardNumber,
-        "currentBalance -> " + account.currentBalance
+          "button edit pressed: ",
+          "lastFourCardNumber -> " + account.lastFourCardNumber,
+          "currentBalance -> " + account.currentBalance
       )
     },
     async deleteAccountBank(account) {
       console.log(
-        "button delete pressed: ",
-        "lastFourCardNumber -> " + account.lastFourCardNumber,
-        "currentBalance -> " + account.currentBalance
+          "button delete pressed: ",
+          "lastFourCardNumber -> " + account.lastFourCardNumber,
+          "currentBalance -> " + account.currentBalance
       )
     },
   },
@@ -72,5 +87,19 @@ export default {
   display: flex;
   width: 100%;
   justify-content: space-around;
+}
+
+.account-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+}
+
+.account-action-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 30%;
 }
 </style>

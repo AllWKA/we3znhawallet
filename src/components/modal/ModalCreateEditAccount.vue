@@ -3,10 +3,12 @@
     <div class="main-container">
       <div style="display: flex; justify-content: center; align-items: center">
         <h2 style="text-align: center; width: 100%">{{ createMode ? 'Crear' : 'Editar' }} Cuenta</h2>
+
         <span class="close" @click="closeModal">
           <img src="../../assets/icons/close.svg" alt="close-icon">
         </span>
       </div>
+
       <form class="account-form-content" id="card-form">
         <input
             type="number"
@@ -16,13 +18,13 @@
             placeholder="últimos 4 números de la cuenta"
             required
             style="width: 90%"
+            min="0000"
+            max="9999"
         />
 
         <input
             type="number"
             v-model="currentAccountBalance"
-            maxlength="4"
-            minlength="4"
             placeholder="saldo actual de la cuenta"
             required
             style="width: 90%"
