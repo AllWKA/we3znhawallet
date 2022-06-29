@@ -12,10 +12,10 @@ app.use(bodyParser.json({ type: 'application/json' }))
 app.use(cors())
 
 app.post('/account', validateJWT, (req, res) => {
-  const storage = req.body.storage
-  const fileName = req.body.fileName
+  const account = req.body.account
+
   try {
-    controllers.saveStorageLocalFile(storage, fileName)
+    controllers.createAccount(account)
     res.sendStatus(200)
   } catch (e) {
     res.status(400).send(e.message)
@@ -52,28 +52,6 @@ app.delete('/user/:fileName', validateJWT, (req, res) => {
     res.status(400).send(e.message)
   }
 })
-
-// TODO: account controller? or storage?
-// app.get('/account/:fileName', (req, res) => {
-//   const fileName = req.params.fileName
-//   try {
-//     const file = readLocalFile(fileName)
-//     res.status(200).json(file)
-//   } catch (e) {
-//     res.status(400).send(e.message)
-//   }
-// })
-
-// TODO: account controller? or storage?
-// app.delete('/account/:fileName', (req, res) => {
-//   const fileName = req.params.fileName
-//   try {
-//     deleteLocalFile(fileName)
-//     res.sendStatus(200)
-//   } catch (e) {
-//     res.status(400).send(e.message)
-//   }
-// })
 
 app.post('/signin', (req, res) => {
   const pin = req.body.pin

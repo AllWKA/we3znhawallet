@@ -1,31 +1,31 @@
 import { readLocalFile, saveLocalFile } from '@/api/controllers/fileManager'
 
-const accountStorageFile = 'accounts'
+const accountStorageFileName = 'accounts.json'
 
 export function createAccount(account) {
-  if (!validateAccount) {
+  if (!(account.cardNumbers && account.cardNumbers.length === 4 && typeof account.cardNumbers === 'string')) {
     throw new Error('Invalid account')
+  }
+
+  if (!account.currentBalance) {
+    account.currentBalance = 0
   }
 
   let accounts
 
   try {
-    accounts = JSON.parse(readLocalFile(accountStorageFile))
+    accounts = readLocalFile(accountStorageFileName)
   } catch (e) {
     throw new Error('Can not parse account storage')
   }
 
   const id = accounts.length
 
-  accounts.push({ id, account})
+  accounts.push({ id, account })
 
   try {
-    saveLocalFile(account, accountStorageFile)
+    saveLocalFile(accounts, accountStorageFileName)
   } catch (e) {
     throw new Error('Can not save account storage')
   }
-}
-
-function validateAccount(account) {
-  return account.lastFourCardNumber && account.lastFourCardNumber.length === 4 && typeof account.lastFourCardNumber === 'string' && account.currentBalance && typeof account.currentBalance === 'number'
 }

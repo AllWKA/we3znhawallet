@@ -10,31 +10,40 @@
       </div>
 
       <div class="account-action-header">
-        <span class="close" @click="closeModal">
-          <img src="../../assets/icons/trash-can.svg" alt="close-icon">
-        </span>
+        <button>
+          <span class="close">
+            <img src="../../assets/icons/trash-can.svg" alt="close-icon">
+          </span>
+        </button>
 
-        <span class="close" @click="closeModal">
-          <img src="../../assets/icons/plus-circle.svg" alt="close-icon">
-        </span>
+        <button>
+          <span class="close" @click="toggleModalCreateEditAccount">
+            <img src="../../assets/icons/plus-circle.svg" alt="close-icon">
+          </span>
+        </button>
       </div>
     </div>
+
     <AccordionContent
         :account="account"
         :content="content"
         v-for="account in accountList"
         :key="account.lastFourCardNumber"
     />
+
+    <ModalCreateEditAccount :show-content="showModalCreateEditAccount" @submit="submitAccount" @close="showModalCreateEditAccount = false"/>
   </div>
 </template>
 
 <script>
 import AccordionContent from "@/components/accordion/AccordionContent.vue"
+import ModalCreateEditAccount from "@/components/modal/ModalCreateEditAccount"
 
 export default {
   name: "Accordion",
   components: {
     AccordionContent,
+    ModalCreateEditAccount
   },
   props: {
     accountList: Array,
@@ -43,6 +52,7 @@ export default {
   data() {
     return {
       isActive: false,
+      showModalCreateEditAccount: false
     }
   },
   methods: {
@@ -70,7 +80,25 @@ export default {
           "currentBalance -> " + account.currentBalance
       )
     },
-  },
+    toggleModalCreateEditAccount() {
+      this.showModalCreateEditAccount = !this.showModalCreateEditAccount
+    },
+    async submitAccount(account) {
+      const headers = {
+        authorization: `Bearer ${sessionStorage['token']}`
+      }
+
+      const payload = { account: account.account }
+
+      if (account.method === 'POST') {
+        await this.$axios.post('/account', payload, { headers })
+      } else {
+        await this.$axios.put('/account', payload, { headers })
+      }
+
+      this.showModalCreateEditAccount = false
+    }
+  }
 }
 </script>
 

@@ -24,7 +24,7 @@
 
         <input
             type="number"
-            v-model="currentAccountBalance"
+            v-model="currentBalance"
             placeholder="saldo actual de la cuenta"
             required
             style="width: 90%"
@@ -51,17 +51,38 @@ export default {
   data() {
     return {
       cardNumbers: '',
-      currentAccountBalance: 0,
+      currentBalance: 0,
       createMode: false
     }
   },
   methods: {
     closeModal() {
       this.$emit("close")
+
+      this.resetForm()
     },
-    submit(e){
+    submit(e) {
       e.preventDefault()
-      this.$emit('submit', {cardNumbers: this.cardNumbers, currentAccountBalance: this.currentAccountBalance})
+
+      this.$emit('submit', {
+        method: this.createMode ? 'POST' : 'PUT',
+        account: {
+          cardNumbers: this.cardNumbers,
+          currentBalance: this.currentBalance
+        }
+      })
+
+      this.resetForm()
+    },
+    resetForm(){
+      if (this.account) {
+        this.cardNumbers = this.account.cardNumbers
+        this.currentBalance = this.account.currentAccountBalance
+      } else {
+        this.cardNumbers = ''
+        this.currentBalance = 0
+        this.createMode = true
+      }
     }
   },
   computed: {
@@ -72,7 +93,7 @@ export default {
   mounted() {
     if (this.account) {
       this.cardNumbers = this.account.cardNumbers
-      this.currentAccountBalance = this.account.currentAccountBalance
+      this.currentBalance = this.account.currentAccountBalance
     } else {
       this.createMode = true
     }

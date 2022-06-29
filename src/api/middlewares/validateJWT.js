@@ -10,7 +10,7 @@ export default (req, res, next) => {
   let token
 
   try {
-    token = authorizationHeader.split('Bearer')[0].trim()
+    token = authorizationHeader.split('Bearer')[1].trim()
   } catch (e) {
     return res.sendStatus(401)
   }
