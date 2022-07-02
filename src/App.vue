@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <div style="width: 25%; height: 100%" v-if="showLeftMenu">
+    <div style="height: 100%" v-if="showLeftMenu">
       <MenuNavBar/>
     </div>
 
@@ -46,7 +46,7 @@ export default {
 </script>
 <style>
 :root {
-  --menu-nav-bar-bg-color: #2a832a;
+  --menu-nav-bar-bg-color: #ffffff;
   --menu-nav-bar-item-hover: #329a32;
   --menu-nav-bar-item-active: #1f601f;
 }

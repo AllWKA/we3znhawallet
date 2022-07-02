@@ -1,11 +1,11 @@
 <template>
   <div class="sidebar">
     <div class="menu-navigation">
-      <MenuNavBarLink to="/home" name="Home"/>
+      <MenuNavBarLink to="/home" icon="bank-outline" :tooltip-text="'Account List'"/>
     </div>
 
     <div class="menu-footer">
-      <button>
+      <button style="margin-right: 2%">
         <span class="close" @click="logOut">
           <img src="../../assets/icons/exit-to-app.svg" alt="close-icon">
         </span>
@@ -36,8 +36,7 @@ export default {
 
 <style scoped>
 .sidebar {
-  background-color: var(--menu-nav-bar-bg-color);
-  width: 100%;
+  border-right: 1px solid black;
   height: 100%;
   /* padding: 1%; ---> padding adds height somehow */
   display: flex;
@@ -47,10 +46,9 @@ export default {
 }
 
 .menu-navigation {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  padding-top: 1%;
+  padding-top: 20%;
   padding-left: 1%;
 }
 

@@ -59,27 +59,6 @@ export default {
     async accordionPanel() {
       this.isActive = !this.isActive
     },
-    async addChildAccountBank(account) {
-      console.log(
-          "button add new account bank pressed: ",
-          "lastFourCardNumber -> " + account.lastFourCardNumber,
-          "currentBalance -> " + account.currentBalance
-      )
-    },
-    async editAccountBank(account) {
-      console.log(
-          "button edit pressed: ",
-          "lastFourCardNumber -> " + account.lastFourCardNumber,
-          "currentBalance -> " + account.currentBalance
-      )
-    },
-    async deleteAccountBank(account) {
-      console.log(
-          "button delete pressed: ",
-          "lastFourCardNumber -> " + account.lastFourCardNumber,
-          "currentBalance -> " + account.currentBalance
-      )
-    },
     toggleModalCreateEditAccount() {
       this.showModalCreateEditAccount = !this.showModalCreateEditAccount
     },
