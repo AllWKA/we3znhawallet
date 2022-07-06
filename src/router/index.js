@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login'
+import Test from '../views/Test'
 import Signin from "../views/Signin"
 import axios from 'axios'
 
@@ -22,7 +23,12 @@ const routes = [
     path: '/signin',
     name: 'Signin',
     component: Signin
-  }
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    component: Test
+  },
 ]
 
 const router = new VueRouter({
