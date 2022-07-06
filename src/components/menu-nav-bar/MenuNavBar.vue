@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <div class="menu-navigation">
-      <MenuNavBarLink to="/home" icon="bank-outline" :tooltip-text="'Account List'"/>
+      <MenuNavBarLink to="/home" icon="bank-outline" :sub-text="'Account List'"/>
     </div>
 
     <div class="menu-footer">
