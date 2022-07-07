@@ -1,9 +1,9 @@
 <template>
-  <div @click="navigate" class="tooltip">
+  <div @click="navigate" class="container">
     <span>
       <img :src="iconPath" :alt="`${icon}-icon`">
     </span>
-    <span class="tooltiptext">{{tooltipText}}</span>
+    <span>{{ subText }}</span>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
   props: {
     to: String,
     icon: String,
-    tooltipText: String
+    subText: String
   },
   data() {
     return {
@@ -53,28 +53,12 @@ export default {
 </script>
 
 <style scoped>
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-  color: white;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
+.container {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  text-wrap: none;
 }
 </style>
