@@ -1,22 +1,14 @@
 <template>
   <div class="accordion-container">
     <div class="accordion-header">
-      <div class="account-header">
-        <p>Cuenta</p>
-      </div>
-
-      <div class="account-header">
-        <p>Saldo</p>
-      </div>
-
       <div class="account-action-header">
-        <button>
+        <button style="margin-right: 3%">
           <span class="close">
             <img src="../../assets/icons/trash-can.svg" alt="close-icon">
           </span>
         </button>
 
-        <button>
+        <button style="margin-right: 3%">
           <span class="close" @click="toggleModalCreateEditAccount">
             <img src="../../assets/icons/plus-circle.svg" alt="close-icon">
           </span>
@@ -24,25 +16,27 @@
       </div>
     </div>
 
-    <AccordionContent
-        :account="account"
-        :content="content"
-        v-for="account in accountList"
-        :key="account.lastFourCardNumber"
-    />
+    <div class="account-list-item-container">
+      <AccountListItem v-for="account in accountList"
+                       :key="account.lastFourCardNumber"
+                       :account="account"
+                       :content="content"/>
+    </div>
 
-    <ModalCreateEditAccount :show-content="showModalCreateEditAccount" @submit="submitAccount" @close="showModalCreateEditAccount = false"/>
+    <ModalCreateEditAccount :show-content="showModalCreateEditAccount"
+                            @submit="submitAccount"
+                            @close="showModalCreateEditAccount = false"/>
   </div>
 </template>
 
 <script>
-import AccordionContent from "@/components/accordion/AccordionContent.vue"
+import AccountListItem from "@/components/accountList/AccountListItem.vue"
 import ModalCreateEditAccount from "@/components/modal/ModalCreateEditAccount"
 
 export default {
-  name: "Accordion",
+  name: "AccountList",
   components: {
-    AccordionContent,
+    AccountListItem,
     ModalCreateEditAccount
   },
   props: {
@@ -96,17 +90,19 @@ export default {
   justify-content: space-around;
 }
 
-.account-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-}
-
 .account-action-header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 30%;
+  width: 100%;
+  margin-bottom: 3%;
+}
+
+.account-list-item-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 </style>

@@ -2,17 +2,17 @@
   <div class="account-bank-container">
     <h1>Account bank list</h1>
     <p id="info">{{ info }}</p>
-    <Accordion :accountList="accountList" :content="content" ></Accordion>
+    <AccountList :accountList="accountList" :content="content"/>
   </div>
 </template>
 
 <script>
-import Accordion from "@/components/accordion/Accordion.vue"
+import AccountList from "@/components/accountList/AccountList.vue"
 
 export default {
   name: "AccountBankList",
   components: {
-    Accordion
+    AccountList
   },
   data() {
     return {
