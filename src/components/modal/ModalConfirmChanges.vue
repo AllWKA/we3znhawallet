@@ -1,14 +1,14 @@
 <template>
   <Modal :showContent="showContent">
     <div class="modal-content">
-      <span class="close" @click="closeModal">
+      <span class="close" @click="$emit('close-modal')">
         <img src="../../assets/icons/close.svg" alt="close-icon" />
       </span>
       <h3>{{ caption }}</h3>
       <p>{{ message }}</p>
       <div class="group-buttons">
-        <button>Aceptar</button>
-        <button @click="closeModal">Cancelar</button>
+        <button>Confirmar</button>
+        <button @click="$emit('close-modal')">Cancelar</button>
       </div>
     </div>
   </Modal>
@@ -36,12 +36,6 @@ export default {
     showModal(newValue) {
       this.showContent = newValue
       return this.showContent
-    },
-  },
-  methods: {
-    closeModal() {
-      this.showContent = false
-      this.$emit("close-modal", this.showContent)
     },
   },
 }

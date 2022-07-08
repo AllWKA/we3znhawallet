@@ -1,7 +1,7 @@
 <template>
   <Modal :showContent="showContent">
     <div class="modal-content">
-      <span class="close" @click="closeModal">
+      <span class="close" @click="$emit('close-modal')">
         <img src="../../assets/icons/close.svg" alt="close-icon">
       </span>
       <form class="pin-form-content" @submit="submitPin">
@@ -75,10 +75,6 @@ export default {
     },
   },
   methods: {
-    closeModal() {
-      this.showContent = false
-      this.$emit("close-modal", this.showContent)
-    },
     async submitPin(event) {
       event.preventDefault()
       if ((this.newPin.length !== 0 && this.newPin.length !== 4) 

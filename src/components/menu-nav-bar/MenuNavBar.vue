@@ -1,8 +1,8 @@
 <template>
   <div class="sidebar">
     <div class="menu-navigation">
-      <MenuNavBarLink to="/home" icon="bank-outline" :tooltip-text="'Account List'"/>
-      <MenuNavBarLink to="/test" icon="tools" :tooltip-text="'view for testing'"/>
+      <MenuNavBarLink to="/home" icon="bank-outline" :tooltip-text="'Lista de cuentas'"/>
+      <MenuNavBarLink to="/test" icon="tools" :tooltip-text="'Vista para pruebas'"/>
     </div>
 
     <div class="menu-footer">
