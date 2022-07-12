@@ -1,7 +1,8 @@
 <template>
   <div class="sidebar">
     <div class="menu-navigation">
-      <MenuNavBarLink to="/home" icon="bank-outline" :sub-text="'Account List'"/>
+      <MenuNavBarLink to="/home" icon="bank-outline" :tooltip-text="'Lista de cuentas'"/>
+      <MenuNavBarLink to="/test" icon="tools" :tooltip-text="'Vista para pruebas'"/>
     </div>
 
     <div class="menu-footer">
@@ -43,6 +44,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--menu-nav-bar-bg-color)
 }
 
 .menu-navigation {
