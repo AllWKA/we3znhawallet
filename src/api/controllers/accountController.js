@@ -16,7 +16,7 @@ export function createAccount(account) {
   try {
     accounts = readLocalFile(accountStorageFileName)
   } catch (e) {
-    throw new Error('Can not parse account storage')
+    accounts = []
   }
 
   const id = accounts.length
@@ -28,4 +28,16 @@ export function createAccount(account) {
   } catch (e) {
     throw new Error('Can not save account storage')
   }
+}
+
+export function getAccountList() {
+  let accounts
+
+  try {
+    accounts = readLocalFile(accountStorageFileName)
+  } catch (e) {
+    throw new Error('Can not parse account storage')
+  }
+
+  return accounts
 }

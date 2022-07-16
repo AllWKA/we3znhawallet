@@ -17,9 +17,9 @@
     </div>
 
     <div class="account-list-item-container">
-      <AccountListItem v-for="account in accountList"
-                       :key="account.lastFourCardNumber"
-                       :account="account"
+      <AccountListItem v-for="accountData in accountList"
+                       :key="accountData.cardNumbers"
+                       :account="accountData.account"
                        :content="content"/>
     </div>
 
@@ -40,13 +40,13 @@ export default {
     ModalCreateEditAccount
   },
   props: {
-    accountList: Array,
     content: String,
   },
   data() {
     return {
       isActive: false,
-      showModalCreateEditAccount: false
+      showModalCreateEditAccount: false,
+      accountList: [],
     }
   },
   methods: {
@@ -70,8 +70,27 @@ export default {
       }
 
       this.showModalCreateEditAccount = false
+
+      await this.getAccounts()
+    },
+    async getAccounts() {
+      try {
+        const headers = {
+          authorization: `Bearer ${sessionStorage['token']}`
+        }
+
+        const response = await this.$axios.get('/account', { headers })
+
+        this.accountList = response.data
+      } catch (error) {
+        // TODO: show error modal
+        console.log(error)
+      }
     }
-  }
+  },
+  beforeMount() {
+    this.getAccounts()
+  },
 }
 </script>
 
@@ -98,7 +117,7 @@ export default {
   margin-bottom: 3%;
 }
 
-.account-list-item-container{
+.account-list-item-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
