@@ -2,7 +2,6 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import * as controllers from '@/api/controllers/main'
-import validateJWT from '@/api/middlewares/validateJWT'
 
 const app = express()
 const port = process.env.SERVER_PORT
@@ -11,7 +10,7 @@ app.use(bodyParser.json({ type: 'application/json' }))
 
 app.use(cors())
 
-app.get('/account', validateJWT, (req, res) => {
+app.get('/account', (req, res) => {
   try {
     const accounts = controllers.getAccountList()
 
@@ -21,7 +20,7 @@ app.get('/account', validateJWT, (req, res) => {
   }
 })
 
-app.post('/account', validateJWT, (req, res) => {
+app.post('/account', (req, res) => {
   const account = req.body.account
 
   try {
@@ -32,7 +31,7 @@ app.post('/account', validateJWT, (req, res) => {
   }
 })
 
-app.post('/user', validateJWT, (req, res) => {
+app.post('/user', (req, res) => {
   const user = req.body.user
   const fileName = req.body.fileName
   try {
@@ -43,7 +42,7 @@ app.post('/user', validateJWT, (req, res) => {
   }
 })
 
-app.get('/user/:fileName', validateJWT, (req, res) => {
+app.get('/user/:fileName', (req, res) => {
   const fileName = req.params.fileName
   try {
     const file = controllers.readLocalFile(fileName)
@@ -53,7 +52,7 @@ app.get('/user/:fileName', validateJWT, (req, res) => {
   }
 })
 
-app.delete('/user/:fileName', validateJWT, (req, res) => {
+app.delete('/user/:fileName', (req, res) => {
   const fileName = req.params.fileName
   try {
     controllers.deleteLocalFile(fileName)
@@ -91,7 +90,7 @@ app.post('/login', (req, res) => {
   }
 })
 
-app.get('/validate/token', validateJWT, (req, res) => res.send())
+app.get('/validate/token', (req, res) => res.send())
 
 export default () => {
   app.listen(port, () => {
