@@ -6,7 +6,7 @@
          :aria-controls="`collapse${account.id}`">
       <div class="accordion-container">
         <div style="width: 50%; display: flex; justify-content: space-around; align-items: center">
-          <p>Cuenta: {{ account.lastFourCardNumber }}</p>
+          <p>Cuenta: {{ account.cardNumbers }}</p>
 
           <p>Saldo: {{ account.currentBalance }} €</p>
         </div>

@@ -11,6 +11,16 @@ app.use(bodyParser.json({ type: 'application/json' }))
 
 app.use(cors())
 
+app.get('/account', validateJWT, (req, res) => {
+  try {
+    const accounts = controllers.getAccountList()
+
+    res.json(accounts)
+  } catch (e) {
+    res.status(400).send(e.message)
+  }
+})
+
 app.post('/account', validateJWT, (req, res) => {
   const account = req.body.account
 
