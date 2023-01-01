@@ -20,7 +20,17 @@ app.get('/account', (req, res) => {
   }
 })
 
-app.post('/account', (req, res) => {
+app.get('/account/:id', (req, res) => {
+  try {
+    const account = controllers.getAccount(req.params.id)
+
+    res.json(account)
+  } catch (e) {
+    res.status(400).send(e.message)
+  }
+})
+
+app.post('/accountData', (req, res) => {
   const account = req.body.account
 
   try {

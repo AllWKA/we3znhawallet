@@ -41,3 +41,15 @@ export function getAccountList() {
 
   return accounts
 }
+
+export function getAccount(id) {
+  let accounts
+
+  try {
+    accounts = readLocalFile(accountStorageFileName)
+
+    return accounts.find(account => account.id.toString() === id)
+  } catch (e) {
+    throw new Error('Can not parse account storage')
+  }
+}

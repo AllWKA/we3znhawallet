@@ -1,14 +1,14 @@
 <template>
-  <div style="width: 100%; height: 100%; border: 1px solid black">
+  <div style="width: 100%; height: 100%; border: 1px solid black" @click="navigateTo(`/accountData/${accountData.id}`) ">
     <div class="accordion-trigger"
          @click="toggleAccordionItem()"
          :aria-expanded="isActive"
-         :aria-controls="`collapse${account.id}`">
+         :aria-controls="`collapse${accountData.id}`">
       <div class="accordion-container">
         <div style="width: 50%; display: flex; justify-content: space-around; align-items: center">
-          <p>Cuenta: {{ account.cardNumbers }}</p>
+          <p>Cuenta: {{ accountData.account.cardNumbers }}</p>
 
-          <p>Saldo: {{ account.currentBalance }} €</p>
+          <p>Saldo: {{ accountData.account.currentBalance }} €</p>
         </div>
 
         <div style="width: 50%; display: flex; justify-content: space-around; align-items: center">
@@ -34,7 +34,7 @@
     </div>
 
     <transition name="accordion-fade">
-      <div v-show="isActive" :id="`collapse${account.id}`">
+      <div v-show="isActive" :id="`collapse${accountData.id}`">
         <p>{{ content }}</p>
       </div>
     </transition>
@@ -47,7 +47,7 @@ import resolveIconPath from '../../helpers/icon-resolver'
 export default {
   name: "AccountListItem",
   props: {
-    account: Object,
+    accountData: Object,
     content: String,
   },
   data() {
@@ -58,16 +58,19 @@ export default {
   methods: {
     toggleAccordionItem() {
       this.isActive = !this.isActive
+    },
+    navigateTo(path) {
+      this.$router.push(path)
     }
   },
   computed: {
-    addSubAccountIconPath(){
+    addSubAccountIconPath() {
       return resolveIconPath('plus-circle')
     },
-    editAccountIconPath(){
+    editAccountIconPath() {
       return resolveIconPath('pencil')
     },
-    deleteAccountIconPath(){
+    deleteAccountIconPath() {
       return resolveIconPath('trash-can')
     }
   }

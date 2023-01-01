@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login'
 import Test from '../views/Test'
 import Signin from "../views/Signin"
+import Account from "@/views/Account";
 import axios from 'axios'
 
 Vue.use(VueRouter)
@@ -23,6 +24,11 @@ const routes = [
     path: '/signin',
     name: 'Signin',
     component: Signin
+  },
+  {
+    path: '/accountData/:accountId',
+    name: 'Test',
+    component: Account
   },
   {
     path: '/test',

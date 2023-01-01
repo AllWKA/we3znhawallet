@@ -19,7 +19,7 @@
     <div class="account-list-item-container">
       <AccountListItem v-for="accountData in accountList"
                        :key="accountData.cardNumbers"
-                       :account="accountData.account"
+                       :accountData="accountData"
                        :content="content"/>
     </div>
 
