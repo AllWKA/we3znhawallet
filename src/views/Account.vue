@@ -1,43 +1,91 @@
 <template>
-  <div style="display: flex; flex-direction: column; height: 100%; width: 100%">
-    <div style="min-height: 15%">
-      <h1 style="text-align: center; width: 100%">Account: {{ account.cardNumbers }}</h1>
-      <h2 style="text-align: center; width: 100%">Saldo: {{ account.currentBalance }} €</h2>
-    </div>
+  <div class="account-container">
+    <div style="display: flex">
+      <h1 style="text-align: center; width: 30%">Account: {{ account.cardNumbers }}</h1>
 
-    <div style="display: flex; justify-content: space-around; width: 100%">
-      <div style="display: flex; flex-direction: column; width: 30%">
-        <h3>Presupuesto 1</h3>
-        <ProgressBar :progress="30" :total="100" progress-color="red" total-color="yellow"/>
-      </div>
+      <h1 style="text-align: center; width: 30%">Saldo: {{ account.currentBalance }} €</h1>
 
-      <div style="display: flex; flex-direction: column; width: 30%">
-        <h3>Presupuesto 2</h3>
-        <ProgressBar :progress="45" :total="100" progress-color="red" total-color="yellow"/>
-      </div>
+      <div style="display:flex; width: 30%">
+        <button style="width: 31%">Exportar en PDF</button>
 
-      <div style="display: flex; flex-direction: column; width: 30%">
-        <h3>Presupuesto 3</h3>
-        <ProgressBar :progress="97" :total="100" progress-color="red" total-color="yellow"/>
+        <button style="width: 31%">Exportar en Excel</button>
+
+        <button style="width: 31%">Configuracion de cuenta</button>
       </div>
     </div>
 
-    <div style="min-height: 60%"></div>
+    <div class="budget-container">
+      <AccountBudgetHorizontalList :budget-list="budgetList"/>
+    </div>
+
+    <div class="date-filter-container">
+      <div style="display: flex">
+        <p>De: </p>
+        <input type="date">
+        <p>Hasta: </p>
+        <input type="date">
+      </div>
+    </div>
+
+    <div style="border: 1px solid red; height: 70%">
+      <table style="width:100%">
+        <tr>
+          <th>Fecha</th>
+          <th>Concepto</th>
+          <th>Importe</th>
+          <th>Saldo</th>
+        </tr>
+        <tr>
+          <td>12/02/1988</td>
+          <td>Maria Anders</td>
+          <td>13</td>
+          <td>13</td>
+        </tr>
+        <tr>
+          <td>12/02/1988</td>
+          <td>Maria Anders</td>
+          <td>13</td>
+          <td>13</td>
+        </tr>
+        <tr>
+          <td>12/02/1988</td>
+          <td>Maria Anders</td>
+          <td>13</td>
+          <td>13</td>
+        </tr>
+        <tr>
+          <td>12/02/1988</td>
+          <td>Maria Anders</td>
+          <td>13</td>
+          <td>13</td>
+        </tr>
+        <tr>
+          <td>12/02/1988</td>
+          <td>Maria Anders</td>
+          <td>13</td>
+          <td>13</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
-import ProgressBar from "@/components/ProgressBar";
+import AccountBudgetHorizontalList from "@/components/AccountBudgetHorizontalList";
+
+
+
 
 export default {
   name: "Account",
   components: {
-    ProgressBar
+    AccountBudgetHorizontalList
   },
   data() {
     return {
       account: Object,
-      chart: Object
+      chart: Object,
+      budgetList: []
     }
   },
   async beforeMount() {
@@ -50,4 +98,23 @@ export default {
 
 <style scoped>
 
+.account-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.budget-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.date-filter-container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
 </style>

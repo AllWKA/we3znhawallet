@@ -1,10 +1,10 @@
 <template>
   <div class="app">
-    <div style="height: 100%; min-width: 8%" v-if="showLeftMenu">
+    <div style="height: 100%;width: 5%" v-if="showLeftMenu">
       <MenuNavBar/>
     </div>
 
-    <div style="width: 100%; height: 100%">
+    <div style="width: 95%; height: 100%">
       <router-view />
     </div>
 

@@ -1,10 +1,10 @@
 <template>
-  <div style="display: flex; width: 100%">
-    <div :style="`text-align:center;background-color: ${progressColor};width:${progressPercentage}%`">
+  <div class="progress-bar-container">
+    <div :style="`text-align:center;background-color: ${progressColor};width:${progressPercentage}%;min-width:30%`">
       {{ progressPercentage }}% - {{ progress }}€
     </div>
 
-    <div :style="`text-align:center;background-color: ${totalColor};width:${totalPercentageLeft}%; min-width: 30%`">
+    <div :style="`text-align:center;background-color: ${totalColor};width:${totalPercentageLeft}%;min-width:30%`">
       {{ totalPercentageLeft }}% - {{ total }}€
     </div>
   </div>
@@ -26,12 +26,19 @@ export default {
     }
   },
   beforeMount() {
-    this.progressPercentage = this.progress * 100 / this.total
+    this.progressPercentage = Math.round(this.progress * 100 / this.total)
 
-    this.totalPercentageLeft = 100 - this.progressPercentage
+    this.totalPercentageLeft = Math.round(100 - this.progressPercentage)
   }
 }
 </script>
 
 <style scoped>
+
+.progress-bar-container {
+  display: flex;
+  color: white;
+  width: 300px;
+}
+
 </style>
