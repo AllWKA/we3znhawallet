@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import AccountListItem from "@/components/accountList/AccountListItem.vue";
+import AccountListItem from "@/components/AccountListItem.vue";
 import ModalCreateEditAccount from "@/components/modal/ModalCreateEditAccount";
 
 export default {

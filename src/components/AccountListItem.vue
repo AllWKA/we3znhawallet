@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import resolveIconPath from '../../helpers/icon-resolver';
+import resolveIconPath from '../helpers/icon-resolver';
 import AccountBudgetHorizontalList from "@/components/accountBudgetHorizontal/AccountBudgetHorizontalList";
 
 export default {
