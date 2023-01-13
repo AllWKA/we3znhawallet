@@ -1,9 +1,9 @@
 <template>
   <div @click="navigate" class="container">
-    <span>
-      <img :src="iconPath" :alt="`${icon}-icon`">
+    <span style="display: flex; justify-content: center; align-items: center">
+      <img :src="iconPath" :alt="`${icon}-icon`" style="width: 24px; height: 24px">
     </span>
-    <span>{{ subText }}</span>
+    <span style="width: 100%; text-align: center">{{ tooltipText }}</span>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
   props: {
     to: String,
     icon: String,
-    subText: String
+    tooltipText: String
   },
   data() {
     return {
@@ -60,5 +60,6 @@ export default {
   justify-content: center;
   align-items: center;
   text-wrap: none;
+  margin-bottom: 20px;
 }
 </style>

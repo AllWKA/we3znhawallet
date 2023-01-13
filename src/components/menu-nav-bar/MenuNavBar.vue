@@ -1,7 +1,8 @@
 <template>
   <div class="sidebar">
     <div class="menu-navigation">
-      <MenuNavBarLink to="/home" icon="bank-outline" :tooltip-text="'Lista de cuentas'"/>
+      <MenuNavBarLink to="/home" icon="bank-outline" :tooltip-text="'Cuentas'"/>
+
       <MenuNavBarLink to="/test" icon="tools" :tooltip-text="'Vista para pruebas'"/>
     </div>
 
@@ -52,6 +53,7 @@ export default {
   flex-direction: column;
   padding-top: 20%;
   padding-left: 1%;
+  height: 70%;
 }
 
 .menu-footer {

@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <div style="height: 100%;width: 5%" v-if="showLeftMenu">
+    <div style="height: 100%;width: 80px" v-if="showLeftMenu">
       <MenuNavBar/>
     </div>
 

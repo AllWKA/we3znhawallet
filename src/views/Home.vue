@@ -1,6 +1,12 @@
 <template>
   <div class="home">
-    <h1>Cuentas bancarias</h1>
+    <div style="display: flex;width: 100%; justify-content: center; align-items: center">
+      <h1 style="margin-right: 2%">Cuentas bancarias</h1>
+      <span style="display: flex; justify-content: center; align-items: center">
+        <img src="../assets/icons/plus-circle.svg" alt="añadir cuenta" style="width: 24px; height: 24px">
+      </span>
+    </div>
+
     <AccountList/>
   </div>
 </template>
