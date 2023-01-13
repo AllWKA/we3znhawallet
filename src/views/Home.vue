@@ -2,23 +2,69 @@
   <div class="home">
     <div style="display: flex;width: 100%; justify-content: center; align-items: center">
       <h1 style="margin-right: 2%">Cuentas bancarias</h1>
-      <span style="display: flex; justify-content: center; align-items: center">
+
+      <span style="display: flex; justify-content: center; align-items: center" @click="showModalCreateEditAccount = true">
         <img src="../assets/icons/plus-circle.svg" alt="añadir cuenta" style="width: 24px; height: 24px">
       </span>
     </div>
 
-    <AccountList/>
+    <div class="account-list-item-container">
+      <AccountListItem v-for="accountData in accountList"
+                       :key="accountData.cardNumbers"
+                       :accountData="accountData"/>
+    </div>
+
+    <ModalCreateEditAccount :show-content="showModalCreateEditAccount"
+                            @submit="submitAccount"
+                            @close="showModalCreateEditAccount = false"/>
   </div>
 </template>
 
 <script>
-import AccountList from "@/components/accountList/AccountList.vue"
+import AccountListItem from "@/components/accountList/AccountListItem.vue";
+import ModalCreateEditAccount from "@/components/modal/ModalCreateEditAccount";
 
 export default {
   name: "Home",
   components: {
-    AccountList
+    AccountListItem,
+    ModalCreateEditAccount
   },
+  data() {
+    return {
+      showModalCreateEditAccount: false,
+      accountList: []
+    }
+  },
+  methods: {
+    async submitAccount(submitConfig) {
+      const payload = { account: submitConfig.account }
+
+      if (submitConfig.method === 'POST') {
+        await this.$axios.post('/account', payload)
+      } else {
+        await this.$axios.put('/account', payload)
+      }
+
+      this.showModalCreateEditAccount = false
+
+      await this.getAccounts()
+    },
+    async getAccounts() {
+      try {
+
+        const response = await this.$axios.get('/account')
+
+        this.accountList = response.data
+      } catch (error) {
+        // TODO: show error modal
+        console.log(error)
+      }
+    }
+  },
+  beforeMount() {
+    this.getAccounts()
+  }
 }
 </script>
 
@@ -30,5 +76,13 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+}
+
+.account-list-item-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 </style>

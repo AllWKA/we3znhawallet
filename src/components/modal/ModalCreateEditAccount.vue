@@ -73,6 +73,8 @@ export default {
       })
 
       this.resetForm()
+
+      this.$emit("close")
     },
     resetForm(){
       if (this.account) {

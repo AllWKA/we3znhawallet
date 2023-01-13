@@ -6,31 +6,24 @@
                        :key="accountData.cardNumbers"
                        :accountData="accountData"/>
     </div>
-
-    <ModalCreateEditAccount :show-content="showModalCreateEditAccount"
-                            @submit="submitAccount"
-                            @close="showModalCreateEditAccount = false"/>
   </div>
 </template>
 
 <script>
 import AccountListItem from "@/components/accountList/AccountListItem.vue"
-import ModalCreateEditAccount from "@/components/modal/ModalCreateEditAccount"
 
 export default {
   name: "AccountList",
   components: {
-    AccountListItem,
-    ModalCreateEditAccount
+    AccountListItem
   },
   props: {
-    content: String,
+    accountList: Array,
   },
   data() {
     return {
       isActive: false,
-      showModalCreateEditAccount: false,
-      accountList: [],
+      showModalCreateEditAccount: false
     }
   },
   methods: {
@@ -79,19 +72,5 @@ export default {
 </script>
 
 <style scoped>
-.accordion-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
 
-.account-list-item-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
 </style>

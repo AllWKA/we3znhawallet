@@ -30,7 +30,7 @@ app.get('/account/:id', (req, res) => {
   }
 })
 
-app.post('/accountData', (req, res) => {
+app.post('/account', (req, res) => {
   const account = req.body.account
 
   try {
