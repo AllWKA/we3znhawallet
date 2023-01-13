@@ -31,7 +31,7 @@ export default {
   flex-direction: column;
   margin-left: 3%;
   margin-right: 3%;
-  width: 700px;
+  min-width: 280px;
   justify-content: center;
   align-items: center;
 }

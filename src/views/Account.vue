@@ -71,10 +71,7 @@
 </template>
 
 <script>
-import AccountBudgetHorizontalList from "@/components/AccountBudgetHorizontalList";
-
-
-
+import AccountBudgetHorizontalList from "@/components/accountBudgetHorizontal/AccountBudgetHorizontalList";
 
 export default {
   name: "Account",
@@ -108,7 +105,8 @@ export default {
 
 .budget-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  overflow-x: auto;
   width: 100%;
 }
 

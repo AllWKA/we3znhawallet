@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import AccountBudgetHorizontalItem from "@/components/AccountBudgetHorizontalItem";
+import AccountBudgetHorizontalItem from "@/components/accountBudgetHorizontal/AccountBudgetHorizontalItem";
 
 export default {
   name: "AccountBudgetHorizontalList",
@@ -33,7 +33,6 @@ export default {
   display: flex;
   width: 95%;
   overflow-x: scroll;
-  justify-content: center;
 }
 
 </style>

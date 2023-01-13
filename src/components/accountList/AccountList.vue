@@ -1,26 +1,10 @@
 <template>
   <div class="accordion-container">
-    <div class="accordion-header">
-      <div class="account-action-header">
-        <button style="margin-right: 3%">
-          <span class="close">
-            <img src="../../assets/icons/trash-can.svg" alt="close-icon">
-          </span>
-        </button>
-
-        <button style="margin-right: 3%">
-          <span class="close" @click="toggleModalCreateEditAccount">
-            <img src="../../assets/icons/plus-circle.svg" alt="close-icon">
-          </span>
-        </button>
-      </div>
-    </div>
 
     <div class="account-list-item-container">
       <AccountListItem v-for="accountData in accountList"
                        :key="accountData.cardNumbers"
-                       :accountData="accountData"
-                       :content="content"/>
+                       :accountData="accountData"/>
     </div>
 
     <ModalCreateEditAccount :show-content="showModalCreateEditAccount"
@@ -101,20 +85,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
-
-.accordion-header {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-}
-
-.account-action-header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 3%;
 }
 
 .account-list-item-container {

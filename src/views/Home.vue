@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <AccountBankList />
+    <h1>Cuentas bancarias</h1>
+    <AccountList/>
   </div>
 </template>
 
 <script>
-import AccountBankList from "@/components/AccountBankList.vue"
-
+import AccountList from "@/components/accountList/AccountList.vue"
 
 export default {
   name: "Home",
   components: {
-    AccountBankList
+    AccountList
   },
 }
 </script>

@@ -38,7 +38,7 @@ export default {
 .progress-bar-container {
   display: flex;
   color: white;
-  width: 300px;
+  width: 100%;
 }
 
 </style>
