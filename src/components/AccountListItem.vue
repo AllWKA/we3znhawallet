@@ -12,21 +12,15 @@
       </div>
 
       <div class="controllers">
-        <button @click="sendControllerEvent($event,'edit')">
+        <button @click="navigateTo(`/accountData/${accountData.id}`) ">
             <span>
-              <img :src="editAccountIconPath" alt="close-icon" style="width: 24px; height: 20px">
+              <img :src="openDetailIconPath" alt="open-detail-icon" style="width: 24px; height: 20px">
             </span>
         </button>
 
         <button @click="sendControllerEvent($event,'delete')">
             <span>
               <img :src="deleteAccountIconPath" alt="close-icon" style="width: 24px; height: 20px">
-            </span>
-        </button>
-
-        <button @click="navigateTo(`/accountData/${accountData.id}`) ">
-            <span>
-              <img :src="openDetailIconPath" alt="open-detail-icon" style="width: 24px; height: 20px">
             </span>
         </button>
       </div>

@@ -5,12 +5,30 @@
 
       <h1 style="text-align: center; width: 30%">Saldo: {{ account.currentBalance }} €</h1>
 
-      <div style="display:flex; width: 30%">
-        <button style="width: 31%">Exportar en PDF</button>
+      <div style="display:flex;justify-content: center; align-items: center;width: 30%">
+        <button style="display: flex; justify-content: center; align-items: center;width: 35%; height: 35%">
+          <span style="display: flex; justify-content: center; align-items: center"
+                @click="showModalCreateEditAccount = true">
+            <img src="../assets/icons/file-download-outline.svg" alt="importar_excel" style="width: 24px; height: 24px">
+          </span>
+          <span>Importar</span>
+        </button>
 
-        <button style="width: 31%">Exportar en Excel</button>
+        <button style="display: flex; justify-content: center; align-items: center;width: 35%; height: 35%">
+          <span style="display: flex; justify-content: center; align-items: center"
+                @click="showModalCreateEditAccount = true">
+            <img src="../assets/icons/file-upload-outline.svg" alt="exportar_excel" style="width: 24px; height: 24px">
+          </span>
+          <span>Exportar</span>
+        </button>
 
-        <button style="width: 31%">Configuracion de cuenta</button>
+        <button style="display: flex; justify-content: center; align-items: center;width: 35%; height: 35%">
+          <span style="display: flex; justify-content: center; align-items: center"
+                @click="showModalCreateEditAccount = true">
+            <img src="../assets/icons/cog-outline.svg" alt="exportar_excel" style="width: 24px; height: 24px">
+          </span>
+          <span>Configuración</span>
+        </button>
       </div>
     </div>
 
