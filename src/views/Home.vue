@@ -3,7 +3,8 @@
     <div style="display: flex;width: 100%; justify-content: center; align-items: center">
       <h1 style="margin-right: 2%">Cuentas bancarias</h1>
 
-      <span style="display: flex; justify-content: center; align-items: center" @click="showModalCreateEditAccount = true">
+      <span style="display: flex; justify-content: center; align-items: center"
+            @click="showModalCreateEditAccount = true">
         <img src="../assets/icons/plus-circle.svg" alt="añadir cuenta" style="width: 24px; height: 24px">
       </span>
     </div>
@@ -11,7 +12,8 @@
     <div class="account-list-item-container">
       <AccountListItem v-for="accountData in accountList"
                        :key="accountData.cardNumbers"
-                       :accountData="accountData"/>
+                       :accountData="accountData"
+                       @delete="deleteAccount"/>
     </div>
 
     <ModalCreateEditAccount :show-content="showModalCreateEditAccount"
@@ -50,6 +52,7 @@ export default {
 
       await this.getAccounts()
     },
+
     async getAccounts() {
       try {
 
@@ -60,6 +63,14 @@ export default {
         // TODO: show error modal
         console.log(error)
       }
+    },
+
+    async deleteAccount(account) {
+      // TODO: use UUID for account id
+
+      await this.$axios.delete(`/account/${account.id}`)
+
+      await this.getAccounts()
     }
   },
   beforeMount() {

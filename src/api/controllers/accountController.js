@@ -53,3 +53,17 @@ export function getAccount(id) {
     throw new Error('Can not parse account storage')
   }
 }
+
+export function deleteAccount(id) {
+  let accounts
+
+  try {
+    accounts = readLocalFile(accountStorageFileName)
+
+    accounts = accounts.filter(account => account.id.toString() !== id)
+
+    saveLocalFile(accounts, accountStorageFileName)
+  } catch (e) {
+    throw new Error('Can not delete account')
+  }
+}

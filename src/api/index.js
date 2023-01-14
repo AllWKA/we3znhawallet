@@ -41,6 +41,18 @@ app.post('/account', (req, res) => {
   }
 })
 
+app.delete('/account/:id', (req, res) =>{
+  const accountId = req.params.id
+
+  try {
+    controllers.deleteAccount(accountId)
+
+    res.sendStatus(200)
+  } catch (e) {
+    res.status(400).send(e.message)
+  }
+})
+
 app.post('/user', (req, res) => {
   const user = req.body.user
   const fileName = req.body.fileName
