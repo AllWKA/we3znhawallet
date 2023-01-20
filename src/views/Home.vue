@@ -6,6 +6,7 @@
       <span style="display: flex; justify-content: center; align-items: center"
             @click="showModalCreateEditAccount = true">
         <img src="../assets/icons/plus-circle.svg" alt="añadir cuenta" style="width: 24px; height: 24px">
+        <!-- TODO: 2 Types, account and credit card, right now works just for credit card -->
       </span>
     </div>
 
@@ -57,7 +58,7 @@ export default {
       try {
 
         const response = await this.$axios.get('/account')
-
+        console.log(response)
         this.accountList = response.data
       } catch (error) {
         // TODO: show error modal

@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import * as controllers from '@/api/controllers/main'
+import { addMovementsInAccount, processBankAccountMovements } from '@/api/controllers/main'
 
 const app = express()
 const port = process.env.SERVER_PORT
@@ -41,7 +42,31 @@ app.post('/account', (req, res) => {
   }
 })
 
-app.delete('/account/:id', (req, res) =>{
+app.post('/account/movements/add/:accountId', (req, res) => {
+  try {
+    const movements = req.body
+
+    const accountId = req.params.accountId
+
+    addMovementsInAccount(movements, accountId)
+
+    res.status(200).send()
+  } catch (e) {
+    res.send(500);
+  }
+})
+
+app.post('/account/movements/process/:accountId', (req, res) => {
+  try {
+    const response = processBankAccountMovements(req.body.filePath, req.params.accountId)
+
+    res.json(response)
+  } catch (err) {
+    res.send(err);
+  }
+})
+
+app.delete('/account/:id', (req, res) => {
   const accountId = req.params.id
 
   try {

@@ -1,4 +1,6 @@
 import { readLocalFile, saveLocalFile } from '@/api/controllers/fileManager'
+import excelToJson from 'convert-excel-to-json'
+import { readFileSync } from 'fs'
 
 const accountStorageFileName = 'accounts.json'
 
@@ -21,7 +23,7 @@ export function createAccount(account) {
 
   const id = accounts.length
 
-  accounts.push({ id, account })
+  accounts.push({ id, account, movements: [] })
 
   try {
     saveLocalFile(accounts, accountStorageFileName)
@@ -66,4 +68,81 @@ export function deleteAccount(id) {
   } catch (e) {
     throw new Error('Can not delete account')
   }
+}
+
+export function addMovementsInAccount(movements, accountId) {
+  const account = getAccount(accountId)
+
+  account.movements = account.movements.concat(movements)
+
+  const accounts = getAccountList()
+
+  const accountsUpdated = updateAccount(account, accounts)
+
+  saveLocalFile(accountsUpdated, accountStorageFileName)
+}
+
+export function processBankAccountMovements(filePath, accountId) {
+  let account
+
+  try {
+    account = getAccount(accountId)
+  } catch (e) {
+    throw new Error(e.message)
+  }
+
+  const fileBuffer = readFileSync(filePath)
+
+  const excelResults = excelToJson({
+    source: fileBuffer,
+    header: {
+      rows: 5
+    },
+    columnToKey: {
+      B: 'Fecha',
+      C: 'Tarjeta',
+      D: 'Concepto',
+      E: 'Importe',
+      F: 'Divisa'
+    }
+  })
+
+  const newMovements = excelResults[Object.keys(excelResults)[0]]
+
+  const repeatedMovement = []
+
+  const addedMovement = []
+
+  const accountMovements = account.movements
+
+  for (let i = 0; i < newMovements.length; i++) {
+    const newMovement = newMovements[i]
+
+    const movementFound = accountMovements.find(movement =>
+      movement.Fecha === newMovement.Fecha &&
+      movement.Tarjeta === newMovement.Tarjeta &&
+      movement.Concepto === newMovement.Concepto &&
+      movement.Importe === newMovement.Importe &&
+      movement.Divisa === newMovement.Divisa
+    )
+
+    if (movementFound) {
+      repeatedMovement.push(newMovement)
+    } else {
+      addedMovement.push(newMovement)
+    }
+  }
+
+  return {
+    repeatedMovement,
+    addedMovement
+  }
+}
+
+function updateAccount(account, accountList) {
+  const accountsPosition = accountList.map(account => account.id).indexOf(account.id)
+
+  accountList[accountsPosition] = account
+
+  return accountList
 }

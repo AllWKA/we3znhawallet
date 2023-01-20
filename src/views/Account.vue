@@ -6,7 +6,8 @@
       <h1 style="text-align: center; width: 30%">Saldo: {{ account.currentBalance }} €</h1>
 
       <div style="display:flex;justify-content: center; align-items: center;width: 30%">
-        <button style="display: flex; justify-content: center; align-items: center;width: 35%; height: 35%">
+        <button @click="importFile"
+                style="display: flex; justify-content: center; align-items: center;width: 35%; height: 35%">
           <span style="display: flex; justify-content: center; align-items: center"
                 @click="showModalCreateEditAccount = true">
             <img src="../assets/icons/file-download-outline.svg" alt="importar_excel" style="width: 24px; height: 24px">
@@ -30,6 +31,8 @@
           <span>Configuración</span>
         </button>
       </div>
+
+      <input type="file" style="display: none" id="importInput" @change="importFileChanged">
     </div>
 
     <div class="budget-container">
@@ -45,68 +48,89 @@
       </div>
     </div>
 
-    <div style="border: 1px solid red; height: 70%">
+    <div style="height: 70%; overflow: auto">
+      <!-- TODO: use divs -->
       <table style="width:100%">
-        <tr>
+        <tr  style="text-align: center">
           <th>Fecha</th>
           <th>Concepto</th>
           <th>Importe</th>
-          <th>Saldo</th>
         </tr>
-        <tr>
-          <td>12/02/1988</td>
-          <td>Maria Anders</td>
-          <td>13</td>
-          <td>13</td>
-        </tr>
-        <tr>
-          <td>12/02/1988</td>
-          <td>Maria Anders</td>
-          <td>13</td>
-          <td>13</td>
-        </tr>
-        <tr>
-          <td>12/02/1988</td>
-          <td>Maria Anders</td>
-          <td>13</td>
-          <td>13</td>
-        </tr>
-        <tr>
-          <td>12/02/1988</td>
-          <td>Maria Anders</td>
-          <td>13</td>
-          <td>13</td>
-        </tr>
-        <tr>
-          <td>12/02/1988</td>
-          <td>Maria Anders</td>
-          <td>13</td>
-          <td>13</td>
+
+        <tr v-for="(movement, i) in movements" :key="i" style="text-align: center">
+          <td>{{ movement.Fecha }}</td>
+          <td>{{ movement.Concepto }}</td>
+          <td>{{ movement.Importe }} {{ movement.Divisa }}</td>
         </tr>
       </table>
     </div>
+
+    <ConfirmMovementsToAdd
+        :showModal="showConfirmMovements"
+        :movementsProcessed="movementsProcessed"
+        :account-id="accountId.toString()"
+        @close="closeConfirmMovementsModal"/>
   </div>
 </template>
 
 <script>
 import AccountBudgetHorizontalList from "@/components/accountBudgetHorizontal/AccountBudgetHorizontalList";
+import ConfirmMovementsToAdd from "@/components/modal/ConfirmMovementsToAdd";
 
 export default {
   name: "Account",
   components: {
-    AccountBudgetHorizontalList
+    AccountBudgetHorizontalList,
+    ConfirmMovementsToAdd
   },
   data() {
     return {
-      account: Object,
-      chart: Object,
-      budgetList: []
+      account: {},
+      accountId: '',
+      movements: [],
+      chart: {},
+      movementsProcessed: {},
+      budgetList: [],
+      showConfirmMovements: false
     }
   },
-  async beforeMount() {
-    const accountInfo = (await this.$axios.get(`/account/${this.$route.params.accountId}`)).data
+  methods: {
+    importFile() {
+      const input = document.getElementById('importInput')
 
-    this.account = accountInfo.account
+      input.click()
+    },
+    async importFileChanged(e) {
+      const file = e.target.files[0];
+
+      const formData = new FormData();
+
+      formData.append("image", file);
+
+      this.movementsProcessed = (await this.$axios.post(
+              `/account/movements/process/${this.accountId}`,
+              { filePath: file.path })
+      ).data
+
+      this.showConfirmMovements = true
+    },
+    async updateAccountInfo() {
+      const accountInfo = (await this.$axios.get(`/account/${this.$route.params.accountId}`)).data
+
+      this.account = accountInfo.account
+
+      this.accountId = accountInfo.id
+
+      this.movements = accountInfo.movements
+    },
+    closeConfirmMovementsModal() {
+      this.updateAccountInfo()
+
+      this.showConfirmMovements = false
+    }
+  },
+  beforeMount() {
+    this.updateAccountInfo()
   }
 }
 </script>
