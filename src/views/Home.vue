@@ -41,12 +41,10 @@ export default {
   },
   methods: {
     async submitAccount(submitConfig) {
-      const payload = { account: submitConfig.account }
-
       if (submitConfig.method === 'POST') {
-        await this.$axios.post('/account', payload)
+        await this.$axios.post('/account', submitConfig.account)
       } else {
-        await this.$axios.put('/account', payload)
+        await this.$axios.put('/account', submitConfig.account)
       }
 
       this.showModalCreateEditAccount = false
@@ -56,9 +54,8 @@ export default {
 
     async getAccounts() {
       try {
-
         const response = await this.$axios.get('/account')
-        console.log(response)
+
         this.accountList = response.data
       } catch (error) {
         // TODO: show error modal

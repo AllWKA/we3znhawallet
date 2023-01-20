@@ -1,6 +1,6 @@
 <template>
   <Modal :show-content="showContent">
-    <div class="main-container">
+    <div class="create-edit-container">
       <div style="display: flex; justify-content: center; align-items: center">
         <h2 style="text-align: center; width: 100%">{{ createMode ? 'Crear' : 'Editar' }} Cuenta</h2>
 
@@ -9,7 +9,17 @@
         </span>
       </div>
 
-      <form class="account-form-content" id="card-form">
+      <div
+          style="display: flex; flex-direction: column; justify-content: space-around;align-items: center;height: 90%; width: 100%">
+        <div style="display: flex; width: 80%;">
+          <label style="margin-right: 3%">Tipo</label>
+
+          <select name="type" v-model="type">
+            <option value="account">Cuenta</option>
+            <option value="card">Tarjeta</option>
+          </select>
+        </div>
+
         <input
             type="number"
             v-model="cardNumbers"
@@ -31,7 +41,7 @@
         />
 
         <button :disabled="validateSubmitPin" @click="submit">{{ createMode ? 'Crear' : 'Editar' }}</button>
-      </form>
+      </div>
     </div>
   </Modal>
 </template>
@@ -52,7 +62,8 @@ export default {
     return {
       cardNumbers: '',
       currentBalance: 0,
-      createMode: false
+      createMode: false,
+      type: 'account'
     }
   },
   methods: {
@@ -68,7 +79,8 @@ export default {
         method: this.createMode ? 'POST' : 'PUT',
         account: {
           cardNumbers: this.cardNumbers,
-          currentBalance: this.currentBalance
+          currentBalance: this.currentBalance,
+          type: this.type
         }
       })
 
@@ -76,7 +88,7 @@ export default {
 
       this.$emit("close")
     },
-    resetForm(){
+    resetForm() {
       if (this.account) {
         this.cardNumbers = this.account.cardNumbers
         this.currentBalance = this.account.currentAccountBalance
@@ -104,20 +116,12 @@ export default {
 </script>
 
 <style scoped>
-.main-container {
+.create-edit-container {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 30%;
   height: 30%;
-}
-
-.account-form-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  height: 50%;
 }
 </style>

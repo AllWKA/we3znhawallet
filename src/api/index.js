@@ -36,6 +36,7 @@ app.post('/account', (req, res) => {
 
   try {
     controllers.createAccount(account)
+
     res.sendStatus(200)
   } catch (e) {
     res.status(400).send(e.message)
