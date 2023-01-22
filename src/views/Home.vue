@@ -11,31 +11,38 @@
     </div>
 
     <div class="account-list-item-container">
-      <AccountListItem v-for="accountData in accountList"
-                       :key="accountData.cardNumbers"
-                       :accountData="accountData"
+      <AccountListItem v-for="account in accountList"
+                       :key="account.cardNumbers"
+                       :account="account"
                        @delete="deleteAccount"/>
     </div>
 
     <ModalCreateEditAccount :show-content="showModalCreateEditAccount"
                             @submit="submitAccount"
                             @close="showModalCreateEditAccount = false"/>
+
+    <RequestErrorModal :show="showRequestErrorModal"
+                       @close="showRequestErrorModal = false"
+    />
   </div>
 </template>
 
 <script>
 import AccountListItem from "@/components/AccountListItem.vue";
 import ModalCreateEditAccount from "@/components/modal/ModalCreateEditAccount";
+import RequestErrorModal from "@/components/modal/RequestErrorModal";
 
 export default {
   name: "Home",
   components: {
     AccountListItem,
-    ModalCreateEditAccount
+    ModalCreateEditAccount,
+    RequestErrorModal
   },
   data() {
     return {
       showModalCreateEditAccount: false,
+      showRequestErrorModal: false,
       accountList: []
     }
   },
@@ -58,8 +65,7 @@ export default {
 
         this.accountList = response.data
       } catch (error) {
-        // TODO: show error modal
-        console.log(error)
+        this.showRequestErrorModal = true
       }
     },
 

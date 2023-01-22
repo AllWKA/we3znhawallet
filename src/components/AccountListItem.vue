@@ -2,17 +2,27 @@
   <div class="account-list-container">
     <div class="accordion-container">
       <div class="account-info-container">
-        <p style="margin-right: 10%">Cuenta: {{ accountData.account.cardNumbers }}</p>
+        <div style="margin-right: 10%; display: flex;justify-content: center;align-items: center">
+          <div v-if="account.type === 'account'">
+            <img src="../assets/icons/piggy-bank-outline.svg" alt="type-icon">
+          </div>
 
-        <p>Saldo: {{ accountData.account.currentBalance }} €</p>
+          <div v-else>
+            <img src="../assets/icons/credit-card-outline.svg" alt="type-icon">
+          </div>
+
+          <span style="margin-right: 3%;margin-left: 3%; width: 60px">: {{ account.cardNumbers }}</span>
+        </div>
       </div>
 
-      <div style="width: 60%;display: flex;justify-content: center;align-items: center">
+      <p style="width: 130px;">Saldo: {{ account.currentBalance }} €</p>
+
+      <div class="account-budgets-container">
         <AccountBudgetHorizontalList :budget-list="budgetList"/>
       </div>
 
       <div class="controllers">
-        <button @click="navigateTo(`/accountData/${accountData.id}`) ">
+        <button @click="navigateTo(`/accountData/${account.id}`) ">
             <span>
               <img :src="openDetailIconPath" alt="open-detail-icon" style="width: 24px; height: 20px">
             </span>
@@ -38,7 +48,7 @@ export default {
     AccountBudgetHorizontalList
   },
   props: {
-    accountData: Object
+    account: Object
   },
   data() {
     return {
@@ -52,7 +62,7 @@ export default {
     sendControllerEvent(event, eventName) {
       event.preventDefault()
 
-      this.$emit(eventName, this.accountData)
+      this.$emit(eventName, this.account)
     }
   },
   computed: {
@@ -96,6 +106,13 @@ button {
   justify-content: flex-start;
   align-items: center;
   margin-left: 5%;
+}
+
+.account-budgets-container {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .controllers {

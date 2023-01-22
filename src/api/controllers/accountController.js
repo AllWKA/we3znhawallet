@@ -23,7 +23,7 @@ export function createAccount(account) {
 
   const id = accounts.length
 
-  accounts.push({ id, account, movements: [] })
+  accounts.push({ id, ...account, movements: [] })
 
   try {
     saveLocalFile(accounts, accountStorageFileName)

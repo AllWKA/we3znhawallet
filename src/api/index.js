@@ -32,7 +32,7 @@ app.get('/account/:id', (req, res) => {
 })
 
 app.post('/account', (req, res) => {
-  const account = req.body.account
+  const account = req.body
 
   try {
     controllers.createAccount(account)

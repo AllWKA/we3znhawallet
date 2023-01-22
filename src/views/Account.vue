@@ -115,13 +115,13 @@ export default {
       this.showConfirmMovements = true
     },
     async updateAccountInfo() {
-      const accountInfo = (await this.$axios.get(`/account/${this.$route.params.accountId}`)).data
+      const account = (await this.$axios.get(`/account/${this.$route.params.accountId}`)).data
 
-      this.account = accountInfo.account
+      this.account = account
 
-      this.accountId = accountInfo.id
+      this.accountId = account.id
 
-      this.movements = accountInfo.movements
+      this.movements = account.movements
     },
     closeConfirmMovementsModal() {
       this.updateAccountInfo()
