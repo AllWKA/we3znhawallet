@@ -16,7 +16,7 @@
 
           <select name="type" v-model="type">
             <option value="account">Cuenta</option>
-            <option value="card">Tarjeta</option>
+<!--            <option value="card">Tarjeta</option>-->
           </select>
         </div>
 

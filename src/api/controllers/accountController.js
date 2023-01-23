@@ -99,12 +99,16 @@ export function processBankAccountMovements(filePath, accountId) {
       rows: 5
     },
     columnToKey: {
-      B: 'Fecha',
-      C: 'Tarjeta',
-      D: 'Concepto',
-      E: 'Importe',
-      F: 'Divisa'
-    }
+        B: 'Fecha',
+        C: 'F.Valor',
+        D: 'Concepto',
+        E: 'Movimiento',
+        F: 'Importe',
+        G: 'Divisa',
+        H: 'Disponible',
+        I: 'Divisa',
+        J: 'Observaciones'
+      }
   })
 
   const newMovements = excelResults[Object.keys(excelResults)[0]]
@@ -114,8 +118,9 @@ export function processBankAccountMovements(filePath, accountId) {
   const addedMovement = []
 
   const accountMovements = account.movements
-
+  console.log(newMovements.length)
   for (let i = 0; i < newMovements.length; i++) {
+    console.log(i)
     const newMovement = newMovements[i]
 
     const movementFound = accountMovements.find(movement =>
@@ -126,6 +131,8 @@ export function processBankAccountMovements(filePath, accountId) {
       movement.Divisa === newMovement.Divisa
     )
 
+    movementFound.Fecha = (new Date(movementFound.Fecha)).toString()
+    console.log(movementFound)
     if (movementFound) {
       repeatedMovement.push(newMovement)
     } else {

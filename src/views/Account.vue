@@ -51,16 +51,18 @@
     <div style="height: 70%; overflow: auto">
       <!-- TODO: use divs -->
       <table style="width:100%">
-        <tr  style="text-align: center">
+        <tr style="text-align: center">
           <th>Fecha</th>
           <th>Concepto</th>
           <th>Importe</th>
+          <th>Disponible</th>
         </tr>
 
         <tr v-for="(movement, i) in movements" :key="i" style="text-align: center">
           <td>{{ movement.Fecha }}</td>
-          <td>{{ movement.Concepto }}</td>
+          <td style="text-align: justify">{{ movement.Concepto }}</td>
           <td>{{ movement.Importe }} {{ movement.Divisa }}</td>
+          <td>{{ movement.Disponible }}  {{ movement.Divisa }}</td>
         </tr>
       </table>
     </div>
