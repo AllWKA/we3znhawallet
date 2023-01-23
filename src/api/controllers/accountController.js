@@ -1,6 +1,6 @@
-import { readLocalFile, saveLocalFile } from '@/api/controllers/fileManager'
+import {readLocalFile, saveLocalFile} from '@/api/controllers/fileManager'
 import excelToJson from 'convert-excel-to-json'
-import { readFileSync } from 'fs'
+import {readFileSync} from 'fs'
 
 const accountStorageFileName = 'accounts.json'
 
@@ -23,7 +23,7 @@ export function createAccount(account) {
 
   const id = accounts.length
 
-  accounts.push({ id, ...account, movements: [] })
+  accounts.push({id, ...account, movements: []})
 
   try {
     saveLocalFile(accounts, accountStorageFileName)
@@ -99,16 +99,16 @@ export function processBankAccountMovements(filePath, accountId) {
       rows: 5
     },
     columnToKey: {
-        B: 'Fecha',
-        C: 'F.Valor',
-        D: 'Concepto',
-        E: 'Movimiento',
-        F: 'Importe',
-        G: 'Divisa',
-        H: 'Disponible',
-        I: 'Divisa',
-        J: 'Observaciones'
-      }
+      B: 'Fecha',
+      C: 'F.Valor',
+      D: 'Concepto',
+      E: 'Movimiento',
+      F: 'Importe',
+      G: 'Divisa',
+      H: 'Disponible',
+      I: 'Divisa',
+      J: 'Observaciones'
+    }
   })
 
   const newMovements = excelResults[Object.keys(excelResults)[0]]
@@ -118,21 +118,24 @@ export function processBankAccountMovements(filePath, accountId) {
   const addedMovement = []
 
   const accountMovements = account.movements
-  console.log(newMovements.length)
+
   for (let i = 0; i < newMovements.length; i++) {
-    console.log(i)
     const newMovement = newMovements[i]
+
+    const date = new Date(newMovement.Fecha)
+
+    newMovement.FechaCruda = Date.parse(date.toString())
+
+    newMovement.Fecha = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 
     const movementFound = accountMovements.find(movement =>
       movement.Fecha === newMovement.Fecha &&
-      movement.Tarjeta === newMovement.Tarjeta &&
       movement.Concepto === newMovement.Concepto &&
       movement.Importe === newMovement.Importe &&
-      movement.Divisa === newMovement.Divisa
+      movement.Divisa === newMovement.Divisa &&
+      movement.Disponible === newMovement.Disponible
     )
 
-    movementFound.Fecha = (new Date(movementFound.Fecha)).toString()
-    console.log(movementFound)
     if (movementFound) {
       repeatedMovement.push(newMovement)
     } else {
@@ -148,6 +151,10 @@ export function processBankAccountMovements(filePath, accountId) {
 
 function updateAccount(account, accountList) {
   const accountsPosition = accountList.map(account => account.id).indexOf(account.id)
+
+  account.movements = account.movements.sort((a, b) => b.FechaCruda-a.FechaCruda)
+
+  account.currentBalance = account.movements[0].Disponible
 
   accountList[accountsPosition] = account
 
