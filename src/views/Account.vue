@@ -40,7 +40,7 @@
     </div>
 
     <div class="date-filter-container">
-      <div style="display: flex">
+      <div style="display: flex; width: 40%; justify-content: space-around">
         <p>De: </p>
         <input type="date">
         <p>Hasta: </p>
@@ -48,23 +48,20 @@
       </div>
     </div>
 
-    <div style="height: 70%; overflow: auto">
-      <!-- TODO: use divs -->
-      <table style="width:100%">
-        <tr style="text-align: center">
-          <th>Fecha</th>
-          <th>Concepto</th>
-          <th>Importe</th>
-          <th>Disponible</th>
-        </tr>
-
-        <tr v-for="(movement, i) in movements" :key="i" style="text-align: center">
-          <td>{{ movement.Fecha }}</td>
-          <td style="text-align: justify">{{ movement.Concepto }}</td>
-          <td>{{ movement.Importe }} {{ movement.Divisa }}</td>
-          <td>{{ movement.Disponible }}  {{ movement.Divisa }}</td>
-        </tr>
-      </table>
+    <div style="text-align: center; display: flex;width: 100%; justify-content: space-between">
+      <div style="width: 18%">Fecha</div>
+      <div style="width: 33%">Concepto</div>
+      <div style="width: 18%">Importe</div>
+      <div style="width: 18%">Disponible</div>
+    </div>
+    <div style="height: 50%; overflow: auto;text-align: center; width: 100%">
+      <div v-for="(movement, i) in movements" :key="i"
+           style="width: 100%;display: flex; justify-content: space-between">
+        <div style="width: 18%">{{ movement.Fecha }}</div>
+        <div style="width: 33%;text-align: justify">{{ movement.Concepto }}</div>
+        <div style="width: 18%;text-align: justify">{{ movement.Importe }} {{ movement.Divisa }}</div>
+        <div style="width: 18%">{{ movement.Disponible }} {{ movement.Divisa }}</div>
+      </div>
     </div>
 
     <ConfirmMovementsToAdd
@@ -76,11 +73,11 @@
 </template>
 
 <script>
-import AccountBudgetHorizontalList from "@/components/accountBudgetHorizontal/AccountBudgetHorizontalList";
-import ConfirmMovementsToAdd from "@/components/modal/ConfirmMovementsToAdd";
+import AccountBudgetHorizontalList from '@/components/accountBudgetHorizontal/AccountBudgetHorizontalList'
+import ConfirmMovementsToAdd from '@/components/modal/ConfirmMovementsToAdd'
 
 export default {
-  name: "Account",
+  name: 'Account',
   components: {
     AccountBudgetHorizontalList,
     ConfirmMovementsToAdd
@@ -103,15 +100,15 @@ export default {
       input.click()
     },
     async importFileChanged(e) {
-      const file = e.target.files[0];
+      const file = e.target.files[0]
 
-      const formData = new FormData();
+      const formData = new FormData()
 
-      formData.append("image", file);
+      formData.append('image', file)
 
       this.movementsProcessed = (await this.$axios.post(
               `/account/movements/process/${this.accountId}`,
-              { filePath: file.path })
+              {filePath: file.path})
       ).data
 
       this.showConfirmMovements = true
@@ -156,7 +153,11 @@ export default {
 
 .date-filter-container {
   display: flex;
-  width: 100%;
+  width: 90%;
   justify-content: flex-start;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
 }
 </style>
