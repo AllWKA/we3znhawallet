@@ -39,28 +39,41 @@
       <AccountBudgetHorizontalList :budget-list="budgetList"/>
     </div>
 
-    <div class="date-filter-container">
-      <div style="display: flex; width: 40%; justify-content: space-around">
-        <p>De: </p>
-        <input type="date">
-        <p>Hasta: </p>
-        <input type="date">
-      </div>
-    </div>
+    <!--    <div class="date-filter-container">-->
+    <!--      <div style="display: flex; width: 40%; justify-content: space-around">-->
+    <!--        <p>De: </p>-->
+    <!--        <input type="date">-->
+    <!--        <p>Hasta: </p>-->
+    <!--        <input type="date">-->
+    <!--      </div>-->
+    <!--    </div>-->
 
-    <div style="text-align: center; display: flex;width: 100%; justify-content: space-between">
-      <div style="width: 18%">Fecha</div>
-      <div style="width: 33%">Concepto</div>
-      <div style="width: 18%">Importe</div>
-      <div style="width: 18%">Disponible</div>
-    </div>
-    <div style="height: 50%; overflow: auto;text-align: center; width: 100%">
-      <div v-for="(movement, i) in movements" :key="i"
-           style="width: 100%;display: flex; justify-content: space-between">
-        <div style="width: 18%">{{ movement.Fecha }}</div>
-        <div style="width: 33%;text-align: justify">{{ movement.Concepto }}</div>
-        <div style="width: 18%;text-align: justify">{{ movement.Importe }} {{ movement.Divisa }}</div>
-        <div style="width: 18%">{{ movement.Disponible }} {{ movement.Divisa }}</div>
+    <div style="height: 50%">
+      <div
+          style="text-align: center; display: flex;width: 100%; justify-content: space-between;border-bottom: 1px solid black">
+        <div style="width: 18%">Fecha</div>
+        <div style="width: 33%">Concepto</div>
+        <div style="width: 18%">Importe</div>
+        <div style="width: 18%">Disponible</div>
+      </div>
+
+      <div style="height: 90%; overflow: auto;text-align: center; width: 100%">
+        <div v-for="(movement, i) in movements" :key="i"
+             style="width: 100%;display: flex;justify-content: space-between">
+          <div style="width: 18%">{{ movement.Fecha }}</div>
+
+          <div style="width: 33%;text-align: justify">
+            {{ movement.Concepto }}
+          </div>
+
+          <div style="width: 18%;text-align: justify">
+            {{ movement.Importe }} {{ movement.Divisa }}
+          </div>
+
+          <div style="width: 18%">{{ movement.Disponible }}
+            {{ movement.Divisa }}
+          </div>
+        </div>
       </div>
     </div>
 
