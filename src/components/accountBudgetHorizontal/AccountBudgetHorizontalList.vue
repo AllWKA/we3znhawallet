@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import AccountBudgetHorizontalItem from "@/components/accountBudgetHorizontal/AccountBudgetHorizontalItem";
+import AccountBudgetHorizontalItem from "./AccountBudgetHorizontalItem";
 
 export default {
   name: "AccountBudgetHorizontalList",

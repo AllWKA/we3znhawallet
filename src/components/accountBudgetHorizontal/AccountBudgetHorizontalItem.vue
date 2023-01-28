@@ -2,7 +2,7 @@
   <div class="account-budget-horizontal-item-container">
     <h3>{{ budget.name }}</h3>
     <ProgressBar
-        :progress="budget.amountSpent"
+        :progress="budget.currentSpent"
         :total="budget.maxExpense"
         progress-color="green"
         total-color="blue"
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import ProgressBar from "@/components/ProgressBar";
+import ProgressBar from "../ProgressBar";
 
 export default {
   name: "AccountBudgetHorizontalItem",

@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import AccountListItem from "@/components/AccountListItem.vue";
-import ModalCreateEditAccount from "@/components/modal/ModalCreateEditAccount";
-import RequestErrorModal from "@/components/modal/RequestErrorModal";
+import AccountListItem from "../components/AccountListItem.vue";
+import ModalCreateEditAccount from "../components/modal/ModalCreateAccount";
+import RequestErrorModal from "../components/modal/RequestErrorModal";
 
 export default {
   name: "Home",

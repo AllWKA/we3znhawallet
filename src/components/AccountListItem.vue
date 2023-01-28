@@ -22,7 +22,7 @@
       </div>
 
       <div class="controllers">
-        <button @click="navigateTo(`/accountData/${account.id}`) ">
+        <button @click="navigateTo(`/account/${account.id}`)">
             <span>
               <img :src="openDetailIconPath" alt="open-detail-icon" style="width: 24px; height: 20px">
             </span>

@@ -16,7 +16,7 @@
 
           <select name="type" v-model="type">
             <option value="account">Cuenta</option>
-<!--            <option value="card">Tarjeta</option>-->
+            <!--<option value="card">Tarjeta</option>-->
           </select>
         </div>
 
@@ -31,15 +31,7 @@
             min="0000"
             max="9999"
         />
-
-        <input
-            type="number"
-            v-model="currentBalance"
-            placeholder="saldo actual de la cuenta"
-            required
-            style="width: 90%"
-        />
-
+        <!--TODO: import movements directly and use this just to create account-->
         <button :disabled="validateSubmitPin" @click="submit">{{ createMode ? 'Crear' : 'Editar' }}</button>
       </div>
     </div>
@@ -50,7 +42,7 @@
 import Modal from '@/components/modal/Modal'
 
 export default {
-  name: "ModalCreateEditAccount",
+  name: 'ModalCreateEditAccount',
   components: {
     Modal
   },
@@ -60,15 +52,14 @@ export default {
   },
   data() {
     return {
-      cardNumbers: '',
-      currentBalance: 0,
+      cardNumbers: '0000',
       createMode: false,
       type: 'account'
     }
   },
   methods: {
     closeModal() {
-      this.$emit("close")
+      this.$emit('close')
 
       this.resetForm()
     },
@@ -79,35 +70,34 @@ export default {
         method: this.createMode ? 'POST' : 'PUT',
         account: {
           cardNumbers: this.cardNumbers,
-          currentBalance: this.currentBalance,
           type: this.type
         }
       })
 
       this.resetForm()
 
-      this.$emit("close")
+      this.$emit('close')
     },
     resetForm() {
       if (this.account) {
         this.cardNumbers = this.account.cardNumbers
-        this.currentBalance = this.account.currentAccountBalance
       } else {
         this.cardNumbers = ''
-        this.currentBalance = 0
         this.createMode = true
       }
     }
   },
   computed: {
     validateSubmitPin() {
+      if (!this.cardNumbers) {
+        return false
+      }
       return this.cardNumbers.length === 0
     }
   },
-  mounted() {
+  beforeMount() {
     if (this.account) {
       this.cardNumbers = this.account.cardNumbers
-      this.currentBalance = this.account.currentAccountBalance
     } else {
       this.createMode = true
     }

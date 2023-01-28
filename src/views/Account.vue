@@ -8,24 +8,22 @@
       <div style="display:flex;justify-content: center; align-items: center;width: 30%">
         <button @click="importFile"
                 style="display: flex; justify-content: center; align-items: center;width: 35%; height: 35%">
-          <span style="display: flex; justify-content: center; align-items: center"
-                @click="showModalCreateEditAccount = true">
+          <span style="display: flex; justify-content: center; align-items: center">
             <img src="../assets/icons/file-download-outline.svg" alt="importar_excel" style="width: 24px; height: 24px">
           </span>
           <span>Importar</span>
         </button>
 
         <button style="display: flex; justify-content: center; align-items: center;width: 35%; height: 35%">
-          <span style="display: flex; justify-content: center; align-items: center"
-                @click="showModalCreateEditAccount = true">
+          <span style="display: flex; justify-content: center; align-items: center">
             <img src="../assets/icons/file-upload-outline.svg" alt="exportar_excel" style="width: 24px; height: 24px">
           </span>
           <span>Exportar</span>
         </button>
 
-        <button style="display: flex; justify-content: center; align-items: center;width: 35%; height: 35%">
-          <span style="display: flex; justify-content: center; align-items: center"
-                @click="showModalCreateEditAccount = true">
+        <button style="display: flex; justify-content: center; align-items: center;width: 35%; height: 35%"
+                @click="$router.push(`/account/settings/${accountId}`)">
+          <span style="display: flex; justify-content: center; align-items: center">
             <img src="../assets/icons/cog-outline.svg" alt="exportar_excel" style="width: 24px; height: 24px">
           </span>
           <span>Configuración</span>
@@ -52,8 +50,11 @@
       <div
           style="text-align: center; display: flex;width: 100%; justify-content: space-between;border-bottom: 1px solid black">
         <div style="width: 18%">Fecha</div>
+
         <div style="width: 33%">Concepto</div>
+
         <div style="width: 18%">Importe</div>
+
         <div style="width: 18%">Disponible</div>
       </div>
 
@@ -86,8 +87,8 @@
 </template>
 
 <script>
-import AccountBudgetHorizontalList from '@/components/accountBudgetHorizontal/AccountBudgetHorizontalList'
-import ConfirmMovementsToAdd from '@/components/modal/ConfirmMovementsToAdd'
+import AccountBudgetHorizontalList from '../components/accountBudgetHorizontal/AccountBudgetHorizontalList'
+import ConfirmMovementsToAdd from '../components/modal/ConfirmMovementsToAdd'
 
 export default {
   name: 'Account',
@@ -134,6 +135,8 @@ export default {
       this.accountId = account.id
 
       this.movements = account.movements
+
+      this.budgetList = account.budgets
     },
     closeConfirmMovementsModal() {
       this.updateAccountInfo()

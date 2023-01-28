@@ -3,8 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login'
 import Test from '../views/Test'
-import Signin from "../views/Signin"
-import Account from "@/views/Account";
+import Signin from '../views/Signin'
+import Account from '@/views/Account'
+import AccountSettings from '../views/AccountSettings'
 import axios from 'axios'
 
 Vue.use(VueRouter)
@@ -26,9 +27,14 @@ const routes = [
     component: Signin
   },
   {
-    path: '/accountData/:accountId',
-    name: 'Test',
+    path: '/account/:accountId',
+    name: 'Account',
     component: Account
+  },
+  {
+    path: '/account/settings/:accountId',
+    name: 'AccountSettings',
+    component: AccountSettings
   },
   {
     path: '/test',
@@ -53,13 +59,13 @@ router.beforeEach(async (to, from, next) => {
   }
 
   try {
-    const config = { headers: { authorization: `Bearer ${window.sessionStorage.token}` } }
+    const config = {headers: {authorization: `Bearer ${window.sessionStorage.token}`}}
 
     await axios.get('http://localhost:8090/validate/token', config)
 
     next()
   } catch (e) {
-    next({ path: '/' })
+    next({path: '/'})
   }
 })
 
