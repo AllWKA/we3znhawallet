@@ -1,13 +1,13 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import * as controllers from '@/api/controllers/main'
-import { addMovementsInAccount, processBankAccountMovements } from '@/api/controllers/main'
+import * as controllers from './controllers/main'
+import {addMovementsInAccount, createNewBudget, processBankAccountMovements} from './controllers/main'
 
 const app = express()
 const port = process.env.SERVER_PORT
 
-app.use(bodyParser.json({ type: 'application/json' }))
+app.use(bodyParser.json({type: 'application/json'}))
 
 app.use(cors())
 
@@ -53,7 +53,7 @@ app.post('/account/movements/add/:accountId', (req, res) => {
 
     res.status(200).send()
   } catch (e) {
-    res.send(500);
+    res.send(500)
   }
 })
 
@@ -63,7 +63,17 @@ app.post('/account/movements/process/:accountId', (req, res) => {
 
     res.json(response)
   } catch (err) {
-    res.send(err);
+    res.send(err)
+  }
+})
+
+app.post('/account/budget/:accountId', (req, res) => {
+  try {
+    createNewBudget(req.body, req.params.accountId)
+
+    res.send(204)
+  } catch (err) {
+    res.send(err)
   }
 })
 

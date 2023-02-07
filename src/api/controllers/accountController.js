@@ -23,7 +23,7 @@ export function createAccount(account) {
 
   const id = accounts.length
 
-  accounts.push({id, ...account, movements: []})
+  accounts.push({id, ...account, movements: [], budgets: []})
 
   try {
     saveLocalFile(accounts, accountStorageFileName)
@@ -75,11 +75,7 @@ export function addMovementsInAccount(movements, accountId) {
 
   account.movements = account.movements.concat(movements)
 
-  const accounts = getAccountList()
-
-  const accountsUpdated = updateAccount(account, accounts)
-
-  saveLocalFile(accountsUpdated, accountStorageFileName)
+  updateAccount(account)
 }
 
 export function processBankAccountMovements(filePath, accountId) {
@@ -149,14 +145,30 @@ export function processBankAccountMovements(filePath, accountId) {
   }
 }
 
-function updateAccount(account, accountList) {
+export function createNewBudget(budget, accountId) {
+  let account
+
+  try {
+    account = getAccount(accountId)
+  } catch (e) {
+    throw new Error(e.message)
+  }
+
+  account.budgets.push(budget)
+
+  updateAccount(account)
+}
+
+function updateAccount(account) {
+  const accountList = getAccountList()
+
   const accountsPosition = accountList.map(account => account.id).indexOf(account.id)
 
-  account.movements = account.movements.sort((a, b) => b.FechaCruda-a.FechaCruda)
+  account.movements = account.movements.sort((a, b) => b.FechaCruda - a.FechaCruda)
 
   account.currentBalance = account.movements[0].Disponible
 
   accountList[accountsPosition] = account
 
-  return accountList
+  saveLocalFile(accountList, accountStorageFileName)
 }
