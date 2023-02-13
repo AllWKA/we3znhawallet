@@ -1,9 +1,19 @@
 <template>
   <div class="main-container">
     <h1>We3znha Wallet</h1>
+
     <form class="login-form" @submit="submitLogin">
-      <input type="password" v-model="pin" maxlength="4" minlength="4" placeholder="pin" required>
-      <button :disabled="pin.length !== 4">Entrar</button>
+      <input type="password"
+             v-model="pin"
+             maxlength="4"
+             minlength="4"
+             placeholder="pin"
+             required
+             style="border: 0"
+      >
+
+      <button :disabled="pin.length !== 4" class="surface on-surface" style="margin-top: 3%">Entrar</button>
+
       <p class="error-message">{{ errorMessage }}</p>
     </form>
   </div>
@@ -11,7 +21,7 @@
 
 <script>
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
       pin: '',
@@ -27,7 +37,7 @@ export default {
       }
 
       try {
-        const response = await this.$axios.post('/login', { pin: this.pin })
+        const response = await this.$axios.post('/login', {pin: this.pin})
 
         if (response.data) {
           sessionStorage['token'] = response.data

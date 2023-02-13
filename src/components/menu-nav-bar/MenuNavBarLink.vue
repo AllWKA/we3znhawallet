@@ -1,5 +1,5 @@
 <template>
-  <div @click="navigate" class="container">
+  <div @click="navigate" class="container on-surface">
     <span style="display: flex; justify-content: center; align-items: center">
       <img :src="iconPath" :alt="`${icon}-icon`" style="width: 24px; height: 24px">
     </span>
@@ -56,7 +56,6 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  color: black;
   justify-content: center;
   align-items: center;
   text-wrap: none;

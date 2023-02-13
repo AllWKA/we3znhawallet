@@ -143,7 +143,7 @@ export default {
 }
 
 .budget {
-  border: 1px solid black;
+  border: 1px solid #adc1c2;
   padding: 10px 20px 0 20px;
   margin: 0 2%;
   text-align: center;

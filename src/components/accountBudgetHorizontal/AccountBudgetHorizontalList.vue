@@ -33,6 +33,8 @@ export default {
   display: flex;
   width: 95%;
   overflow-x: scroll;
+  padding-bottom: 3%;
+  background-color: #2c2927;
 }
 
 </style>

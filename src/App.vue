@@ -1,23 +1,23 @@
 <template>
-  <div class="app">
+  <div class="app background-color on-background">
     <div style="height: 100%;width: 80px" v-if="showLeftMenu">
       <MenuNavBar/>
     </div>
 
     <div style="width: 95%; height: 100%">
-      <router-view />
+      <router-view/>
     </div>
 
     <RequestErrorModal
-      :show="showRequestErrorModal"
-      :error-message="requestErrorMessage"
-      @close="showRequestErrorModal = false"
+        :show="showRequestErrorModal"
+        :error-message="requestErrorMessage"
+        @close="showRequestErrorModal = false"
     />
   </div>
 </template>
 <script>
-import MenuNavBar from "@/components/menu-nav-bar/MenuNavBar.vue"
-import RequestErrorModal from "@/components/modal/RequestErrorModal"
+import MenuNavBar from '@/components/menu-nav-bar/MenuNavBar.vue'
+import RequestErrorModal from '@/components/modal/RequestErrorModal'
 
 export default {
   components: {
@@ -27,19 +27,19 @@ export default {
   data() {
     return {
       showRequestErrorModal: false,
-      requestErrorMessage: "",
+      requestErrorMessage: '',
     }
   },
   mounted() {
     this.$axios.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        this.showRequestErrorModal = true
+        (response) => response,
+        (error) => {
+          this.showRequestErrorModal = true
 
-        this.requestErrorMessage = error.message
+          this.requestErrorMessage = error.message
 
-        return Promise.reject(error)
-      }
+          return Promise.reject(error)
+        }
     )
   },
   computed: {
@@ -65,7 +65,54 @@ body {
 }
 
 .error-message {
-  color: red;
+  color: #f86060;
+}
+
+.background-color {
+  background-color: #121212;
+}
+
+.surface {
+  background-color: #332F2E;
+}
+
+.primary {
+}
+
+.secondary {
+}
+
+/* characters colors */
+
+.on-background {
+  color: #adc1c2;
+}
+
+.on-surface {
+  color: #adc1c2
+}
+
+.on-primary {
+}
+
+.on-secondary {
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #adc1c2
+}
+
+input {
+  background-color: #332F2E;
+  color: #adc1c2
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  border: none;
 }
 </style>
 

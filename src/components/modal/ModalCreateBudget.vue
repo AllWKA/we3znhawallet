@@ -1,6 +1,6 @@
 <template>
   <Modal :show-content="show">
-    <div style="height: 70vh;width: 90vh;background-color: white;display: flex; flex-direction: column;padding: 3%">
+    <div class="create-budget-container background-color on-background">
       <div style="display: flex; justify-content: space-between; width: 100%; align-items: center">
         <h1 style="width: 93%; text-align: center">Crea un nuevo modal</h1>
 
@@ -111,5 +111,12 @@ export default {
 </script>
 
 <style scoped>
-
+.create-budget-container {
+  height: 70vh;
+  width: 90vh;
+  display: flex;
+  flex-direction: column;
+  padding: 3%;
+  border: 1px solid #adc1c2;
+}
 </style>

@@ -1,52 +1,52 @@
 <template>
-  <div class="account-list-container">
-    <div class="accordion-container">
-      <div class="account-info-container">
-        <div style="margin-right: 10%; display: flex;justify-content: center;align-items: center">
-          <div v-if="account.type === 'account'">
-            <img src="../assets/icons/piggy-bank-outline.svg" alt="type-icon">
-          </div>
-
-          <div v-else>
-            <img src="../assets/icons/credit-card-outline.svg" alt="type-icon">
-          </div>
-
-          <span style="margin-right: 3%;margin-left: 3%; width: 60px">: {{ account.cardNumbers }}</span>
+  <div class="account-list-container surface">
+    <div class="account-info-container">
+      <div style="margin-right: 5%; display: flex;justify-content: center;align-items: center">
+        <div v-if="account.type === 'account'">
+          <img src="../assets/icons/piggy-bank-outline.svg" alt="type-icon">
         </div>
+
+        <div v-else>
+          <img src="../assets/icons/credit-card-outline.svg" alt="type-icon">
+        </div>
+
+        <span style="margin-right: 3%;margin-left: 3%; width: 60px">: {{ account.cardNumbers }}</span>
       </div>
+    </div>
 
-      <p style="width: 130px;">Saldo: {{ account.currentBalance }} €</p>
+    <div class="current-balance-container">
+      <p>Saldo: {{ account.currentBalance }} €</p>
+    </div>
 
-      <div class="account-budgets-container">
-        <AccountBudgetHorizontalList :budget-list="budgetList"/>
-      </div>
+    <!--    <div class="account-budgets-container">-->
+    <!--      <AccountBudgetHorizontalList :budget-list="account.budgets"/>-->
+    <!--    </div>-->
 
-      <div class="controllers">
-        <button @click="navigateTo(`/account/${account.id}`)">
+    <div class="controllers">
+      <button @click="navigateTo(`/account/${account.id}`)" class="surface">
             <span>
               <img :src="openDetailIconPath" alt="open-detail-icon" style="width: 24px; height: 20px">
             </span>
-        </button>
+      </button>
 
-        <button @click="sendControllerEvent($event,'delete')">
+      <button @click="sendControllerEvent($event,'delete')" class="surface">
             <span>
               <img :src="deleteAccountIconPath" alt="close-icon" style="width: 24px; height: 20px">
             </span>
-        </button>
-      </div>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import resolveIconPath from '../helpers/icon-resolver';
-import AccountBudgetHorizontalList from "@/components/accountBudgetHorizontal/AccountBudgetHorizontalList";
+import resolveIconPath from '../helpers/icon-resolver'
+// import AccountBudgetHorizontalList from '../components/accountBudgetHorizontal/AccountBudgetHorizontalList'
 
 export default {
-  name: "AccountListItem",
-  components: {
-    AccountBudgetHorizontalList
-  },
+  name: 'AccountListItem',
+  // components: {
+  //   AccountBudgetHorizontalList
+  // },
   props: {
     account: Object
   },
@@ -66,12 +66,6 @@ export default {
     }
   },
   computed: {
-    addSubAccountIconPath() {
-      return resolveIconPath('plus-circle')
-    },
-    editAccountIconPath() {
-      return resolveIconPath('pencil')
-    },
     deleteAccountIconPath() {
       return resolveIconPath('trash-can')
     },
@@ -94,9 +88,20 @@ button {
   margin-right: 3%;
 }
 
+.current-balance-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 30%;
+  height: 100%;
+}
+
 .account-list-container {
   width: 100%;
-  height: 100%;
+  height: 95%;
+  display: flex;
+  justify-content: flex-start;
   border: 1px solid black;
 }
 
@@ -109,10 +114,11 @@ button {
 }
 
 .account-budgets-container {
-  width: 40%;
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #2c2927;
 }
 
 .controllers {
@@ -120,11 +126,5 @@ button {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-
-.accordion-container {
-  display: flex;
-  width: 100%;
-  justify-content: flex-start;
 }
 </style>

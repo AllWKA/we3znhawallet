@@ -1,32 +1,27 @@
 <template>
   <div class="account-container">
-    <div style="display: flex">
-      <h1 style="text-align: center; width: 30%">Account: {{ account.cardNumbers }}</h1>
+    <div style="display: flex; width: 100%; justify-content: space-around; align-items: center">
+      <h1 style="text-align: center; width: 40%">Account: {{ account.cardNumbers }}</h1>
 
-      <h1 style="text-align: center; width: 30%">Saldo: {{ account.currentBalance }} €</h1>
+      <h1 style="text-align: center; width: 40%">Saldo: {{ account.currentBalance }} €</h1>
 
-      <div style="display:flex;justify-content: center; align-items: center;width: 30%">
-        <button @click="importFile"
-                style="display: flex; justify-content: center; align-items: center;width: 35%; height: 35%">
+      <div style="display:flex;justify-content: space-around; align-items: center;width: 10%">
+        <button @click="importFile" class="button-controller surface">
           <span style="display: flex; justify-content: center; align-items: center">
             <img src="../assets/icons/file-download-outline.svg" alt="importar_excel" style="width: 24px; height: 24px">
           </span>
-          <span>Importar</span>
         </button>
 
-        <button style="display: flex; justify-content: center; align-items: center;width: 35%; height: 35%">
+        <button class="button-controller surface">
           <span style="display: flex; justify-content: center; align-items: center">
             <img src="../assets/icons/file-upload-outline.svg" alt="exportar_excel" style="width: 24px; height: 24px">
           </span>
-          <span>Exportar</span>
         </button>
 
-        <button style="display: flex; justify-content: center; align-items: center;width: 35%; height: 35%"
-                @click="$router.push(`/account/settings/${accountId}`)">
+        <button class="button-controller surface" @click="$router.push(`/account/settings/${accountId}`)">
           <span style="display: flex; justify-content: center; align-items: center">
             <img src="../assets/icons/cog-outline.svg" alt="exportar_excel" style="width: 24px; height: 24px">
           </span>
-          <span>Configuración</span>
         </button>
       </div>
 
@@ -46,9 +41,8 @@
     <!--      </div>-->
     <!--    </div>-->
 
-    <div style="height: 50%">
-      <div
-          style="text-align: center; display: flex;width: 100%; justify-content: space-between;border-bottom: 1px solid black">
+    <div style="height: 50%; background-color: #332F2E; width: 90%; padding-top: 1%">
+      <div class="table-header-container">
         <div style="width: 18%">Fecha</div>
 
         <div style="width: 33%">Concepto</div>
@@ -58,9 +52,8 @@
         <div style="width: 18%">Disponible</div>
       </div>
 
-      <div style="height: 90%; overflow: auto;text-align: center; width: 100%">
-        <div v-for="(movement, i) in movements" :key="i"
-             style="width: 100%;display: flex;justify-content: space-between">
+      <div class="rows-container">
+        <div v-for="(movement, i) in movements" :key="i" class="table-row">
           <div style="width: 18%">{{ movement.Fecha }}</div>
 
           <div style="width: 33%;text-align: justify">
@@ -158,6 +151,7 @@ export default {
   height: 100%;
   width: 100%;
   justify-content: space-around;
+  align-items: center;
 }
 
 .budget-container {
@@ -175,5 +169,36 @@ export default {
   margin-right: 5%;
   border-bottom: 1px solid black;
   border-top: 1px solid black;
+}
+
+.button-controller {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 34px;
+  height: 34px;
+}
+
+.table-header-container {
+  text-align: center;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 2%;
+}
+
+.rows-container {
+  height: 90%;
+  overflow: auto;
+  text-align: center;
+  width: 100%;
+}
+
+.table-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #adc1c2;
 }
 </style>

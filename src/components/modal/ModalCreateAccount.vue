@@ -1,6 +1,6 @@
 <template>
   <Modal :show-content="showContent">
-    <div class="create-edit-container">
+    <div class="create-edit-container background-color">
       <div style="display: flex; justify-content: center; align-items: center">
         <h2 style="text-align: center; width: 100%">{{ createMode ? 'Crear' : 'Editar' }} Cuenta</h2>
 
@@ -107,10 +107,9 @@ export default {
 
 <style scoped>
 .create-edit-container {
-  background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid #adc1c2;
   width: 30%;
   height: 30%;
 }
