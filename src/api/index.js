@@ -2,7 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import * as controllers from './controllers/main'
-import {addMovementsInAccount, createNewBudget, processBankAccountMovements} from './controllers/main'
+import {addMovementsInAccount, createNewBudget, deleteBudget, processBankAccountMovements} from './controllers/main'
 
 const app = express()
 const port = process.env.SERVER_PORT
@@ -70,6 +70,16 @@ app.post('/account/movements/process/:accountId', (req, res) => {
 app.post('/account/budget/:accountId', (req, res) => {
   try {
     createNewBudget(req.body, req.params.accountId)
+
+    res.send(204)
+  } catch (err) {
+    res.send(err)
+  }
+})
+
+app.post('/account/budget/delete/:accountId', (req, res) => {
+  try {
+    deleteBudget(req.body, req.params.accountId)
 
     res.send(204)
   } catch (err) {

@@ -100,6 +100,12 @@ export default {
       this.$emit('newBudget', budget)
 
       this.$emit('close')
+
+      this.associatedConcepts = []
+
+      this.maxExpense = 0
+
+      this.amountToSendWarning = 0
     }
   },
   watch: {

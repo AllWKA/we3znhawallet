@@ -154,7 +154,27 @@ export function createNewBudget(budget, accountId) {
     throw new Error(e.message)
   }
 
-  account.budgets.push(budget)
+  const budgetAlreadyExist = account.budgets.find(budgetIn => budgetIn.name === budget.name)
+
+  if (budgetAlreadyExist) {
+    throw new Error('Budget already exist')
+  }
+
+  account.budgets.push({...budget, currentSpent: 0})
+
+  updateAccount(account)
+}
+
+export function deleteBudget(budget, accountId) {
+  let account
+
+  try {
+    account = getAccount(accountId)
+  } catch (e) {
+    throw new Error(e.message)
+  }
+
+  account.budgets = account.budgets.filter(budgetIn => budgetIn.name !== budget.name)
 
   updateAccount(account)
 }

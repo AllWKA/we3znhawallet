@@ -17,7 +17,7 @@
 
         <p>{{ percentageUsed(budget.maxExpense, budget.currentSpent) }} %</p>
 
-        <button>Borrar</button>
+        <button @click="deleteBudget(budget)">Borrar</button>
       </div>
     </div>
 
@@ -116,6 +116,11 @@ export default {
       const setMovements = new Set(this.account.movements.map(concept => concept.Concepto))
 
       this.allConcepts = Array.from(setMovements)
+    },
+    async deleteBudget(budget) {
+      await this.$axios.post(`/account/budget/delete/${this.account.id}`, budget)
+
+      await this.getAccountInfo()
     }
   },
   beforeMount() {
