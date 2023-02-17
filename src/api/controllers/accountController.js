@@ -1,5 +1,6 @@
 import {readLocalFile, saveLocalFile} from '@/api/controllers/fileManager'
 import excelToJson from 'convert-excel-to-json'
+import moment from 'moment'
 import {readFileSync} from 'fs'
 
 const accountStorageFileName = 'accounts.json'
@@ -188,7 +189,49 @@ function updateAccount(account) {
 
   account.currentBalance = account.movements[0].Disponible
 
+  account = updateBudgets(account)
+
   accountList[accountsPosition] = account
 
   saveLocalFile(accountList, accountStorageFileName)
+}
+
+function updateBudgets(account) {
+  const movements = getMovementsInCurrentMonth(account.movements)
+
+  account.budgets = account.budgets.map(budget => {
+    const imports = []
+
+    budget.associatedConcepts.forEach(associatedConcept => {
+      movements
+        .filter(movement => movement.Concepto === associatedConcept)
+        .map(movement => movement.Importe)
+        .forEach(importQuantity => imports.push(importQuantity))
+    })
+
+    budget.currentSpent = imports.reduce((sum, a) => sum + a, 0)
+
+    return budget
+  })
+
+  return account
+}
+
+function getMovementsInCurrentMonth(movements) {
+  const format = 'DD/MM/YYYY'
+
+  const daysInMonth = moment().daysInMonth()
+
+  const currentMonth = moment().month() + 1
+
+  const currentYear = moment().year()
+
+  const startDate = moment(`1/${currentMonth}/${currentYear}`, format)
+
+  const endDate = moment(`${daysInMonth}/${currentMonth}/${currentYear}`, format)
+
+  return movements
+    .filter(movement =>
+      moment(movement.Fecha, format).isBetween(startDate, endDate)
+    )
 }
