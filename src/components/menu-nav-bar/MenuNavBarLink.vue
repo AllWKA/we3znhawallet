@@ -3,6 +3,7 @@
     <span style="display: flex; justify-content: center; align-items: center">
       <img :src="iconPath" :alt="`${icon}-icon`" style="width: 24px; height: 24px">
     </span>
+    <!-- TODO: show it -->
     <span style="width: 100%; text-align: center">{{ tooltipText }}</span>
   </div>
 </template>

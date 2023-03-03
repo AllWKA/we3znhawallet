@@ -2,12 +2,8 @@
   <div class="account-settings-container">
     <h1 style="text-align: center">{{ account.cardNumbers }} - {{ account.currentBalance }} €</h1>
 
-    <div class="budget-list-controllers">
-      <button style="margin-left: 2%" @click="showCreateBudgetModal = true">Crear nuevo presupuesto</button>
-    </div>
-
     <div class="budgets-list-container">
-      <div v-for="budget in account.budgets" :key="budget.id" class="budget" @click="currentBudget = budget">
+      <div v-for="budget in account.budgets" :key="budget.id" class="budget" @click="selectBudget(budget)">
 
         <span style="display: flex; justify-content: center; align-items: center">
           <img :src="iconPath(budget.icon)" alt="budget-icon" style="width: 24px; height: 24px">
@@ -21,9 +17,17 @@
       </div>
     </div>
 
+    <div class="budget-list-controllers">
+      <button style="margin-left: 3%" @click="showCreateBudgetModal = true">Crear nuevo presupuesto</button>
+    </div>
+
     <div class="budget-config-container">
-      <div style="height: 100%; width: 100%;" v-if="currentBudget">
-        <div class="select-concept-container" style="height:5%">
+      <div style="height: 100%; width: 100%" v-if="currentBudget">
+        <div style="margin-left: 3%">
+          <h3>{{ currentBudget.name }}</h3>
+        </div>
+
+        <div class="select-concept-container">
           <label for="icon">Icono: </label>
 
           <input type="text" v-model="currentBudget.icon" id="icon">
@@ -34,32 +38,24 @@
 
           <label for="maxExpense">Gasto máximo: </label>
 
-          <input type="text" v-model="currentBudget.maxExpense" id="maxExpense">
+          <input type="number" v-model="currentBudget.maxExpense" id="maxExpense">
 
           <label for="amountToSendAlarm">Cantidad para alarma: </label>
 
-          <input type="text" v-model="currentBudget.amountToSendAlarm" id="amountToSendAlarm">
+          <input type="number" v-model="currentBudget.amountToSendAlarm" id="amountToSendAlarm">
         </div>
 
-        <!-- TODO: replace with component selectConcepts -->
-        <div class="select-concept-container" style="height: 95%">
-          <div style="height: 100%; width: 49%;padding-left: 3%">
-            <h2>Conceptos disponibles en la cuenta:</h2>
+        <div class="select-concept-container">
+          <SelectConceptsForBudget
+              :all-concepts="allConcepts"
+              :associated-concepts="currentBudget.associatedConcepts"
+              @addConceptToAssociated="addConceptToAssociated"
+              @removeConceptToAssociated="removeConceptToAssociated"
+          />
+        </div>
 
-            <div class="all-concept-container">
-              <span v-for="concept in allConcepts" :key="concept">{{ concept }}</span>
-            </div>
-          </div>
-
-          <div style="height: 100%; width: 49%;padding-left: 3%">
-            <h2>Conceptos asociados al presupuesto:</h2>
-
-            <div class="associated-concept-container">
-              <span v-for="associatedConcept in currentBudget.associatedConcepts" :key="associatedConcept">
-                {{ associatedConcept }}
-              </span>
-            </div>
-          </div>
+        <div style="margin: 3% 0 3% 1%;">
+          <button @click="updateBudget">Guardar</button>
         </div>
       </div>
 
@@ -80,11 +76,13 @@
 <script>
 import resolveIconPath from '../helpers/icon-resolver'
 import ModalCreateBudget from '../components/modal/ModalCreateBudget'
+import SelectConceptsForBudget from '../components/SelectConceptsForBudget'
 
 export default {
   name: 'AccountSettings',
   components: {
-    ModalCreateBudget
+    ModalCreateBudget,
+    SelectConceptsForBudget
   },
   data() {
     return {
@@ -103,6 +101,26 @@ export default {
 
       return Math.round(percentage)
     },
+    addConceptToAssociated(newConcept) {
+      const repeatedConcept = this.currentBudget.associatedConcepts.find(associatedConcept => associatedConcept === newConcept)
+
+      if (!repeatedConcept) {
+        this.currentBudget.associatedConcepts.push(newConcept)
+
+        this.allConcepts = this.allConcepts.filter(concept => concept !== newConcept)
+      }
+    },
+    removeConceptToAssociated(concept) {
+      const associatedConcept = this.currentBudget.associatedConcepts.find(associatedConcept => associatedConcept === concept)
+
+      if (associatedConcept) {
+        this.currentBudget.associatedConcepts = this.currentBudget.associatedConcepts.filter(conceptInArray => conceptInArray !== associatedConcept)
+
+        this.localAllConcepts.push(concept)
+
+        this.localAllConcepts.sort()
+      }
+    },
     async createBudget(budget) {
       // TODO: add backend, catch
       await this.$axios.post(`/account/budget/${this.account.id}`, budget)
@@ -110,6 +128,12 @@ export default {
       await this.getAccountInfo()
     },
     async getAccountInfo() {
+      this.account = {}
+
+      this.currentBudget = null
+
+      this.allConcepts = []
+
       this.account = (await this.$axios.get(`/account/${this.$route.params.accountId}`)).data
 
       // TODO: add this in update account
@@ -121,6 +145,18 @@ export default {
       await this.$axios.post(`/account/budget/delete/${this.account.id}`, budget)
 
       await this.getAccountInfo()
+    },
+    selectBudget(budget) {
+      this.currentBudget = budget
+    },
+    updateBudget() {
+      const budget = {
+        ...this.currentBudget,
+        maxExpense: Number.parseFloat(this.currentBudget.maxExpense),
+        amountToSendAlarm: Number.parseFloat(this.currentBudget.amountToSendAlarm)
+      }
+
+      this.$axios.put(`/account/budget/${this.account.id}`, budget)
     }
   },
   beforeMount() {
@@ -134,17 +170,20 @@ export default {
 .account-settings-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   height: 100%;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
 }
 
 .budgets-list-container {
   display: flex;
   overflow: auto;
-  width: 100%;
-  padding-bottom: 3%;
+  width: 95%;
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
 }
 
 .budget {
@@ -156,11 +195,13 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  background-color: #403B36;
 }
 
 .budget-config-container {
-  width: 100%;
-  height: 70%;
+  width: 96%;
+  margin-top: 3%;
+  background-color: var(--color-surface);
 }
 
 .no-budget-message-container {
@@ -175,28 +216,10 @@ export default {
   justify-content: space-around;
 }
 
-.all-concept-container {
-  height: 90%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  overflow: auto;
-}
-
-.associated-concept-container {
-  height: 90%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  overflow: auto;
-}
-
 .budget-list-controllers {
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  margin: 3% 0;
+  margin: 1% 0;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar surface">
+  <div class="sidebar">
     <div class="menu-navigation">
       <MenuNavBarLink to="/home" icon="bank-outline" :tooltip-text="'Cuentas'"/>
 
@@ -7,7 +7,7 @@
     </div>
 
     <div class="menu-footer">
-      <button style="margin-right: 2%;border: none" class="surface">
+      <button class="logout-button">
         <span class="close" @click="logOut">
           <img src="../../assets/icons/exit-to-app.svg" alt="close-icon">
         </span>
@@ -17,10 +17,10 @@
 </template>
 
 <script>
-import MenuNavBarLink from "../menu-nav-bar/MenuNavBarLink.vue"
+import MenuNavBarLink from '../menu-nav-bar/MenuNavBarLink.vue'
 
 export default {
-  name: "MenuNavBar",
+  name: 'MenuNavBar',
   components: {
     MenuNavBarLink
   },
@@ -45,6 +45,8 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
 }
 
 .menu-navigation {
@@ -61,5 +63,11 @@ export default {
   width: 100%;
   padding-bottom: 1%;
   padding-right: 1%;
+}
+
+.logout-button {
+  margin-right: 2%;
+  border: none;
+  background-color: var(--color-surface);
 }
 </style>

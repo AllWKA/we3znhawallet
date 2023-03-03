@@ -1,6 +1,6 @@
 <template>
   <Modal :show-content="show">
-    <div class="create-budget-container background-color on-background">
+    <div class="create-budget-container">
       <div style="display: flex; justify-content: space-between; width: 100%; align-items: center">
         <h1 style="width: 93%; text-align: center">Crea un nuevo modal</h1>
 
@@ -21,12 +21,12 @@
 
       <div style="width: 100%;display: flex">
         <label for="maxExpense" style="margin-right: 3%; width: 30%">Cantidad máxima: </label>
-        <input type="text" id="maxExpense" v-model="maxExpense" style="width: 40%">
+        <input type="number" id="maxExpense" v-model="maxExpense" style="width: 40%">
       </div>
 
       <div style="width: 100%;display: flex">
         <label for="amountToSendWarning" style="margin-right: 3%; width: 30%">Cantidad para aviso:</label>
-        <input type="text" id="amountToSendWarning" v-model="amountToSendWarning" style="width: 40%">
+        <input type="number" id="amountToSendWarning" v-model="amountToSendWarning" style="width: 40%">
       </div>
 
       <SelectConceptsForBudget
@@ -35,7 +35,8 @@
           @addConceptToAssociated="addConceptToAssociated"
           @removeConceptToAssociated="removeConceptToAssociated"
       />
-      <div style="width: 100%; display: flex; justify-content: flex-end">
+
+      <div class="controllers-container">
         <button style="margin-right: 3%" @click="sendBudget">Crear</button>
         <button @click="$emit('close')">Cancelar</button>
       </div>
@@ -92,8 +93,8 @@ export default {
       const budget = {
         icon: this.icon,
         name: this.name,
-        maxExpense: this.maxExpense,
-        amountToSendWarning: this.amountToSendWarning,
+        maxExpense: Number.parseFloat(this.maxExpense),
+        amountToSendWarning: Number.parseFloat(this.amountToSendWarning),
         associatedConcepts: this.associatedConcepts,
       }
 
@@ -124,5 +125,13 @@ export default {
   flex-direction: column;
   padding: 3%;
   border: 1px solid #adc1c2;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+}
+
+.controllers-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 </style>

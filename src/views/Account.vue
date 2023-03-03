@@ -1,24 +1,24 @@
 <template>
   <div class="account-container">
-    <div style="display: flex; width: 100%; justify-content: space-around; align-items: center">
-      <h1 style="text-align: center; width: 40%">Account: {{ account.cardNumbers }}</h1>
+    <div class="account-header-container">
+      <h1 class="account-header-text">Account: {{ account.cardNumbers }}</h1>
 
-      <h1 style="text-align: center; width: 40%">Saldo: {{ account.currentBalance }} €</h1>
+      <h1 class="account-header-text">Saldo: {{ account.currentBalance }} €</h1>
 
-      <div style="display:flex;justify-content: space-around; align-items: center;width: 10%">
-        <button @click="importFile" class="button-controller surface">
+      <div class="account-header-controllers-container">
+        <button @click="importFile" class="button-controller">
           <span style="display: flex; justify-content: center; align-items: center">
             <img src="../assets/icons/file-download-outline.svg" alt="importar_excel" style="width: 24px; height: 24px">
           </span>
         </button>
 
-        <button class="button-controller surface">
+        <button class="button-controller">
           <span style="display: flex; justify-content: center; align-items: center">
             <img src="../assets/icons/file-upload-outline.svg" alt="exportar_excel" style="width: 24px; height: 24px">
           </span>
         </button>
 
-        <button class="button-controller surface" @click="$router.push(`/account/settings/${accountId}`)">
+        <button class="button-controller" @click="$router.push(`/account/settings/${accountId}`)">
           <span style="display: flex; justify-content: center; align-items: center">
             <img src="../assets/icons/cog-outline.svg" alt="exportar_excel" style="width: 24px; height: 24px">
           </span>
@@ -41,7 +41,7 @@
     <!--      </div>-->
     <!--    </div>-->
 
-    <div style="height: 50%; background-color: #332F2E; width: 90%; padding-top: 1%">
+    <div class="account-movements-table-container">
       <div class="table-header-container">
         <div style="width: 18%">Fecha</div>
 
@@ -144,6 +144,17 @@ export default {
 </script>
 
 <style scoped>
+.account-header-controllers-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 10%;
+}
+
+.account-header-text {
+  text-align: center;
+  width: 40%;
+}
 
 .account-container {
   display: flex;
@@ -152,6 +163,22 @@ export default {
   width: 100%;
   justify-content: space-around;
   align-items: center;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+}
+
+.account-header-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.account-movements-table-container {
+  height: 50%;
+  background-color: #332F2E;
+  width: 90%;
+  padding-top: 1%;
 }
 
 .budget-container {
@@ -177,6 +204,7 @@ export default {
   align-items: center;
   width: 34px;
   height: 34px;
+  background-color: var(--color-surface);
 }
 
 .table-header-container {

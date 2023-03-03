@@ -1,5 +1,5 @@
 <template>
-  <div class="account-list-container surface">
+  <div class="account-list-container">
     <div class="account-info-container">
       <div style="margin-right: 5%; display: flex;justify-content: center;align-items: center">
         <div v-if="account.type === 'account'">
@@ -18,18 +18,18 @@
       <p>Saldo: {{ account.currentBalance }} €</p>
     </div>
 
-    <!--    <div class="account-budgets-container">-->
-    <!--      <AccountBudgetHorizontalList :budget-list="account.budgets"/>-->
-    <!--    </div>-->
+<!--        <div class="account-budgets-container">-->
+<!--          <AccountBudgetHorizontalList :budget-list="account.budgets"/>-->
+<!--        </div>-->
 
     <div class="controllers">
-      <button @click="navigateTo(`/account/${account.id}`)" class="surface">
+      <button @click="navigateTo(`/account/${account.id}`)" class="account-controller">
             <span>
               <img :src="openDetailIconPath" alt="open-detail-icon" style="width: 24px; height: 20px">
             </span>
       </button>
 
-      <button @click="sendControllerEvent($event,'delete')" class="surface">
+      <button @click="sendControllerEvent($event,'delete')" class="account-controller">
             <span>
               <img :src="deleteAccountIconPath" alt="close-icon" style="width: 24px; height: 20px">
             </span>
@@ -102,7 +102,9 @@ button {
   height: 95%;
   display: flex;
   justify-content: flex-start;
-  border: 1px solid black;
+  border: 1px solid var(--color-on-background);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
 }
 
 .account-info-container {
@@ -126,5 +128,9 @@ button {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+.account-controller {
+  background-color: var(--color-surface);
 }
 </style>

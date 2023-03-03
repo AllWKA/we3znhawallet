@@ -93,7 +93,7 @@ export default {
 <style scoped>
 
 .confirm-movement-container {
-  background-color: white;
+  background-color: var(--color-background);
   width: 70vw;
   height: 80vh;
   overflow: auto;
@@ -120,15 +120,17 @@ export default {
   height: 95%;
   overflow: auto;
   flex-direction: column;
+  background-color: var(--color-surface);
 }
 
 .list-row {
   display: flex;
   width: 100%;
   text-align: center;
+  background-color: #3d3837;
 }
 
 .list-row:nth-child(even) {
-  background-color: #E0E0E0FF;
+  background-color: #494442;
 }
 </style>

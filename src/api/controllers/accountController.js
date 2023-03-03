@@ -1,6 +1,7 @@
 import {readLocalFile, saveLocalFile} from '@/api/controllers/fileManager'
 import excelToJson from 'convert-excel-to-json'
 import moment from 'moment'
+import uniqid from 'uniqid'
 import {readFileSync} from 'fs'
 
 const accountStorageFileName = 'accounts.json'
@@ -161,7 +162,7 @@ export function createNewBudget(budget, accountId) {
     throw new Error('Budget already exist')
   }
 
-  account.budgets.push({...budget, currentSpent: 0})
+  account.budgets.push({...budget, currentSpent: 0, id: uniqid()})
 
   updateAccount(account)
 }
@@ -176,6 +177,20 @@ export function deleteBudget(budget, accountId) {
   }
 
   account.budgets = account.budgets.filter(budgetIn => budgetIn.name !== budget.name)
+
+  updateAccount(account)
+}
+
+export function updateBudget(budget, accountId) {
+  let account
+
+  try {
+    account = getAccount(accountId)
+  } catch (e) {
+    throw new Error(e.message)
+  }
+
+  account.budgets = account.budgets.map(budgetIn => budgetIn.id === budget.id ? budget : budgetIn)
 
   updateAccount(account)
 }
@@ -208,8 +223,8 @@ function updateBudgets(account) {
         .map(movement => movement.Importe)
         .forEach(importQuantity => imports.push(importQuantity))
     })
-
-    budget.currentSpent = imports.reduce((sum, a) => sum + a, 0)
+    // TODO:  check why is dont give negative numbers
+    budget.currentSpent = Math.round(imports.reduce((sum, a) => sum + a, 0) * 100) / 100
 
     return budget
   })

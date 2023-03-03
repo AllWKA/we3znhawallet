@@ -16,8 +16,8 @@
   </div>
 </template>
 <script>
-import MenuNavBar from '@/components/menu-nav-bar/MenuNavBar.vue'
-import RequestErrorModal from '@/components/modal/RequestErrorModal'
+import MenuNavBar from './components/menu-nav-bar/MenuNavBar.vue'
+import RequestErrorModal from './components/modal/RequestErrorModal'
 
 export default {
   components: {
@@ -50,12 +50,6 @@ export default {
 }
 </script>
 <style>
-:root {
-  --menu-nav-bar-bg-color: #ffffff;
-  --menu-nav-bar-item-hover: #329a32;
-  --menu-nav-bar-item-active: #1f601f;
-}
-
 html,
 body {
   height: 100vh;
@@ -64,47 +58,21 @@ body {
   overflow: hidden;
 }
 
-.error-message {
-  color: #f86060;
-}
-
-.background-color {
-  background-color: #121212;
-}
-
-.surface {
-  background-color: #332F2E;
-}
-
-.primary {
-}
-
-.secondary {
-}
-
-/* characters colors */
-
-.on-background {
-  color: #adc1c2;
-}
-
-.on-surface {
-  color: #adc1c2
-}
-
-.on-primary {
-}
-
-.on-secondary {
+:root {
+  --color-error-message: #f86060;
+  --color-background: #121212;
+  --color-surface: #332F2E;
+  --color-on-background: #adc1c2;
+  --color-on-surface: #adc1c2;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #adc1c2
+  color: var(--color-on-surface)
 }
 
 input {
-  background-color: #332F2E;
-  color: #adc1c2
+  background-color: var(--color-surface);
+  color: var(--color-on-surface)
 }
 
 input:focus {

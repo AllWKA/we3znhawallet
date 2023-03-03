@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+  <div class="login-container">
     <h1>We3znha Wallet</h1>
 
     <form class="login-form" @submit="submitLogin">
@@ -12,7 +12,7 @@
              style="border: 0"
       >
 
-      <button :disabled="pin.length !== 4" class="surface on-surface" style="margin-top: 3%">Entrar</button>
+      <button :disabled="pin.length !== 4" class="login-button">Entrar</button>
 
       <p class="error-message">{{ errorMessage }}</p>
     </form>
@@ -83,13 +83,15 @@ export default {
 </script>
 
 <style scoped>
-.main-container {
+.login-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
   justify-content: flex-start;
   align-items: center;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
 }
 
 .login-form {
@@ -99,5 +101,15 @@ export default {
   justify-content: center;
   align-content: flex-end;
   margin-top: 5%;
+}
+
+.error-message {
+  color: var(--color-error-message);
+}
+
+.login-button {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  margin-top: 3%;
 }
 </style>

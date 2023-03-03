@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div style="display: flex;width: 100%; justify-content: center; align-items: center">
+    <div class="home-header-container">
       <h1 style="margin-right: 2%">Cuentas bancarias</h1>
 
       <span style="display: flex; justify-content: center; align-items: center"
@@ -21,19 +21,17 @@
                             @submit="submitAccount"
                             @close="showModalCreateEditAccount = false"/>
 
-    <RequestErrorModal :show="showRequestErrorModal"
-                       @close="showRequestErrorModal = false"
-    />
+    <RequestErrorModal :show="showRequestErrorModal" @close="showRequestErrorModal = false"/>
   </div>
 </template>
 
 <script>
-import AccountListItem from "../components/AccountListItem.vue";
-import ModalCreateEditAccount from "../components/modal/ModalCreateAccount";
-import RequestErrorModal from "../components/modal/RequestErrorModal";
+import AccountListItem from '../components/AccountListItem.vue'
+import ModalCreateEditAccount from '../components/modal/ModalCreateAccount'
+import RequestErrorModal from '../components/modal/RequestErrorModal'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     AccountListItem,
     ModalCreateEditAccount,
@@ -91,6 +89,15 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+}
+
+.home-header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .account-list-item-container {
