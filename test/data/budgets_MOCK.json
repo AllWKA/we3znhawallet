@@ -1,0 +1,47 @@
+[
+  {
+    "id": "dd485b8f-091e-4eae-a146-bd0b2c1474b1",
+    "name": "Bigtax",
+    "maxExpense": 4140.43,
+    "amountToSendAlarm": 24.27,
+    "associatedConcepts": [],
+    "currentSpent": 0,
+    "icon": "bank-outline"
+  },
+  {
+    "id": "66bb2104-e435-4a04-b131-4e35f3429c2f",
+    "name": "Sonair",
+    "maxExpense": 6047.94,
+    "amountToSendAlarm": 260.69,
+    "associatedConcepts": [],
+    "currentSpent": 0,
+    "icon": "bank-outline"
+  },
+  {
+    "id": "e1e1fb26-694c-47a8-9322-4cb4638228c8",
+    "name": "Viva",
+    "maxExpense": 7658.65,
+    "amountToSendAlarm": 615.82,
+    "associatedConcepts": [],
+    "currentSpent": 0,
+    "icon": "bank-outline"
+  },
+  {
+    "id": "6ae3f47f-e11e-45d8-b5df-cef3fd1ae4bc",
+    "name": "Ronstring",
+    "maxExpense": 6044.18,
+    "amountToSendAlarm": 449.9,
+    "associatedConcepts": [],
+    "currentSpent": 0,
+    "icon": "bank-outline"
+  },
+  {
+    "id": "b007a5f2-639f-40a9-81c3-bd2ca9fae02e",
+    "name": "Latlux",
+    "maxExpense": 8862.61,
+    "amountToSendAlarm": 10.66,
+    "associatedConcepts": [],
+    "currentSpent": 0,
+    "icon": "bank-outline"
+  }
+]
