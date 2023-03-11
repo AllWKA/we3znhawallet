@@ -12,7 +12,7 @@
     "postuninstall": "electron-builder install-app-deps",
     "dev": "nodemon --exec \"npm run\" electron:serve"
   },
-  "main": "src/background.js",
+  "main": "background.js",
   "dependencies": {
     "axios": "0.27.2",
     "babel-cli": "6.26.0",
