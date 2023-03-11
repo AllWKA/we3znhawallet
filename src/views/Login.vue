@@ -37,14 +37,9 @@ export default {
       }
 
       try {
-        const response = await this.$axios.post('/login', {pin: this.pin})
+        await this.$axios.post('/login', {pin: this.pin})
 
-        if (response.data) {
-          sessionStorage['token'] = response.data
-          await this.$router.push('/home')
-        } else {
-          this.errorMessage = !response ? 'Pin incorrecto' : ''
-        }
+        await this.$router.push('/home')
       } catch (e) {
         this.errorMessage = `Hubo un error al entrar: ${e.message}`
       }
