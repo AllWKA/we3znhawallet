@@ -3,7 +3,7 @@
     <div class="home-header-container">
       <h1 style="margin-right: 2%">Cuentas bancarias</h1>
 
-      <span style="display: flex; justify-content: center; align-items: center"
+      <span class="open-create-account-modal"
             @click="showModalCreateEditAccount = true">
         <img src="../assets/icons/plus-circle.svg" alt="añadir cuenta" style="width: 24px; height: 24px">
         <!-- TODO: 2 Types, account and credit card, right now works just for credit card -->
@@ -91,6 +91,16 @@ export default {
   align-items: center;
   background-color: var(--color-background);
   color: var(--color-on-background);
+}
+
+.open-create-account-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.open-create-account-modal:hover {
+  cursor: pointer;
 }
 
 .home-header-container {

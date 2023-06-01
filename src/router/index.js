@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login'
 import Test from '../views/Test'
 import Signin from '../views/Signin'
-import Account from '@/views/Account'
+import Account from '../views/Account'
 import AccountSettings from '../views/AccountSettings'
 import axios from 'axios'
 

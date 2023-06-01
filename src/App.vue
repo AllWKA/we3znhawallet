@@ -1,10 +1,10 @@
 <template>
   <div class="app background-color on-background">
-    <div style="height: 100%;width: 80px" v-if="showLeftMenu">
+    <div style="height: 100%; width: 5%" v-if="showLeftMenu">
       <MenuNavBar/>
     </div>
 
-    <div style="width: 95%; height: 100%">
+    <div style="height: 100%;width: 95%;">
       <router-view/>
     </div>
 
@@ -81,14 +81,18 @@ input:focus {
 
 button {
   border: none;
+  margin: 0;
+  padding: 0;
 }
 </style>
 
 <style scoped>
 .app {
   display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 100%;
-  overflow: auto;
+  background-color: var(--color-background);
 }
 </style>

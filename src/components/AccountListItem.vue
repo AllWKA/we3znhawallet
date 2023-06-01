@@ -1,26 +1,26 @@
 <template>
   <div class="account-list-container">
-    <div class="account-info-container">
-      <div style="margin-right: 5%; display: flex;justify-content: center;align-items: center">
-        <div v-if="account.type === 'account'">
-          <img src="../assets/icons/piggy-bank-outline.svg" alt="type-icon">
-        </div>
+    <div class="account-item-header">
+      <div class="account-info-container">
+        <AccountNumber :card-numbers="account.cardNumbers" :type="account.type"/>
+      </div>
 
-        <div v-else>
-          <img src="../assets/icons/credit-card-outline.svg" alt="type-icon">
-        </div>
-
-        <span style="margin-right: 3%;margin-left: 3%; width: 60px">: {{ account.cardNumbers }}</span>
+      <div class="current-balance-container">
+        <p>Saldo: {{ account.currentBalance }} €</p>
       </div>
     </div>
 
-    <div class="current-balance-container">
-      <p>Saldo: {{ account.currentBalance }} €</p>
-    </div>
+    <div class="extra-info">
+      <div class="account-budgets-container">
+        <h2>Presupuestos</h2>
+        <AccountBudgetHorizontalList :budget-list="account.budgets"/>
+      </div>
 
-<!--        <div class="account-budgets-container">-->
-<!--          <AccountBudgetHorizontalList :budget-list="account.budgets"/>-->
-<!--        </div>-->
+      <div class="account-budgets-container">
+        <h2>Cuentas Ahorro</h2>
+        <AccountBudgetHorizontalList :budget-list="account.budgets"/>
+      </div>
+    </div>
 
     <div class="controllers">
       <button @click="navigateTo(`/account/${account.id}`)" class="account-controller">
@@ -40,13 +40,15 @@
 
 <script>
 import resolveIconPath from '../helpers/icon-resolver'
-// import AccountBudgetHorizontalList from '../components/accountBudgetHorizontal/AccountBudgetHorizontalList'
+import AccountBudgetHorizontalList from '../components/accountBudgetHorizontal/AccountBudgetHorizontalList'
+import AccountNumber from './AccountInfo/AccountNumber'
 
 export default {
   name: 'AccountListItem',
-  // components: {
-  //   AccountBudgetHorizontalList
-  // },
+  components: {
+    AccountBudgetHorizontalList,
+    AccountNumber
+  },
   props: {
     account: Object
   },
@@ -77,15 +79,9 @@ export default {
 </script>
 
 <style scoped>
-
 img {
   width: 25px;
   height: 25px;
-}
-
-button {
-  margin-left: 3%;
-  margin-right: 3%;
 }
 
 .current-balance-container {
@@ -95,13 +91,15 @@ button {
   text-align: center;
   width: 30%;
   height: 100%;
+  font-size: 23px;
 }
 
 .account-list-container {
   width: 100%;
-  height: 95%;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
+  align-items: flex-start;
   border: 1px solid var(--color-on-background);
   background-color: var(--color-surface);
   color: var(--color-on-surface);
@@ -112,25 +110,40 @@ button {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-left: 5%;
 }
 
 .account-budgets-container {
-  width: 60%;
+  width: 45%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #2c2927;
 }
 
 .controllers {
-  width: 30%;
+  width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-top: 1%;
 }
 
 .account-controller {
   background-color: var(--color-surface);
+}
+
+.account-item-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-left: 1%;
+}
+
+.extra-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 </style>

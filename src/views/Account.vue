@@ -144,24 +144,12 @@ export default {
 </script>
 
 <style scoped>
-.account-header-controllers-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 10%;
-}
-
-.account-header-text {
-  text-align: center;
-  width: 40%;
-}
-
 .account-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   background-color: var(--color-background);
   color: var(--color-on-background);
@@ -174,8 +162,19 @@ export default {
   align-items: center;
 }
 
+.account-header-controllers-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 10%;
+}
+
+.account-header-text {
+  text-align: center;
+}
+
 .account-movements-table-container {
-  height: 50%;
+  height: 65%;
   background-color: #332F2E;
   width: 90%;
   padding-top: 1%;
@@ -185,6 +184,7 @@ export default {
   display: flex;
   justify-content: center;
   overflow-x: auto;
+  margin-bottom: 3%;
   width: 100%;
 }
 

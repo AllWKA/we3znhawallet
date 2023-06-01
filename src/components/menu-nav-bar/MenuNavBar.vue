@@ -40,7 +40,9 @@ export default {
 .sidebar {
   border-right: 1px solid black;
   height: 100%;
-  /* padding: 1%; ---> padding adds height somehow */
+  width: 100%;
+  padding-left: 1%;
+  padding-right: 1%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
