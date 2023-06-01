@@ -1,8 +1,5 @@
 import { join } from 'path'
-import CryptoJS from 'crypto-js'
-import jwt from 'jsonwebtoken'
-import moment from 'moment/moment'
-import { projectPath, saveLocalFile, createLocalFileIfNecessary, readLocalFile, fileExist } from './fileManager'
+import { createLocalFileIfNecessary, fileExist, projectPath, readLocalFile, saveLocalFile } from './fileManager'
 
 const defaultUserConfig = {
   pin: "",
@@ -16,7 +13,9 @@ export function saveUserLocalFile(data, fileName) {
     if (data === undefined) {
       data = defaultUserConfig
     }
+
     createLocalFileIfNecessary(data, userPath)
+
     saveLocalFile(data, userPath)
   } catch (e) {
     throw new Error(`Can not save JSON: ${e.message}`)
@@ -30,21 +29,11 @@ export function login(pin, res) {
     userConfig = readLocalFile(userConfigFilePath)
   }
 
-  const pinDecrypted = CryptoJS.AES.decrypt(userConfig.pin, process.env.PIN_SECRET).toString(CryptoJS.enc.Utf8)
-
-  if (pinDecrypted !== pin) {
+  if (userConfig.pin !== pin) {
     throw new Error('Invalid pin')
   }
 
-  const expirationTime = moment().add(5, 'minutes').valueOf()
-
-  const jwtConfig = {
-    exp: expirationTime
-  }
-
-  const token = jwt.sign(jwtConfig, process.env.JWT_SECRET, { algorithm: 'HS256' })
-
-  res.status(200).send(token)
+  res.status(204).send()
 }
 
 export function signin(pin, res) {
@@ -62,7 +51,7 @@ export function signin(pin, res) {
     return res.status(400).send('Pin already exist')
   }
 
-  userConfig.pin = CryptoJS.AES.encrypt(pin, process.env.PIN_SECRET).toString()
+  userConfig.pin = pin
 
   saveLocalFile(userConfig, userConfigFilePath)
 
