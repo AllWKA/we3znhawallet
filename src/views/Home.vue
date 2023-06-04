@@ -3,8 +3,7 @@
     <div class="home-header-container">
       <h1 style="margin-right: 2%">Cuentas bancarias</h1>
 
-      <span class="open-create-account-modal"
-            @click="showModalCreateEditAccount = true">
+      <span class="open-create-account-modal" @click="showModalCreateEditAccount = true">
         <img src="../assets/icons/plus-circle.svg" alt="añadir cuenta" style="width: 24px; height: 24px">
         <!-- TODO: 2 Types, account and credit card, right now works just for credit card -->
       </span>

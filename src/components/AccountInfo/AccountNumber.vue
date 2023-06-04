@@ -1,14 +1,6 @@
 <template>
   <div class="account-number-container">
-    <span class="account-number">{{ cardNumbers }}</span>
-
-    <div v-if="type === 'account'" class="account-icon-container">
-      <img src="../../assets/icons/piggy-bank-outline.svg" alt="type-icon">
-    </div>
-
-    <div v-else class="account-icon-container">
-      <img src="../../assets/icons/credit-card-outline.svg" alt="type-icon">
-    </div>
+    <span class="account-number">Cuenta: ****{{ cardNumbers }}</span>
   </div>
 </template>
 
@@ -41,5 +33,6 @@ img {
 .account-icon-container {
   width: 30px;
   height: 30px;
+  margin-left: 3%;
 }
 </style>

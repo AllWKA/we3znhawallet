@@ -8,9 +8,8 @@
     <input type="text" v-model="verificationPin" maxlength="4" minlength="4" placeholder="pin de verificación" required>
 
     <p class="error-message">{{ errorMessage }}</p>
-    <br>
 
-    <button @click="signin">Establecer</button>
+    <button class="set-button" @click="signin">Establecer</button>
 
     <p style="text-align: center">
       Solo se admiten números
@@ -22,7 +21,7 @@
 
 <script>
 export default {
-  name: "Signin",
+  name: 'Signin',
   data() {
     return {
       pin: '',
@@ -39,7 +38,7 @@ export default {
       }
 
       try {
-        await this.$axios.post('/signin', { pin: this.pin, verificationPin: this.verificationPin })
+        await this.$axios.post('/signin', {pin: this.pin, verificationPin: this.verificationPin})
 
         await this.$router.push('/')
       } catch (e) {
@@ -79,7 +78,6 @@ export default {
 </script>
 
 <style scoped>
-
 .container {
   display: flex;
   flex-direction: column;
@@ -87,6 +85,17 @@ export default {
   align-items: center;
   margin-top: 1%;
   width: 100%;
+  color: var(--color-on-background);
 }
 
+.set-button {
+  background-color: transparent;
+  border: 1px solid var(--color-on-background);
+  padding: 1%;
+  color: var(--color-on-background);
+}
+
+.set-button:hover {
+  cursor: pointer;
+}
 </style>
