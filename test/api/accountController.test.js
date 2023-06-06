@@ -11,9 +11,9 @@ const februaryMovements = require('../data/Movements-February_Mock.json')
 const marchMovements = require('../data/Movements-March_MOCK.json')
 
 const allMonths = decemberMovements
-  .concat(januaryMovements)
-  .concat(februaryMovements)
-  .concat(marchMovements)
+.concat(januaryMovements)
+.concat(februaryMovements)
+.concat(marchMovements)
 
 describe('Distance in months', () => {
   it('A month should have passed', () => {
@@ -85,11 +85,19 @@ describe('Checking lost months in Transfers to Savings Accounts Register', () =>
 })
 
 describe('Movements in month', () => {
-  it('Should be have a 30 movements', () => {
-    console.log('all months length:', allMonths.length)
-    const movements = getMovementsInMonth(allMonths, moment('2023-01-05'))
+  it('Should be have a 31 movements', () => {
+    const movements = getMovementsInMonth(allMonths, moment('2023-01-05', 'YYYY-MM-DD'))
 
-    console.log(movements.length)
+    expect(movements.length).toBe(31)
+  })
 
+  it('Should be have a 62 movements', () => {
+    const firstMovements = getMovementsInMonth(allMonths, moment('2023-01-05', 'YYYY-MM-DD'))
+
+    const secondMovements = getMovementsInMonth(allMonths, moment('2023-03-05', 'YYYY-MM-DD'))
+
+    const movements = firstMovements.concat(secondMovements)
+
+    expect(movements.length).toBe(62)
   })
 })

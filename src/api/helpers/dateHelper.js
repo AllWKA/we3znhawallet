@@ -1,25 +1,13 @@
 import moment from 'moment/moment'
 
 export function getMovementsInMonth(movements, date) {
-  const format = 'YYYY/MM/DD'
+  const startDate = date.clone().startOf('month')
 
-  const daysInMonth = date.daysInMonth()
+  const endDate = date.clone().endOf('month')
 
-  const month = date.month() + 1
-
-  const year = date.year()
-
-  const startDate = moment(`1/${month}/${year}`, format)
-
-  const endDate = moment(`${daysInMonth}/${month}/${year}`, format)
-
-  console.log('start date', startDate)
-  console.log('end date', endDate)
-
-  return movements
-    .filter(movement =>
-      moment(movement.date, format).isBetween(startDate, endDate)
-    )
+  return movements.filter(movement =>
+    moment(movement.date).isBetween(startDate, endDate, null, '[]')
+  )
 }
 
 export function getDistanceInMonths(oldestDate, newestDate) {
