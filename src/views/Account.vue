@@ -54,18 +54,18 @@
 
       <div class="rows-container">
         <div v-for="(movement, i) in movements" :key="i" class="table-row">
-          <div style="width: 18%">{{ movement.Fecha }}</div>
+          <div style="width: 18%">{{ movement.date }}</div>
 
           <div style="width: 33%;text-align: justify">
-            {{ movement.Concepto }}
+            {{ movement.concept }}
           </div>
 
           <div style="width: 18%;text-align: justify">
-            {{ movement.Importe }} {{ movement.Divisa }}
+            {{ movement.amount }} {{ movement.currency }}
           </div>
 
-          <div style="width: 18%">{{ movement.Disponible }}
-            {{ movement.Divisa }}
+          <div style="width: 18%">{{ movement.available }}
+            {{ movement.currency }}
           </div>
         </div>
       </div>

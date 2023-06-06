@@ -1,0 +1,219 @@
+[
+  {
+    "concept": "Transferencia de fondos",
+    "amount": 500,
+    "currency": "USD",
+    "available": 2500,
+    "date": "2023-12-01"
+  },
+  {
+    "concept": "Pago de factura",
+    "amount": 200,
+    "currency": "EUR",
+    "available": 2300,
+    "date": "2023-12-02"
+  },
+  {
+    "concept": "Depósito",
+    "amount": 1000,
+    "currency": "GBP",
+    "available": 3300,
+    "date": "2023-12-03"
+  },
+  {
+    "concept": "Retiro de efectivo",
+    "amount": 300,
+    "currency": "JPY",
+    "available": 3000,
+    "date": "2023-12-04"
+  },
+  {
+    "concept": "Transferencia internacional",
+    "amount": 800,
+    "currency": "CAD",
+    "available": 3800,
+    "date": "2023-12-05"
+  },
+  {
+    "concept": "Transferencia de fondos",
+    "amount": 400,
+    "currency": "USD",
+    "available": 3400,
+    "date": "2023-12-06"
+  },
+  {
+    "concept": "Pago de factura",
+    "amount": 200,
+    "currency": "EUR",
+    "available": 2300,
+    "date": "2023-12-07"
+  },
+  {
+    "concept": "Depósito",
+    "amount": 1000,
+    "currency": "GBP",
+    "available": 3300,
+    "date": "2023-12-08"
+  },
+  {
+    "concept": "Retiro de efectivo",
+    "amount": 300,
+    "currency": "JPY",
+    "available": 3000,
+    "date": "2023-12-09"
+  },
+  {
+    "concept": "Transferencia internacional",
+    "amount": 800,
+    "currency": "CAD",
+    "available": 3800,
+    "date": "2023-12-10"
+  },
+  {
+    "concept": "Transferencia de fondos",
+    "amount": 400,
+    "currency": "USD",
+    "available": 3400,
+    "date": "2023-12-11"
+  },
+  {
+    "concept": "Pago de factura",
+    "amount": 150,
+    "currency": "EUR",
+    "available": 3250,
+    "date": "2023-12-12"
+  },
+  {
+    "concept": "Transferencia de fondos",
+    "amount": 500,
+    "currency": "USD",
+    "available": 2500,
+    "date": "2023-12-13"
+  },
+  {
+    "concept": "Pago de factura",
+    "amount": 200,
+    "currency": "EUR",
+    "available": 2300,
+    "date": "2023-12-14"
+  },
+  {
+    "concept": "Depósito",
+    "amount": 1000,
+    "currency": "GBP",
+    "available": 3300,
+    "date": "2023-12-15"
+  },
+  {
+    "concept": "Retiro de efectivo",
+    "amount": 300,
+    "currency": "JPY",
+    "available": 3000,
+    "date": "2023-12-16"
+  },
+  {
+    "concept": "Transferencia internacional",
+    "amount": 800,
+    "currency": "CAD",
+    "available": 3800,
+    "date": "2023-12-17"
+  },
+  {
+    "concept": "Transferencia de fondos",
+    "amount": 400,
+    "currency": "USD",
+    "available": 3400,
+    "date": "2023-12-18"
+  },
+  {
+    "concept": "Pago de factura",
+    "amount": 150,
+    "currency": "EUR",
+    "available": 3250,
+    "date": "2023-12-19"
+  },
+  {
+    "concept": "Depósito",
+    "amount": 700,
+    "currency": "GBP",
+    "available": 3950,
+    "date": "2023-12-20"
+  },
+  {
+    "concept": "Retiro de efectivo",
+    "amount": 250,
+    "currency": "JPY",
+    "available": 3700,
+    "date": "2023-12-21"
+  },
+  {
+    "concept": "Transferencia internacional",
+    "amount": 600,
+    "currency": "CAD",
+    "available": 4300,
+    "date": "2023-12-22"
+  },
+  {
+    "concept": "Transferencia de fondos",
+    "amount": 300,
+    "currency": "USD",
+    "available": 4600,
+    "date": "2023-12-23"
+  },
+  {
+    "concept": "Pago de factura",
+    "amount": 100,
+    "currency": "EUR",
+    "available": 4500,
+    "date": "2023-12-24"
+  },
+  {
+    "concept": "Depósito",
+    "amount": 1200,
+    "currency": "GBP",
+    "available": 5700,
+    "date": "2023-12-25"
+  },
+  {
+    "concept": "Transferencia de fondos",
+    "amount": 500,
+    "currency": "USD",
+    "available": 2500,
+    "date": "2023-12-26"
+  },
+  {
+    "concept": "Pago de factura",
+    "amount": 200,
+    "currency": "EUR",
+    "available": 2300,
+    "date": "2023-12-27"
+  },
+  {
+    "concept": "Depósito",
+    "amount": 1000,
+    "currency": "GBP",
+    "available": 3300,
+    "date": "2023-12-28"
+  },
+  {
+    "concept": "Retiro de efectivo",
+    "amount": 300,
+    "currency": "JPY",
+    "available": 3000,
+    "date": "2023-12-29"
+  },
+  {
+    "concept": "Transferencia internacional",
+    "amount": 800,
+    "currency": "CAD",
+    "available": 3800,
+    "date": "2023-12-30"
+  },
+  {
+    "concept": "Transferencia de fondos",
+    "amount": 400,
+    "currency": "USD",
+    "available": 3400,
+    "date": "2023-12-31"
+  }
+]

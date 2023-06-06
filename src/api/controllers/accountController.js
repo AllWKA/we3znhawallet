@@ -1,8 +1,9 @@
 import {readLocalFile, saveLocalFile} from '@/api/controllers/fileManager'
 import excelToJson from 'convert-excel-to-json'
-import moment from 'moment'
 import uniqid from 'uniqid'
 import {readFileSync} from 'fs'
+import {getMovementsInMonth} from '../helpers/dateHelper'
+import moment from 'moment'
 
 const accountStorageFileName = 'accounts.json'
 
@@ -25,7 +26,7 @@ export function createAccount(account) {
 
   const id = accounts.length
 
-  accounts.push({id, ...account, movements: [], budgets: []})
+  accounts.push({id, ...account, movements: [], budgets: [], savingsAccounts: []})
 
   try {
     saveLocalFile(accounts, accountStorageFileName)
@@ -128,10 +129,10 @@ export function processBankAccountMovements(filePath, accountId) {
 
     const movementFound = accountMovements.find(movement =>
       movement.Fecha === newMovement.Fecha &&
-      movement.Concepto === newMovement.Concepto &&
-      movement.Importe === newMovement.Importe &&
-      movement.Divisa === newMovement.Divisa &&
-      movement.Disponible === newMovement.Disponible
+      movement.concept === newMovement.concept &&
+      movement.amount === newMovement.amount &&
+      movement.currency === newMovement.currency &&
+      movement.available === newMovement.available
     )
 
     if (movementFound) {
@@ -142,8 +143,8 @@ export function processBankAccountMovements(filePath, accountId) {
   }
 
   return {
-    repeatedMovement,
-    addedMovement
+    repeatedMovement: formatMovements(repeatedMovement),
+    addedMovement: formatMovements(addedMovement)
   }
 }
 
@@ -202,7 +203,7 @@ function updateAccount(account) {
 
   account.movements = account.movements.sort((a, b) => b.FechaCruda - a.FechaCruda)
 
-  account.currentBalance = account.movements[0].Disponible
+  account.currentBalance = account.movements[0].available
 
   account = updateBudgets(account)
 
@@ -212,15 +213,17 @@ function updateAccount(account) {
 }
 
 function updateBudgets(account) {
-  const movements = getMovementsInCurrentMonth(account.movements)
+  const currentDate = moment()
+
+  const movements = getMovementsInMonth(account.movements, currentDate)
 
   account.budgets = account.budgets.map(budget => {
     const imports = []
 
     budget.associatedConcepts.forEach(associatedConcept => {
       movements
-        .filter(movement => movement.Concepto === associatedConcept)
-        .map(movement => movement.Importe)
+        .filter(movement => movement.concept === associatedConcept)
+        .map(movement => movement.amount)
         .forEach(importQuantity => imports.push(importQuantity))
     })
     // TODO:  check why is dont give negative numbers
@@ -232,21 +235,15 @@ function updateBudgets(account) {
   return account
 }
 
-function getMovementsInCurrentMonth(movements) {
-  const format = 'DD/MM/YYYY'
-
-  const daysInMonth = moment().daysInMonth()
-
-  const currentMonth = moment().month() + 1
-
-  const currentYear = moment().year()
-
-  const startDate = moment(`1/${currentMonth}/${currentYear}`, format)
-
-  const endDate = moment(`${daysInMonth}/${currentMonth}/${currentYear}`, format)
-
-  return movements
-    .filter(movement =>
-      moment(movement.Fecha, format).isBetween(startDate, endDate)
-    )
+function formatMovements(movements) {
+  return movements.map(movement => {
+    return {
+      date: movement.Fecha,
+      concept: movement.Concepto,
+      amount: movement.Importe,
+      currency: movement.Divisa,
+      available: movement.Disponible
+    }
+  })
 }
+

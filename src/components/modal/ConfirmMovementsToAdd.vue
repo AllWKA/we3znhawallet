@@ -19,11 +19,11 @@
             class="list-container"
         >
           <div v-for="(movement, i) in movementsProcessed.repeatedMovement" :key="i" class="list-row">
-            <div style="width: 20%">{{ movement.Fecha }}</div>
+            <div style="width: 20%">{{ movement.date }}</div>
             <div style="width: 20%">{{ movement.Tarjeta }}</div>
-            <div style="width: 35%">{{ movement.Concepto }}</div>
-            <div style="width: 20%">{{ movement.Importe }}</div>
-            <div style="width: 5%">{{ movement.Divisa }}</div>
+            <div style="width: 35%">{{ movement.concept }}</div>
+            <div style="width: 20%">{{ movement.amount }}</div>
+            <div style="width: 5%">{{ movement.currency }}</div>
           </div>
         </div>
 
@@ -45,11 +45,11 @@
             movementsProcessed.addedMovement.length"
              class="list-container">
           <div v-for="(movement, i) in movementsProcessed.addedMovement" :key="i" class="list-row">
-            <div style="width: 20%">{{ movement.Fecha }}</div>
+            <div style="width: 20%">{{ movement.date }}</div>
             <div style="width: 20%">{{ movement.Tarjeta }}</div>
-            <div style="width: 35%">{{ movement.Concepto }}</div>
-            <div style="width: 20%">{{ movement.Importe }}</div>
-            <div style="width: 5%">{{ movement.Divisa }}</div>
+            <div style="width: 35%">{{ movement.concept }}</div>
+            <div style="width: 20%">{{ movement.amount }}</div>
+            <div style="width: 5%">{{ movement.currency }}</div>
           </div>
         </div>
 
