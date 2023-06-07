@@ -7,7 +7,7 @@ import {addMovementsInAccount, createNewBudget, deleteBudget, processBankAccount
 const app = express()
 const port = process.env.SERVER_PORT
 
-app.use(bodyParser.json({type: 'application/json'}))
+app.use(bodyParser.json({type: 'application/json', limit: '100mb'}))
 
 app.use(cors())
 

@@ -26,7 +26,8 @@ export function createAccount(account) {
 
   const id = accounts.length
 
-  accounts.push({id, ...account, movements: [], budgets: [], savingsAccounts: []})
+  // TODO: CRUD rules
+  accounts.push({id, ...account, movements: [], budgets: [], savingsAccounts: [], rules: []})
 
   try {
     saveLocalFile(accounts, accountStorageFileName)
@@ -196,6 +197,10 @@ export function updateBudget(budget, accountId) {
   updateAccount(account)
 }
 
+export function updateSavesAccounts() {
+  // TODO: loop through the rules and transfer money to saves accounts
+}
+
 function updateAccount(account) {
   const accountList = getAccountList()
 
@@ -246,4 +251,3 @@ function formatMovements(movements) {
     }
   })
 }
-

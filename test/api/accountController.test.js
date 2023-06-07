@@ -16,29 +16,31 @@ const allMonths = decemberMovements
 .concat(marchMovements)
 
 describe('Distance in months', () => {
-  it('A month should have passed', () => {
-    const firstDate = new Date('2022-03-25')
-    const secondDate = new Date('2022-04-25')
+  const marchDate = new Date('2022-03-25')
 
-    const distance = getDistanceInMonths(firstDate, secondDate)
+  const aprilDate = new Date('2022-04-25')
+
+  const mayDate = new Date('2022-05-25')
+
+  const julyDate = new Date('2022-07-25')
+
+
+  it('A month should have passed', () => {
+    const distance = getDistanceInMonths(marchDate, aprilDate)
 
     expect(distance).toBe(1)
   })
 
   it('Two month should have passed', () => {
-    const firstDate = new Date('2022-05-25')
-    const secondDate = new Date('2022-07-25')
-
-    const distance = getDistanceInMonths(firstDate, secondDate)
+    const distance = getDistanceInMonths(mayDate, julyDate)
 
     expect(distance).toBe(2)
   })
 
   it('No month should have passed', () => {
-    const firstDate = new Date('2022-03-25')
-    const secondDate = new Date('2022-04-20')
+    const almostAMonth = new Date('2022-04-20')
 
-    const distance = getDistanceInMonths(firstDate, secondDate)
+    const distance = getDistanceInMonths(marchDate, almostAMonth)
 
     expect(distance).toBe(0)
   })
