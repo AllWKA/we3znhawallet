@@ -5,7 +5,7 @@
         <h1 style="width: 93%; text-align: center">Crea un nuevo modal</h1>
 
         <span class="close" @click="$emit('close')">
-          <img src="../../assets/icons/close.svg" alt="close-icon">
+          <img alt="close-icon" src="../../assets/icons/close.svg">
         </span>
       </div>
 
@@ -16,17 +16,17 @@
 
       <div style="width: 100%;display: flex">
         <label for="name" style="margin-right: 3%; width: 30%">Nombre del presupuesto: </label>
-        <input type="text" id="name" v-model="name" style="width: 40%">
+        <input id="name" v-model="name" style="width: 40%" type="text">
       </div>
 
       <div style="width: 100%;display: flex">
         <label for="maxExpense" style="margin-right: 3%; width: 30%">Cantidad máxima: </label>
-        <input type="number" id="maxExpense" v-model="maxExpense" style="width: 40%">
+        <input id="maxExpense" v-model="maxExpense" style="width: 40%" type="number">
       </div>
 
       <div style="width: 100%;display: flex">
         <label for="amountToSendWarning" style="margin-right: 3%; width: 30%">Cantidad para aviso:</label>
-        <input type="number" id="amountToSendWarning" v-model="amountToSendWarning" style="width: 40%">
+        <input id="amountToSendWarning" v-model="amountToSendWarning" style="width: 40%" type="number">
       </div>
 
       <SelectConceptsForBudget
@@ -109,9 +109,13 @@ export default {
       this.amountToSendWarning = 0
     }
   },
+  beforeMount() {
+    this.localAllConcepts = this.allConcepts
+  },
   watch: {
-    allConcepts(newAllConcepts) {
-      this.localAllConcepts = newAllConcepts
+    allConcepts() {
+      // this.localAllConcepts = newAllConcepts
+      console.log(this.localAllConcepts)
     }
   }
 }

@@ -1,8 +1,8 @@
-import {readLocalFile, saveLocalFile} from '@/api/controllers/fileManager'
+import { readLocalFile, saveLocalFile } from '@/api/controllers/fileManager'
 import excelToJson from 'convert-excel-to-json'
 import uniqid from 'uniqid'
-import {readFileSync} from 'fs'
-import {getMovementsInMonth} from '../helpers/dateHelper'
+import { readFileSync } from 'fs'
+import { getMovementsInMonth } from '../helpers/dateHelper'
 import moment from 'moment'
 
 const accountStorageFileName = 'accounts.json'
@@ -27,7 +27,7 @@ export function createAccount(account) {
   const id = accounts.length
 
   // TODO: CRUD rules
-  accounts.push({id, ...account, movements: [], budgets: [], savingsAccounts: [], rules: []})
+  accounts.push({ id, ...account, movements: [], budgets: [], savingsAccounts: [], rules: [] })
 
   try {
     saveLocalFile(accounts, accountStorageFileName)
@@ -164,7 +164,7 @@ export function createNewBudget(budget, accountId) {
     throw new Error('Budget already exist')
   }
 
-  account.budgets.push({...budget, currentSpent: 0, id: uniqid()})
+  account.budgets.push({ ...budget, currentSpent: 0, id: uniqid() })
 
   updateAccount(account)
 }
@@ -193,6 +193,28 @@ export function updateBudget(budget, accountId) {
   }
 
   account.budgets = account.budgets.map(budgetIn => budgetIn.id === budget.id ? budget : budgetIn)
+
+  updateAccount(account)
+}
+
+export function createSavesAccount(savingsAccount, accountId) {
+  let account
+
+  try {
+    account = getAccount(accountId)
+  } catch (e) {
+    throw new Error(e.message)
+  }
+
+  const savingsAccountAlreadyExist = account
+  .savingsAccounts
+  .find(savingsAccountInList => savingsAccountInList.name === savingsAccount.name)
+
+  if (!savingsAccountAlreadyExist) {
+    throw new Error('Savings account already exist')
+  }
+
+  account.savingsAccounts.push(savingsAccount)
 
   updateAccount(account)
 }
@@ -227,9 +249,9 @@ function updateBudgets(account) {
 
     budget.associatedConcepts.forEach(associatedConcept => {
       movements
-        .filter(movement => movement.concept === associatedConcept)
-        .map(movement => movement.amount)
-        .forEach(importQuantity => imports.push(importQuantity))
+      .filter(movement => movement.concept === associatedConcept)
+      .map(movement => movement.amount)
+      .forEach(importQuantity => imports.push(importQuantity))
     })
     // TODO:  check why is dont give negative numbers
     budget.currentSpent = Math.round(imports.reduce((sum, a) => sum + a, 0) * 100) / 100

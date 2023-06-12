@@ -4,7 +4,7 @@ import cors from 'cors'
 import * as controllers from './controllers/main'
 import {
   addMovementsInAccount,
-  createNewBudget,
+  createNewBudget, createSavesAccount,
   deleteBudget,
   processBankAccountMovements,
   updateBudget
@@ -151,6 +151,16 @@ app.post('/account/budget/:accountId', (req, res) => {
 app.post('/account/budget/delete/:accountId', (req, res) => {
   try {
     deleteBudget(req.body, req.params.accountId)
+
+    res.send(204)
+  } catch (err) {
+    res.send(err)
+  }
+})
+
+app.post('/account/savingsAccounts/:accountId', (req, res) => {
+  try {
+    createSavesAccount(req.body, req.params.accountId)
 
     res.send(204)
   } catch (err) {

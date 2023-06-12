@@ -18,7 +18,7 @@
           </span>
         </button>
 
-        <button class="button-controller" @click="$router.push(`/account/settings/${accountId}`)">
+        <button class="button-controller" @click="showAccountSettings=true">
           <span style="display: flex; justify-content: center; align-items: center">
             <img src="../assets/icons/cog-outline.svg" alt="exportar_excel" style="width: 24px; height: 24px">
           </span>
@@ -76,18 +76,25 @@
         :movementsProcessed="movementsProcessed"
         :account-id="accountId.toString()"
         @close="closeConfirmMovementsModal"/>
+
+    <AccountSettingsModal
+        :show="showAccountSettings"
+        @close="closeAccountSettingsModal"
+    />
   </div>
 </template>
 
 <script>
 import AccountBudgetHorizontalList from '../components/accountBudgetHorizontal/AccountBudgetHorizontalList'
 import ConfirmMovementsToAdd from '../components/modal/ConfirmMovementsToAdd'
+import AccountSettingsModal from "../components/modal/AccountSettingsModal"
 
 export default {
   name: 'Account',
   components: {
     AccountBudgetHorizontalList,
-    ConfirmMovementsToAdd
+    ConfirmMovementsToAdd,
+    AccountSettingsModal
   },
   data() {
     return {
@@ -97,7 +104,8 @@ export default {
       chart: {},
       movementsProcessed: {},
       budgetList: [],
-      showConfirmMovements: false
+      showConfirmMovements: false,
+      showAccountSettings: false
     }
   },
   methods: {
@@ -115,7 +123,7 @@ export default {
 
       this.movementsProcessed = (await this.$axios.post(
               `/account/movements/process/${this.accountId}`,
-              {filePath: file.path})
+              { filePath: file.path })
       ).data
 
       this.showConfirmMovements = true
@@ -135,6 +143,11 @@ export default {
       this.updateAccountInfo()
 
       this.showConfirmMovements = false
+    },
+    closeAccountSettingsModal() {
+      this.updateAccountInfo()
+
+      this.showAccountSettings = false
     }
   },
   beforeMount() {
