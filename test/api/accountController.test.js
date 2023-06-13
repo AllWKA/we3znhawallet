@@ -5,6 +5,7 @@ import {
 } from '../../src/api/helpers/dateHelper'
 import moment from 'moment/moment'
 import { createAccount } from '../../src/api/controllers/accountController'
+import { writeFileSync } from 'fs'
 
 const decemberMovements = require('../data/Movements-December_MOCK.json')
 const januaryMovements = require('../data/Movements-January_MOCK.json')
@@ -120,6 +121,10 @@ describe('Create account', () => {
     "budgets": [],
     "savingsAccounts": []
   }
+
+  afterAll(() => {
+    writeFileSync(`${__dirname}/../localFiles-Mock/we3znhawallet/accounts.json`, '')
+  })
 
   it('Throws an error for an undefined account number', () => {
     const undefinedCardNumberAccount = { ...exampleAccount, cardNumbers: undefined }
