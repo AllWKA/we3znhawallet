@@ -1,4 +1,4 @@
-import { readLocalFile, saveLocalFile } from '@/api/controllers/fileManager'
+import { readLocalFile, saveLocalFile } from './fileManager'
 import excelToJson from 'convert-excel-to-json'
 import uniqid from 'uniqid'
 import { readFileSync } from 'fs'
@@ -32,7 +32,7 @@ export function createAccount(account) {
   try {
     saveLocalFile(accounts, accountStorageFileName)
   } catch (e) {
-    throw new Error('Can not save account storage')
+    throw new Error(`Can not save account storage, ${e.message}`)
   }
 }
 

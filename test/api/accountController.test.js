@@ -4,6 +4,7 @@ import {
   lostMonthsInTransfersToSavingsAccountsRegister
 } from '../../src/api/helpers/dateHelper'
 import moment from 'moment/moment'
+import { createAccount } from '../../src/api/controllers/accountController'
 
 const decemberMovements = require('../data/Movements-December_MOCK.json')
 const januaryMovements = require('../data/Movements-January_MOCK.json')
@@ -15,6 +16,12 @@ const allMonths = decemberMovements
 .concat(februaryMovements)
 .concat(marchMovements)
 
+jest.mock('electron', () => ({
+  app: {
+    getPath: jest.fn(() => `${__dirname}/../localFiles-Mock`)
+  }
+}))
+
 describe('Distance in months', () => {
   const marchDate = new Date('2022-03-25')
 
@@ -25,19 +32,19 @@ describe('Distance in months', () => {
   const julyDate = new Date('2022-07-25')
 
 
-  it('A month should have passed', () => {
+  it('A month has passed', () => {
     const distance = getDistanceInMonths(marchDate, aprilDate)
 
     expect(distance).toBe(1)
   })
 
-  it('Two month should have passed', () => {
+  it('Two month has passed', () => {
     const distance = getDistanceInMonths(mayDate, julyDate)
 
     expect(distance).toBe(2)
   })
 
-  it('No month should have passed', () => {
+  it('No month has passed', () => {
     const almostAMonth = new Date('2022-04-20')
 
     const distance = getDistanceInMonths(marchDate, almostAMonth)
@@ -47,7 +54,7 @@ describe('Distance in months', () => {
 })
 
 describe('Checking lost months in Transfers to Savings Accounts Register', () => {
-  it('Should be no lost months', () => {
+  it('No lost months', () => {
     const lastMonthRegistered = new Date('2020-03-20')
 
     const lostMonths = lostMonthsInTransfersToSavingsAccountsRegister(lastMonthRegistered, lastMonthRegistered)
@@ -55,7 +62,7 @@ describe('Checking lost months in Transfers to Savings Accounts Register', () =>
     expect(lostMonths.length).toBeFalsy()
   })
 
-  it('Should have one lost month', () => {
+  it('One lost month', () => {
     const lastMonthRegistered = moment('2020-03-20')
 
     const newestDate = moment('2020-04-20')
@@ -65,7 +72,7 @@ describe('Checking lost months in Transfers to Savings Accounts Register', () =>
     expect(lostMonths.length).toBe(1)
   })
 
-  it('Should have six lost month', () => {
+  it('Six lost month', () => {
     const lastMonthRegistered = moment('2020-03-20')
 
     const newestDate = moment('2020-09-20')
@@ -75,7 +82,7 @@ describe('Checking lost months in Transfers to Savings Accounts Register', () =>
     expect(lostMonths.length).toBe(6)
   })
 
-  it('Should have a year', () => {
+  it('A year lost', () => {
     const lastMonthRegistered = moment('2020-03-20')
 
     const newestDate = moment('2021-03-20')
@@ -87,13 +94,13 @@ describe('Checking lost months in Transfers to Savings Accounts Register', () =>
 })
 
 describe('Movements in month', () => {
-  it('Should be have a 31 movements', () => {
+  it('Has 31 movements', () => {
     const movements = getMovementsInMonth(allMonths, moment('2023-01-05', 'YYYY-MM-DD'))
 
     expect(movements.length).toBe(31)
   })
 
-  it('Should be have a 62 movements', () => {
+  it('Has 62 movements', () => {
     const firstMovements = getMovementsInMonth(allMonths, moment('2023-01-05', 'YYYY-MM-DD'))
 
     const secondMovements = getMovementsInMonth(allMonths, moment('2023-03-05', 'YYYY-MM-DD'))
@@ -101,5 +108,32 @@ describe('Movements in month', () => {
     const movements = firstMovements.concat(secondMovements)
 
     expect(movements.length).toBe(62)
+  })
+})
+
+describe('Create account', () => {
+  const exampleAccount = {
+    "id": 0,
+    "cardNumbers": "1233",
+    "type": "account",
+    "movements": [],
+    "budgets": [],
+    "savingsAccounts": []
+  }
+
+  it('Throws an error for an undefined account number', () => {
+    const undefinedCardNumberAccount = { ...exampleAccount, cardNumbers: undefined }
+
+    expect(() => createAccount(undefinedCardNumberAccount)).toThrow('Invalid account')
+  })
+
+  it('Throws an error for an null account number', () => {
+    const nullCardNumberAccount = { ...exampleAccount, cardNumbers: null }
+
+    expect(() => createAccount(nullCardNumberAccount)).toThrow('Invalid account')
+  })
+
+  it('Create account', () => {
+    expect(() => createAccount(exampleAccount)).not.toThrow()
   })
 })

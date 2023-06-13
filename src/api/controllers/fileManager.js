@@ -7,7 +7,11 @@ export const projectPath = join(app.getPath('appData'), 'we3znhawallet')
 export function saveLocalFile(data, fileName) {
   const filePath = join(projectPath, fileName)
 
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 4))
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 4))
+  } catch (e) {
+    throw new Error(`Can not save local file: ${e.message}`)
+  }
 }
 
 export function readLocalFile(fileName) {
