@@ -37,6 +37,7 @@ export function createAccount(account) {
 }
 
 export function getAccountList() {
+  //TODO: test?
   let accounts
 
   try {
@@ -51,10 +52,12 @@ export function getAccountList() {
 export function getAccount(id) {
   let accounts
 
+  const parsedId = Number.parseInt(id)
+  console.log('io:::', id)
   try {
     accounts = readLocalFile(accountStorageFileName)
 
-    return accounts.find(account => account.id.toString() === id)
+    return accounts.find(account => account.id === parsedId)
   } catch (e) {
     throw new Error('Can not parse account storage')
   }

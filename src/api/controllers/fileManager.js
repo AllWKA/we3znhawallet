@@ -16,6 +16,7 @@ export function saveLocalFile(data, fileName) {
 
 export function readLocalFile(fileName) {
   const dataPath = join(projectPath, fileName)
+
   let buffer
 
   if (!fs.existsSync(dataPath)) {

@@ -4,7 +4,7 @@ import {
   lostMonthsInTransfersToSavingsAccountsRegister
 } from '../../src/api/helpers/dateHelper'
 import moment from 'moment/moment'
-import { createAccount } from '../../src/api/controllers/accountController'
+import { createAccount, getAccount } from '../../src/api/controllers/accountController'
 import { writeFileSync } from 'fs'
 
 const decemberMovements = require('../data/Movements-December_MOCK.json')
@@ -16,6 +16,17 @@ const allMonths = decemberMovements
 .concat(januaryMovements)
 .concat(februaryMovements)
 .concat(marchMovements)
+
+const exampleAccount = {
+  "id": 0,
+  "cardNumbers": "1233",
+  "type": "account",
+  "movements": [],
+  "budgets": [],
+  "savingsAccounts": []
+}
+
+const localFilesPath = `${__dirname}/../localFiles-Mock/we3znhawallet`
 
 jest.mock('electron', () => ({
   app: {
@@ -113,17 +124,8 @@ describe('Movements in month', () => {
 })
 
 describe('Create account', () => {
-  const exampleAccount = {
-    "id": 0,
-    "cardNumbers": "1233",
-    "type": "account",
-    "movements": [],
-    "budgets": [],
-    "savingsAccounts": []
-  }
-
   afterAll(() => {
-    writeFileSync(`${__dirname}/../localFiles-Mock/we3znhawallet/accounts.json`, '')
+    writeFileSync(`${localFilesPath}/accounts.json`, '')
   })
 
   it('Throws an error for an undefined account number', () => {
@@ -140,5 +142,31 @@ describe('Create account', () => {
 
   it('Create account', () => {
     expect(() => createAccount(exampleAccount)).not.toThrow()
+  })
+})
+
+describe('Get account', () => {
+  beforeAll(() => {
+    writeFileSync(`${localFilesPath}/accounts.json`, JSON.stringify([exampleAccount], null, 4))
+  })
+
+  afterAll(() => {
+    writeFileSync(`${localFilesPath}/accounts.json`, '')
+  })
+
+  it('Get non-existing account', () => {
+    const nonExistingId = 99
+
+    const account = getAccount(nonExistingId)
+
+    expect(account).toBeUndefined()
+  })
+
+  it('Get account', () => {
+    const id = 0
+
+    const account = getAccount(id)
+
+    expect(account).not.toBeUndefined()
   })
 })
