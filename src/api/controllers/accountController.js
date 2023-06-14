@@ -53,7 +53,7 @@ export function getAccount(id) {
   let accounts
 
   const parsedId = Number.parseInt(id)
-  console.log('io:::', id)
+
   try {
     accounts = readLocalFile(accountStorageFileName)
 
@@ -66,14 +66,22 @@ export function getAccount(id) {
 export function deleteAccount(id) {
   let accounts
 
+  const parsedId = Number.parseInt(id)
+
   try {
     accounts = readLocalFile(accountStorageFileName)
 
-    accounts = accounts.filter(account => account.id.toString() !== id)
+    const accountsLength = accounts.length
+
+    accounts = accounts.filter(account => account.id !== parsedId)
+
+    if (accounts.length === accountsLength){
+      throw new Error('No account deletes')
+    }
 
     saveLocalFile(accounts, accountStorageFileName)
   } catch (e) {
-    throw new Error('Can not delete account')
+    throw new Error(`Can not delete account: ${e.message}`)
   }
 }
 

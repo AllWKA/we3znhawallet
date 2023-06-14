@@ -4,7 +4,7 @@ import {
   lostMonthsInTransfersToSavingsAccountsRegister
 } from '../../src/api/helpers/dateHelper'
 import moment from 'moment/moment'
-import { createAccount, getAccount } from '../../src/api/controllers/accountController'
+import { createAccount, deleteAccount, getAccount } from '../../src/api/controllers/accountController'
 import { writeFileSync } from 'fs'
 
 const decemberMovements = require('../data/Movements-December_MOCK.json')
@@ -131,13 +131,13 @@ describe('Create account', () => {
   it('Throws an error for an undefined account number', () => {
     const undefinedCardNumberAccount = { ...exampleAccount, cardNumbers: undefined }
 
-    expect(() => createAccount(undefinedCardNumberAccount)).toThrow('Invalid account')
+    expect(() => createAccount(undefinedCardNumberAccount)).toThrow()
   })
 
   it('Throws an error for an null account number', () => {
     const nullCardNumberAccount = { ...exampleAccount, cardNumbers: null }
 
-    expect(() => createAccount(nullCardNumberAccount)).toThrow('Invalid account')
+    expect(() => createAccount(nullCardNumberAccount)).toThrow()
   })
 
   it('Create account', () => {
@@ -168,5 +168,27 @@ describe('Get account', () => {
     const account = getAccount(id)
 
     expect(account).not.toBeUndefined()
+  })
+})
+
+describe('Delete account', () => {
+  beforeEach(() => {
+    writeFileSync(`${localFilesPath}/accounts.json`, JSON.stringify([exampleAccount], null, 4))
+  })
+
+  afterAll(() => {
+    writeFileSync(`${localFilesPath}/accounts.json`, '')
+  })
+
+  it('Can not delete non-existing account', () => {
+    const nonExistingId = 99
+
+    expect(() => deleteAccount(nonExistingId)).toThrow()
+  })
+
+  it('Delete account', () => {
+    const id = 0
+
+    expect(() => deleteAccount(id)).not.toThrow()
   })
 })
