@@ -5,11 +5,12 @@ import {
 } from '../../src/api/helpers/dateHelper'
 import moment from 'moment/moment'
 import { createAccount, deleteAccount, getAccount } from '../../src/api/controllers/accountController'
-import { writeFileSync } from 'fs'
+import { readFileSync, writeFileSync } from 'fs'
+import { updateAccount } from "../../src/api/helpers/accountHelper";
 
 const decemberMovements = require('../data/Movements-December_MOCK.json')
 const januaryMovements = require('../data/Movements-January_MOCK.json')
-const februaryMovements = require('../data/Movements-February_Mock.json')
+const februaryMovements = require('../data/Movements-February_MOCK.json')
 const marchMovements = require('../data/Movements-March_MOCK.json')
 
 const allMonths = decemberMovements
@@ -27,6 +28,12 @@ const exampleAccount = {
 }
 
 const localFilesPath = `${__dirname}/../localFiles-Mock/we3znhawallet`
+
+const accountFilePath = `${localFilesPath}/accounts.json`
+
+const nonExistingId = 99
+
+const accountId = 0
 
 jest.mock('electron', () => ({
   app: {
@@ -125,7 +132,7 @@ describe('Movements in month', () => {
 
 describe('Create account', () => {
   afterAll(() => {
-    writeFileSync(`${localFilesPath}/accounts.json`, '')
+    writeFileSync(accountFilePath, '')
   })
 
   it('Throws an error for an undefined account number', () => {
@@ -147,25 +154,21 @@ describe('Create account', () => {
 
 describe('Get account', () => {
   beforeAll(() => {
-    writeFileSync(`${localFilesPath}/accounts.json`, JSON.stringify([exampleAccount], null, 4))
+    writeFileSync(accountFilePath, JSON.stringify([exampleAccount], null, 4))
   })
 
   afterAll(() => {
-    writeFileSync(`${localFilesPath}/accounts.json`, '')
+    writeFileSync(accountFilePath, '')
   })
 
   it('Get non-existing account', () => {
-    const nonExistingId = 99
-
     const account = getAccount(nonExistingId)
 
     expect(account).toBeUndefined()
   })
 
   it('Get account', () => {
-    const id = 0
-
-    const account = getAccount(id)
+    const account = getAccount(accountId)
 
     expect(account).not.toBeUndefined()
   })
@@ -173,22 +176,60 @@ describe('Get account', () => {
 
 describe('Delete account', () => {
   beforeEach(() => {
-    writeFileSync(`${localFilesPath}/accounts.json`, JSON.stringify([exampleAccount], null, 4))
+    writeFileSync(accountFilePath, JSON.stringify([exampleAccount], null, 4))
   })
 
   afterAll(() => {
-    writeFileSync(`${localFilesPath}/accounts.json`, '')
+    writeFileSync(accountFilePath, '')
   })
 
   it('Can not delete non-existing account', () => {
-    const nonExistingId = 99
-
     expect(() => deleteAccount(nonExistingId)).toThrow()
   })
 
   it('Delete account', () => {
-    const id = 0
+    expect(() => deleteAccount(accountId)).not.toThrow()
+  })
+})
 
-    expect(() => deleteAccount(id)).not.toThrow()
+describe('Update account', () => {
+  beforeEach(() => {
+    writeFileSync(accountFilePath, JSON.stringify([exampleAccount], null, 4))
+  })
+
+  afterAll(() => {
+    writeFileSync(accountFilePath, '')
+  })
+
+  it('Update non-existing account', () => {
+    expect(() => updateAccount({ ...exampleAccount, id: nonExistingId })).toThrow()
+  })
+
+  it('Movements sorted', () => {
+    const disorderedMovements = [februaryMovements[0], marchMovements[0], januaryMovements[0]]
+
+    const account = { ...exampleAccount, movements: disorderedMovements }
+
+    updateAccount(account)
+
+    const sortedMovements = JSON.parse(readFileSync(accountFilePath).toString())[0].movements
+
+    expect(sortedMovements[0].date).toEqual("2023-03-01")
+
+    expect(sortedMovements[1].date).toEqual("2023-02-01")
+
+    expect(sortedMovements[2].date).toEqual("2023-01-01")
+  })
+
+  it('Update the current balance', () => {
+    const account = { ...exampleAccount, movements: [].concat(januaryMovements, marchMovements) }
+
+    updateAccount(account)
+
+    const currentBalance = JSON.parse(readFileSync(accountFilePath).toString())[0].currentBalance
+
+    const expectedCurrentBalance = marchMovements[marchMovements.length - 1].available
+
+    expect(currentBalance).toBe(expectedCurrentBalance)
   })
 })

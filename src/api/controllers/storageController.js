@@ -1,4 +1,4 @@
-import { saveLocalFile, createLocalFileIfNecessary } from './fileManager'
+import { saveLocalFile, createLocalFileIfNecessary } from '../helpers/fileManager'
 
 const defaultStorage = {
     accounts: []

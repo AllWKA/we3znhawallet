@@ -2,196 +2,196 @@
   {
     "concept": "Transferencia de fondos",
     "amount": 500,
-    "moneda": "USD",
+    "currency": "USD",
     "avalaible": 2500,
     "date": "2023-02-01"
   },
   {
     "concept": "Pago de factura",
     "amount": 200,
-    "moneda": "EUR",
+    "currency": "EUR",
     "avalaible": 2300,
     "date": "2023-02-02"
   },
   {
     "concept": "Depósito",
     "amount": 1000,
-    "moneda": "GBP",
+    "currency": "GBP",
     "avalaible": 3300,
     "date": "2023-02-03"
   },
   {
     "concept": "Retiro de efectivo",
     "amount": 300,
-    "moneda": "JPY",
+    "currency": "JPY",
     "avalaible": 3000,
     "date": "2023-02-04"
   },
   {
     "concept": "Transferencia internacional",
     "amount": 800,
-    "moneda": "CAD",
+    "currency": "CAD",
     "avalaible": 3800,
     "date": "2023-02-05"
   },
   {
     "concept": "Transferencia de fondos",
     "amount": 400,
-    "moneda": "USD",
+    "currency": "USD",
     "avalaible": 3400,
     "date": "2023-02-06"
   },
   {
     "concept": "Pago de factura",
     "amount": 150,
-    "moneda": "EUR",
+    "currency": "EUR",
     "avalaible": 3250,
     "date": "2023-02-07"
   },
   {
     "concept": "Depósito",
     "amount": 600,
-    "moneda": "GBP",
+    "currency": "GBP",
     "avalaible": 3850,
     "date": "2023-02-08"
   },
   {
     "concept": "Retiro de efectivo",
     "amount": 200,
-    "moneda": "JPY",
+    "currency": "JPY",
     "avalaible": 3650,
     "date": "2023-02-09"
   },
   {
     "concept": "Transferencia internacional",
     "amount": 700,
-    "moneda": "CAD",
+    "currency": "CAD",
     "avalaible": 4350,
     "date": "2023-02-10"
   },
   {
     "concept": "Transferencia de fondos",
     "amount": 400,
-    "moneda": "USD",
+    "currency": "USD",
     "avalaible": 3400,
     "date": "2023-02-11"
   },
   {
     "concept": "Pago de factura",
     "amount": 150,
-    "moneda": "EUR",
+    "currency": "EUR",
     "avalaible": 3250,
     "date": "2023-02-12"
   },
   {
     "concept": "Depósito",
     "amount": 600,
-    "moneda": "GBP",
+    "currency": "GBP",
     "avalaible": 3850,
     "date": "2023-02-13"
   },
   {
     "concept": "Retiro de efectivo",
     "amount": 200,
-    "moneda": "JPY",
+    "currency": "JPY",
     "avalaible": 3650,
     "date": "2023-02-14"
   },
   {
     "concept": "Transferencia internacional",
     "amount": 700,
-    "moneda": "CAD",
+    "currency": "CAD",
     "avalaible": 4350,
     "date": "2023-02-15"
   },
   {
     "concept": "Transferencia de fondos",
     "amount": 300,
-    "moneda": "USD",
+    "currency": "USD",
     "avalaible": 4050,
     "date": "2023-02-16"
   },
   {
     "concept": "Pago de factura",
     "amount": 250,
-    "moneda": "EUR",
+    "currency": "EUR",
     "avalaible": 3800,
     "date": "2023-02-17"
   },
   {
     "concept": "Depósito",
     "amount": 800,
-    "moneda": "GBP",
+    "currency": "GBP",
     "avalaible": 4600,
     "date": "2023-02-18"
   },
   {
     "concept": "Retiro de efectivo",
     "amount": 350,
-    "moneda": "JPY",
+    "currency": "JPY",
     "avalaible": 4250,
     "date": "2023-02-19"
   },
   {
     "concept": "Transferencia internacional",
     "amount": 600,
-    "moneda": "CAD",
+    "currency": "CAD",
     "avalaible": 4850,
     "date": "2023-02-20"
   },
   {
     "concept": "Transferencia de fondos",
     "amount": 200,
-    "moneda": "USD",
+    "currency": "USD",
     "avalaible": 5050,
     "date": "2023-02-21"
   },
   {
     "concept": "Pago de factura",
     "amount": 100,
-    "moneda": "EUR",
+    "currency": "EUR",
     "avalaible": 4950,
     "date": "2023-02-22"
   },
   {
     "concept": "Depósito",
     "amount": 500,
-    "moneda": "GBP",
+    "currency": "GBP",
     "avalaible": 5450,
     "date": "2023-02-23"
   },
   {
     "concept": "Retiro de efectivo",
     "amount": 150,
-    "moneda": "JPY",
+    "currency": "JPY",
     "avalaible": 5300,
     "date": "2023-02-24"
   },
   {
     "concept": "Transferencia internacional",
     "amount": 700,
-    "moneda": "CAD",
+    "currency": "CAD",
     "avalaible": 6000,
     "date": "2023-02-25"
   },
   {
     "concept": "Transferencia de fondos",
     "amount": 400,
-    "moneda": "USD",
+    "currency": "USD",
     "avalaible": 6400,
     "date": "2023-02-26"
   },
   {
     "concept": "Pago de factura",
     "amount": 200,
-    "moneda": "EUR",
+    "currency": "EUR",
     "avalaible": 6200,
     "date": "2023-02-27"
   },
   {
     "concept": "Depósito",
     "amount": 600,
-    "moneda": "GBP",
+    "currency": "GBP",
     "avalaible": 6800,
     "date": "2023-02-28"
   }

@@ -1,9 +1,8 @@
-import { readLocalFile, saveLocalFile } from './fileManager'
+import { readLocalFile, saveLocalFile } from '../helpers/fileManager'
 import excelToJson from 'convert-excel-to-json'
 import uniqid from 'uniqid'
 import { readFileSync } from 'fs'
-import { getMovementsInMonth } from '../helpers/dateHelper'
-import moment from 'moment'
+import { formatMovements, updateAccount } from "../helpers/accountHelper";
 
 const accountStorageFileName = 'accounts.json'
 
@@ -75,7 +74,7 @@ export function deleteAccount(id) {
 
     accounts = accounts.filter(account => account.id !== parsedId)
 
-    if (accounts.length === accountsLength){
+    if (accounts.length === accountsLength) {
       throw new Error('No account deletes')
     }
 
@@ -232,55 +231,4 @@ export function createSavesAccount(savingsAccount, accountId) {
 
 export function updateSavesAccounts() {
   // TODO: loop through the rules and transfer money to saves accounts
-}
-
-function updateAccount(account) {
-  const accountList = getAccountList()
-
-  const accountsPosition = accountList.map(account => account.id).indexOf(account.id)
-
-  account.movements = account.movements.sort((a, b) => b.FechaCruda - a.FechaCruda)
-
-  account.currentBalance = account.movements[0].available
-
-  account = updateBudgets(account)
-
-  accountList[accountsPosition] = account
-
-  saveLocalFile(accountList, accountStorageFileName)
-}
-
-function updateBudgets(account) {
-  const currentDate = moment()
-
-  const movements = getMovementsInMonth(account.movements, currentDate)
-
-  account.budgets = account.budgets.map(budget => {
-    const imports = []
-
-    budget.associatedConcepts.forEach(associatedConcept => {
-      movements
-      .filter(movement => movement.concept === associatedConcept)
-      .map(movement => movement.amount)
-      .forEach(importQuantity => imports.push(importQuantity))
-    })
-    // TODO:  check why is dont give negative numbers
-    budget.currentSpent = Math.round(imports.reduce((sum, a) => sum + a, 0) * 100) / 100
-
-    return budget
-  })
-
-  return account
-}
-
-function formatMovements(movements) {
-  return movements.map(movement => {
-    return {
-      date: movement.Fecha,
-      concept: movement.Concepto,
-      amount: movement.Importe,
-      currency: movement.Divisa,
-      available: movement.Disponible
-    }
-  })
 }

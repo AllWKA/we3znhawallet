@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { createLocalFileIfNecessary, fileExist, projectPath, readLocalFile, saveLocalFile } from './fileManager'
+import { createLocalFileIfNecessary, fileExist, projectPath, readLocalFile, saveLocalFile } from '../helpers/fileManager'
 
 const defaultUserConfig = {
   pin: "",
