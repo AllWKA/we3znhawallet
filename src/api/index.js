@@ -4,7 +4,8 @@ import cors from 'cors'
 import * as controllers from './controllers/main'
 import {
   addMovementsInAccount,
-  createNewBudget, createSavesAccount,
+  createNewBudget,
+  createSavesAccount,
   deleteBudget,
   processBankAccountMovements,
   updateBudget
@@ -13,7 +14,7 @@ import {
 const app = express()
 const port = process.env.SERVER_PORT
 
-app.use(bodyParser.json({ type: 'application/json', limit: '100mb' }))
+app.use(bodyParser.json({type: 'application/json', limit: '100mb'}))
 
 app.use(cors())
 
@@ -49,7 +50,7 @@ app.get('/user/:fileName', (req, res) => {
 
 app.get('/isSignedIn', controllers.isSignedIn)
 
-app.get('/validate/token', (req, res) => res.send())
+app.get('/validate/token', (req, res) => res.sendStatus(204))
 
 // PUTS
 
@@ -57,9 +58,9 @@ app.put('/account/budget/:accountId', (req, res) => {
   try {
     updateBudget(req.body, req.params.accountId)
 
-    res.send(204)
+    res.sendStatus(204)
   } catch (err) {
-    res.send(err)
+    res.sendStatus(err)
   }
 })
 
@@ -67,10 +68,13 @@ app.put('/account/budget/:accountId', (req, res) => {
 
 app.post('/user', (req, res) => {
   const user = req.body.user
+
   const fileName = req.body.fileName
+
   try {
     controllers.saveUserLocalFile(user, fileName)
-    res.sendStatus(200)
+
+    res.sendStatus(204)
   } catch (e) {
     res.status(400).send(e.message)
   }
@@ -108,7 +112,7 @@ app.post('/account', (req, res) => {
   try {
     controllers.createAccount(account)
 
-    res.sendStatus(200)
+    res.sendStatus(204)
   } catch (e) {
     res.status(400).send(e.message)
   }
@@ -124,7 +128,7 @@ app.post('/account/movements/add/:accountId', (req, res) => {
 
     res.status(200).send()
   } catch (e) {
-    res.send(500)
+    res.sendStatus(500)
   }
 })
 
@@ -134,7 +138,7 @@ app.post('/account/movements/process/:accountId', (req, res) => {
 
     res.json(response)
   } catch (err) {
-    res.send(err)
+    res.sendStatus(err)
   }
 })
 
@@ -142,9 +146,9 @@ app.post('/account/budget/:accountId', (req, res) => {
   try {
     createNewBudget(req.body, req.params.accountId)
 
-    res.send(204)
+    res.sendStatus(204)
   } catch (err) {
-    res.send(err)
+    res.sendStatus(err)
   }
 })
 
@@ -152,9 +156,9 @@ app.post('/account/budget/delete/:accountId', (req, res) => {
   try {
     deleteBudget(req.body, req.params.accountId)
 
-    res.send(204)
+    res.sendStatus(204)
   } catch (err) {
-    res.send(err)
+    res.sendStatus(err)
   }
 })
 
@@ -162,9 +166,9 @@ app.post('/account/savingsAccounts/:accountId', (req, res) => {
   try {
     createSavesAccount(req.body, req.params.accountId)
 
-    res.send(204)
+    res.sendStatus(204)
   } catch (err) {
-    res.send(err)
+    res.sendStatus(err)
   }
 })
 
@@ -176,7 +180,7 @@ app.delete('/account/:id', (req, res) => {
   try {
     controllers.deleteAccount(accountId)
 
-    res.sendStatus(200)
+    res.sendStatus(204)
   } catch (e) {
     res.status(400).send(e.message)
   }
@@ -186,7 +190,8 @@ app.delete('/user/:fileName', (req, res) => {
   const fileName = req.params.fileName
   try {
     controllers.deleteLocalFile(fileName)
-    res.sendStatus(200)
+
+    res.sendStatus(204)
   } catch (e) {
     res.status(400).send(e.message)
   }

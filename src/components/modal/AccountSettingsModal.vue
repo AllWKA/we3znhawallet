@@ -3,6 +3,10 @@
     <div class="account-settings-container">
       <h1 style="text-align: center">{{ account.cardNumbers }} - {{ account.currentBalance }} €</h1>
 
+      <div class="budget-list-controllers">
+        <button style="margin-left: 3%" @click="showCreateBudgetModal = true">Crear nuevo presupuesto</button>
+      </div>
+
       <div class="budgets-list-container">
         <div v-for="budget in account.budgets" :key="budget.id" class="budget" @click="selectBudget(budget)">
 
@@ -18,12 +22,9 @@
         </div>
       </div>
 
-      <div class="budget-list-controllers">
-        <button style="margin-left: 3%" @click="showCreateBudgetModal = true">Crear nuevo presupuesto</button>
-      </div>
-
       <div class="budget-config-container">
-        <div v-if="currentBudget" style="height: 100%; width: 100%">
+        <div v-if="currentBudget"
+             style="height: 100%; width: 100%; display: flex; flex-direction: column; justify-content: space-around">
           <div style="margin-left: 3%">
             <h3>{{ currentBudget.name }}</h3>
           </div>
@@ -55,8 +56,8 @@
             />
           </div>
 
-          <div style="margin: 3% 0 3% 1%;">
-            <button @click="updateBudget">Guardar</button>
+          <div style="width:100%; display:flex; justify-content: flex-end">
+            <button @click="updateBudget" style="margin-right: 3%;">Guardar</button>
           </div>
         </div>
 
@@ -65,8 +66,8 @@
         </div>
       </div>
 
-      <div>
-        <button @click="$emit('close')">cerrar</button>
+      <div style="width: 100%; display: flex; justify-content: flex-end">
+        <button @click="$emit('close')" style="margin-right: 3%">cerrar</button>
       </div>
 
       <ModalCreateBudget
@@ -80,13 +81,13 @@
 </template>
 
 <script>
-import ModalCreateBudget from "@/components/modal/ModalCreateBudget";
-import SelectConceptsForBudget from "@/components/SelectConceptsForBudget";
-import resolveIconPath from "@/helpers/icon-resolver";
-import Modal from "@/components/modal/Modal";
+import ModalCreateBudget from '@/components/modal/ModalCreateBudget'
+import SelectConceptsForBudget from '@/components/SelectConceptsForBudget'
+import resolveIconPath from '@/helpers/icon-resolver'
+import Modal from '@/components/modal/Modal'
 
 export default {
-  name: "AccountSettingsModal",
+  name: 'AccountSettingsModal',
   components: {
     ModalCreateBudget,
     SelectConceptsForBudget,
@@ -182,8 +183,8 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 70vw;
-  height: 70vh;
+  width: 90vw;
+  height: 90vh;
   background-color: var(--color-background);
   color: var(--color-on-background);
   border: 1px solid var(--color-on-background);
@@ -211,7 +212,8 @@ export default {
 
 .budget-config-container {
   width: 96%;
-  margin-top: 3%;
+  height: 60%;
+  margin-top: 1%;
   background-color: var(--color-surface);
 }
 
