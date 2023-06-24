@@ -101,7 +101,13 @@ export function processBankAccountMovements(filePath, accountId) {
     throw new Error(e.message)
   }
 
-  const fileBuffer = readFileSync(filePath)
+  let fileBuffer
+
+  try {
+    fileBuffer = readFileSync(filePath)
+  } catch (e) {
+    throw new Error(`Can not read excel file: ${e.message}`)
+  }
 
   const excelResults = excelToJson({
     source: fileBuffer,

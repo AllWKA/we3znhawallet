@@ -4,9 +4,15 @@ import {
   lostMonthsInTransfersToSavingsAccountsRegister
 } from '../../src/api/helpers/dateHelper'
 import moment from 'moment/moment'
-import { createAccount, deleteAccount, getAccount } from '../../src/api/controllers/accountController'
+import {
+  createAccount,
+  deleteAccount,
+  getAccount,
+  processBankAccountMovements
+} from '../../src/api/controllers/accountController'
 import { readFileSync, writeFileSync } from 'fs'
 import { updateAccount } from "../../src/api/helpers/accountHelper";
+import { join } from 'path'
 
 const decemberMovements = require('../data/Movements-December_MOCK.json')
 const januaryMovements = require('../data/Movements-January_MOCK.json')
@@ -30,6 +36,8 @@ const exampleAccount = {
 const localFilesPath = `${__dirname}/../localFiles-Mock/we3znhawallet`
 
 const accountFilePath = `${localFilesPath}/accounts.json`
+
+const movementsExcelMockPath = join(`${__dirname}/../data`, 'movements_MOCK.xlsx')
 
 const nonExistingId = 99
 
@@ -231,5 +239,23 @@ describe('Update account', () => {
     const expectedCurrentBalance = marchMovements[marchMovements.length - 1].available
 
     expect(currentBalance).toBe(expectedCurrentBalance)
+  })
+})
+
+describe('Process bank account movements', () => {
+  beforeEach(() => {
+    writeFileSync(accountFilePath, JSON.stringify([exampleAccount], null, 4))
+  })
+
+  afterAll(() => {
+    writeFileSync(accountFilePath, '')
+  })
+
+  it('Invalid excel path', () => {
+    expect(() => processBankAccountMovements('invalid/path', 0)).toThrow()
+  })
+
+  it('Invalid account', () => {
+    expect(() => processBankAccountMovements(movementsExcelMockPath, 99)).toThrow()
   })
 })
